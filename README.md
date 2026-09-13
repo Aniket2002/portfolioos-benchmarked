@@ -2,32 +2,30 @@
 
 [![CI](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml/badge.svg)](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml)
 
-A reproducible Python research framework for studying how benchmark-relative
-risk constraints and implementation frictions shape systematic portfolio
-construction.
+I built PortfolioOS around a simple portfolio-construction question: once a signal
+identifies preferred stocks, how much of that preference survives the process of
+building a portfolio that must stay close to a benchmark and trade at a plausible
+rate and cost?
 
 **Primary research question:** What is the trade-off between signal capture,
 benchmark-relative risk and implementation cost in systematic portfolio
 construction?
 
-This is an applied quantitative-asset-management study of the portfolio-
-construction mechanism:
+Generating a cross-sectional score is only the beginning. The resulting portfolio
+still has to accommodate benchmark risk, position limits, turnover and transaction
+costs. This project traces that path explicitly:
 
 ```text
 signal strength → desired active positions → constraints compress active positions
 → turnover limits restrict transitions → transaction costs reduce realized net return
 ```
 
-The composite signal supplies a cross-sectional preference ranking. Portfolio
-expression measures how much of that ranking appears in active weights; the
-benchmark-risk and implementation budgets govern permissible deviation and trading;
-realized gross and net returns are outcomes observed afterward. This sensitivity
-analysis is not causal inference.
-
-The included results are **SYNTHETIC**, not evidence of persistent real-world
-alpha. A negative result is valid; the framework remains useful when it
-underperforms. This is an educational research implementation, not a live
-execution platform. No empirical performance claim is made.
+The composite signal provides the ranking, and signal capture measures how much of
+that ranking reaches the active weights after the constraints are applied. Gross and
+net returns are then observed outcomes rather than inputs used to justify the
+portfolio. The committed study uses deterministic **SYNTHETIC** data as a controlled
+sensitivity exercise; it makes no empirical performance or persistent-alpha claim,
+and unfavorable results remain part of the analysis.
 
 ## Quick start
 
@@ -61,8 +59,8 @@ streamlit run streamlit_app.py
 ```
 
 The app calls the existing PortfolioOS package and reporting infrastructure; it
-contains no separate portfolio engine. Its default case study is deterministic
-**synthetic data**, not historical performance or evidence of real-world alpha.
+contains no separate portfolio engine. Its default case study uses deterministic
+**synthetic data** to keep the workflow reproducible and focused on mechanics.
 Optional price, benchmark and sector-metadata CSVs are handled in memory and
 validated by the package. The Python package and CLI remain the canonical research
 interfaces, and neither the app nor the demo needs market-data downloads or API
@@ -365,6 +363,17 @@ has a ticker first column and `sector`. Optional `--signals` accepts publication
 dated snapshots. Nothing downloads data. Users must establish licenses, point-in-
 time provenance, corporate-action handling, availability and defensible universes.
 Provider inputs are never automatically copied or committed.
+
+## Closing interpretation
+
+The main contribution here is not a claim that a profitable strategy has been
+found. It is the ability to follow a signal from its initial ranking through the
+benchmark-risk and trading constraints that turn it into an implementable portfolio.
+In the synthetic experiment, turnover constraints limited signal expression more
+than the tested tracking-error range, while higher transaction-cost assumptions
+changed net economics without changing gross portfolio formation. Applying the same
+analysis to market data would require stronger controls, especially point-in-time
+universe membership and benchmark histories.
 
 ## Validation and limitations
 
