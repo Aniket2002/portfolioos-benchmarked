@@ -219,5 +219,7 @@ data/
 results/*
 !results/README.md
 !results/demo/
+!results/research_tradeoffs/
+!results/research_tradeoffs/**
 *.egg-info/
 coverage.json

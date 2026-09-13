@@ -2,14 +2,27 @@
 
 [![CI](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml/badge.svg)](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml)
 
-A reproducible Python research framework for benchmark-aware systematic
-portfolio construction, connecting transparent cross-sectional signals with
-active-risk constraints, turnover, transaction costs, walk-forward backtesting
-and performance attribution.
+A reproducible Python research framework for studying how benchmark-relative
+risk constraints and implementation frictions shape systematic portfolio
+construction.
 
-**Research question:** Can transparent cross-sectional signals retain useful
-benchmark-relative performance after active-risk constraints, turnover limits
-and transaction costs are imposed?
+**Primary research question:** What is the trade-off between signal capture,
+benchmark-relative risk and implementation cost in systematic portfolio
+construction?
+
+This is an applied quantitative-asset-management study of the portfolio-
+construction mechanism:
+
+```text
+signal strength → desired active positions → constraints compress active positions
+→ turnover limits restrict transitions → transaction costs reduce realized net return
+```
+
+The composite signal supplies a cross-sectional preference ranking. Portfolio
+expression measures how much of that ranking appears in active weights; the
+benchmark-risk and implementation budgets govern permissible deviation and trading;
+realized gross and net returns are outcomes observed afterward. This sensitivity
+analysis is not causal inference.
 
 The included results are **SYNTHETIC**, not evidence of persistent real-world
 alpha. A negative result is valid; the framework remains useful when it
@@ -78,10 +91,60 @@ flowchart LR
 | `backtest`, `costs` | Walk-forward timing, drift, turnover and costs |
 | `metrics`, `attribution` | Performance, forward IC, security/sector effects |
 | `reporting` | Configurations, reconciliation and research artifacts |
+| `experiments` | Controlled signal-capture, risk and implementation frontiers |
 
 The notebook is a presentation layer calling these modules.
 Install `python -m pip install -e '.[notebook]'` for a notebook kernel and execution
 dependencies, then select that environment in your notebook editor.
+
+## Research experiments
+
+Run the deterministic experiment suite with:
+
+```sh
+python scripts/run_experiments.py --config configs/demo.yaml
+```
+
+The research layer holds the dataset, dates, signals, covariance method, benchmark,
+position limits, schedule and other settings fixed while varying one declared input.
+It produces a 4%–12% annual tracking-error frontier, a 10%–50% one-way turnover
+frontier, a 0–40 bps transaction-cost frontier, and a 3 × 3 TE/turnover surface.
+Exact configurations and a dataset fingerprint accompany every row. An infeasible
+scenario is reported and stopped; constraints are never relaxed.
+
+Transaction-cost assumptions change net accounting only. They do not change asset
+returns, signals or target weights. The optimizer contains a separate turnover
+penalty, not an explicit expected transaction-cost model.
+
+All included frontier outputs are **SYNTHETIC RESEARCH EXPERIMENTS**. They demonstrate
+portfolio-construction mechanics and are not evidence that the signals earn
+persistent real-world alpha. Parameter grids are declared in advance and negative
+results remain visible.
+
+A deterministic synthetic implementation-trade-off study is included in the
+[canonical research report](results/research_tradeoffs/report.md).
+
+## What “signal capture” means
+
+At rebalance date *t*, using target weights and scores known at the same information
+date:
+
+```text
+ActiveSignalExposure_t = (w_t - b_t)' s_t
+SignalCapture_t = ActiveSignalExposure_t / ReferenceSignalExposure_t
+```
+
+The signal-expression reference portfolio uses the same signal, dates, benchmark and
+basic position cap. It remains fully invested and long only, while tracking-error,
+sector-active and turnover constraints and both optimizer penalties are removed. It
+is deliberately less restrictive and exists only to provide an interpretable
+denominator; it is not an “optimal alpha portfolio” or a more realistic strategy.
+Near-zero reference exposures produce `NaN` rather than unstable ratios.
+
+Signal capture measures how strongly active weights align with the chosen
+cross-sectional signal. It does not measure skill, alpha, future excess return or
+market inefficiency. High signal capture and poor subsequent performance can occur
+together and constitute a legitimate result.
 
 ## Data and timing contract
 

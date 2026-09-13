@@ -16,6 +16,7 @@ import yaml
 
 from portfolioos.attribution import sector_attribution, security_attribution, signal_ic
 from portfolioos.backtest import BacktestConfig, run_backtest
+from portfolioos.experiments import RESEARCH_QUESTION
 from portfolioos.metrics import drawdown, ic_metrics, performance_metrics
 from portfolioos.optimizer import OptimizerConfig
 from portfolioos.synthetic import synthetic_market
@@ -193,6 +194,16 @@ def write_report(result, output, provenance="SYNTHETIC — mechanics demonstrati
     report = f"""# PortfolioOS research report
 
 **{provenance}**
+
+## Research question
+
+{RESEARCH_QUESTION}
+
+The portfolio-construction mechanism runs from signal preference to desired active
+positions, constraint compression, turnover-limited transitions, implementation
+costs and realized outcomes. This is a controlled sensitivity framework, not causal
+inference. Signal capture measures active-weight alignment with a chosen score; it is
+not a measure of alpha, skill or future excess return.
 
 This run evaluates mechanics, not persistent real-world alpha. Underperformance
 is a valid outcome. No parameter search was used to choose demo defaults.

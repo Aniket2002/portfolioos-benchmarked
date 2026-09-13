@@ -124,6 +124,17 @@ def test_alternative_schedules_and_date_range(market, config, frequency):
     assert len(result.signal_scores) == (16 if frequency == "daily" else 4)
 
 
+def test_tight_tracking_error_walk_forward_is_numerically_stable(market, config):
+    prices, metadata = market
+    optimizer = replace(config.optimizer, max_tracking_error=0.05)
+    result = run_backtest(
+        prices,
+        metadata=metadata,
+        config=replace(config, optimizer=optimizer),
+    )
+    assert (result.optimization.estimated_tracking_error <= 0.05 + 1e-7).all()
+
+
 @pytest.mark.parametrize(
     "problem",
     ["no_dates", "benchmark_late", "external_late", "infeasible", "exhausted"],

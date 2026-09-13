@@ -58,3 +58,23 @@ jobs:
               if response.status != 200:
                   raise SystemExit(f"Streamlit root returned HTTP {response.status}")
           PY
+  research-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -e '.[dev]'
+      - run: python scripts/run_experiments.py --config configs/demo.yaml --smoke-test --output results/research-smoke
+  notebook-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -e '.[notebook]'
+      - run: python scripts/validate_notebooks.py
