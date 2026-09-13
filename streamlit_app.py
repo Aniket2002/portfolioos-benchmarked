@@ -24,6 +24,12 @@ from portfolioos.app_helpers import (
 )
 from portfolioos.attribution import signal_ic
 from portfolioos.backtest import run_backtest
+from portfolioos.experiments import (
+    RESEARCH_QUESTION,
+    SYNTHETIC_DISCLAIMER,
+    experiment_findings,
+    run_experiment_suite,
+)
 from portfolioos.reporting import load_config
 from portfolioos.synthetic import synthetic_market
 
@@ -201,6 +207,8 @@ if run_requested:
                 "fingerprint": fingerprint,
                 "mode": mode,
                 "prices": prices,
+                "benchmark": benchmark,
+                "metadata": metadata,
                 "result": result,
                 "metrics": metrics,
                 "runtime": runtime,
@@ -259,17 +267,24 @@ secondary = [
 for column, (label, value, style) in zip(st.columns(6), secondary):
     column.metric(label, safe_metric(value, style))
 
-performance_tab, portfolio_tab, signals_tab, risk_tab, attribution_tab, method_tab = (
-    st.tabs(
-        [
-            "Performance",
-            "Portfolio",
-            "Signals",
-            "Risk & Costs",
-            "Attribution",
-            "Methodology",
-        ]
-    )
+(
+    performance_tab,
+    portfolio_tab,
+    signals_tab,
+    risk_tab,
+    attribution_tab,
+    tradeoff_tab,
+    method_tab,
+) = st.tabs(
+    [
+        "Performance",
+        "Portfolio",
+        "Signals",
+        "Risk & Costs",
+        "Attribution",
+        "Research Frontier",
+        "Methodology",
+    ]
 )
 
 with performance_tab:
@@ -376,13 +391,135 @@ with attribution_tab:
         "transaction costs bridge gross to net active return."
     )
 
+with tradeoff_tab:
+    st.caption(provenance)
+    st.markdown(f"#### {RESEARCH_QUESTION}")
+    st.write(
+        "Signal capture measures how strongly target active weights align with the "
+        "chosen cross-sectional score. It does not measure alpha, skill, future "
+        "returns or market inefficiency."
+    )
+    st.code(
+        "ActiveSignalExposure_t = (w_t - b_t)' s_t\n"
+        "SignalCapture_t = ActiveSignalExposure_t / ReferenceSignalExposure_t"
+    )
+    st.caption(
+        "The signal-expression reference portfolio uses the same point-in-time signal, "
+        "benchmark and position cap, but omits tracking-error, sector-active and "
+        "turnover constraints and optimizer penalties. It is a measurement portfolio."
+    )
+    te_grid = st.multiselect(
+        "Annual tracking-error budgets",
+        [0.04, 0.06, 0.08, 0.10, 0.12],
+        default=[0.04, 0.08, 0.12],
+        format_func=lambda value: f"{value:.0%}",
+    )
+    turnover_grid = st.multiselect(
+        "One-way turnover limits",
+        [0.10, 0.15, 0.20, 0.30, 0.40, 0.50],
+        default=[0.15, 0.30, 0.50],
+        format_func=lambda value: f"{value:.0%}",
+    )
+    cost_grid = st.multiselect(
+        "Transaction-cost assumptions",
+        [0.0, 5.0, 10.0, 20.0, 40.0],
+        default=[0.0, 10.0, 40.0],
+        format_func=lambda value: f"{value:.0f} bps",
+    )
+    frontier_key = input_fingerprint(
+        run["mode"],
+        {},
+        {
+            "run": run["fingerprint"],
+            "te": te_grid,
+            "turnover": turnover_grid,
+            "cost": cost_grid,
+        },
+        (),
+    )
+    if st.button("Run trade-off experiment", type="primary"):
+        if not te_grid or not turnover_grid or not cost_grid:
+            st.error("Choose at least one value in each experiment grid.")
+        else:
+            try:
+                with st.spinner("Running controlled portfolio-construction experiments..."):
+                    suite = run_experiment_suite(
+                        run["prices"],
+                        benchmark_weights=run["benchmark"],
+                        metadata=run["metadata"],
+                        base_config=result.config,
+                        te_budgets=tuple(te_grid),
+                        turnover_limits=tuple(turnover_grid),
+                        cost_bps=tuple(cost_grid),
+                        grid_te=tuple(te_grid),
+                        grid_turnover=tuple(turnover_grid),
+                        provenance=(
+                            "SYNTHETIC RESEARCH EXPERIMENT"
+                            if run["mode"] == "Synthetic demo"
+                            else "USER-SUPPLIED DATA RESEARCH EXPERIMENT"
+                        ),
+                    )
+                st.session_state["frontier_run"] = {
+                    "fingerprint": frontier_key,
+                    "suite": suite,
+                }
+            except Exception as exc:
+                st.error(friendly_error(exc))
+                if debug:
+                    st.exception(exc)
+    frontier = st.session_state.get("frontier_run")
+    if frontier is not None and frontier["fingerprint"] != frontier_key:
+        st.info("Experiment grid changed. Run the trade-off experiment again.")
+        frontier = None
+    if frontier is not None:
+        suite = frontier["suite"]
+        if run["mode"] == "Synthetic demo":
+            st.warning(f"SYNTHETIC RESEARCH EXPERIMENT · {SYNTHETIC_DISCLAIMER}")
+        st.markdown("#### Tracking-error frontier")
+        st.dataframe(suite.te_frontier, width="stretch")
+        st.line_chart(
+            suite.te_frontier.set_index("budget")[["average_signal_capture"]]
+        )
+        st.markdown("#### Implementation frontier")
+        st.scatter_chart(
+            suite.te_frontier,
+            x="average_ex_ante_tracking_error",
+            y="average_signal_capture",
+            size="average_rebalance_turnover",
+        )
+        st.markdown("#### Turnover frontier")
+        st.dataframe(suite.turnover_frontier, width="stretch")
+        st.line_chart(
+            suite.turnover_frontier.set_index("budget")[["average_signal_capture"]]
+        )
+        st.markdown("#### Cost frontier: gross and net active return")
+        st.dataframe(suite.cost_frontier, width="stretch")
+        st.line_chart(
+            suite.cost_frontier.set_index("budget")
+            [["gross_annualized_active_return", "net_annualized_active_return"]]
+        )
+        st.markdown("#### TE × turnover signal-capture surface")
+        heatmap = suite.te_turnover_grid.pivot(
+            index="turnover_limit",
+            columns="tracking_error_budget",
+            values="average_signal_capture",
+        )
+        st.dataframe(heatmap.style.background_gradient(axis=None), width="stretch")
+        st.markdown("#### Calculated observations")
+        for finding in experiment_findings(suite):
+            st.write(f"- {finding}")
+
 with method_tab:
     st.caption(provenance)
     st.markdown(
         """
 #### Research question
-Can transparent cross-sectional signals retain useful benchmark-relative performance
-after active-risk constraints, turnover limits and transaction costs are imposed?
+What is the trade-off between signal capture, benchmark-relative risk and
+implementation cost in systematic portfolio construction?
+
+The mechanism is: signal preference → desired active positions → constraint
+compression → turnover-limited transitions → transaction costs → realized outcome.
+This is portfolio-construction sensitivity analysis, not causal inference.
 
 #### Signals and timing
 The model combines 12-1 momentum, low volatility and short-term reversal. Weights
