@@ -124,6 +124,24 @@ results remain visible.
 A deterministic synthetic implementation-trade-off study is included in the
 [canonical research report](results/research_tradeoffs/report.md).
 
+## Synthetic findings
+
+- Relaxing the annual tracking-error cap from 4% to 12% changed average signal
+  capture only modestly, from 0.955 to 0.964.
+- Relaxing the one-way turnover limit from 10% to 50% had a larger effect,
+  increasing average signal capture from 0.846 to 0.974, while average realized
+  rebalance turnover rose from 10.00% to 28.86%.
+- Raising the transaction-cost assumption from 0 to 40 bps left gross annualized
+  active return unchanged at -0.83% and reduced net annualized active return from
+  -0.83% to -2.05%.
+
+In this synthetic setup, turnover constraints were a more material limit on signal
+expression than the tested tracking-error range, while transaction costs affected
+realized net economics rather than portfolio formation.
+
+These are synthetic controlled sensitivities, not evidence of alpha, causality,
+statistical significance, or market performance.
+
 ## What “signal capture” means
 
 At rebalance date *t*, using target weights and scores known at the same information
