@@ -442,7 +442,9 @@ with tradeoff_tab:
             st.error("Choose at least one value in each experiment grid.")
         else:
             try:
-                with st.spinner("Running controlled portfolio-construction experiments..."):
+                with st.spinner(
+                    "Running controlled portfolio-construction experiments..."
+                ):
                     suite = run_experiment_suite(
                         run["prices"],
                         benchmark_weights=run["benchmark"],
@@ -477,9 +479,7 @@ with tradeoff_tab:
             st.warning(f"SYNTHETIC RESEARCH EXPERIMENT · {SYNTHETIC_DISCLAIMER}")
         st.markdown("#### Tracking-error frontier")
         st.dataframe(suite.te_frontier, width="stretch")
-        st.line_chart(
-            suite.te_frontier.set_index("budget")[["average_signal_capture"]]
-        )
+        st.line_chart(suite.te_frontier.set_index("budget")[["average_signal_capture"]])
         st.markdown("#### Implementation frontier")
         st.scatter_chart(
             suite.te_frontier,
@@ -495,8 +495,9 @@ with tradeoff_tab:
         st.markdown("#### Cost frontier: gross and net active return")
         st.dataframe(suite.cost_frontier, width="stretch")
         st.line_chart(
-            suite.cost_frontier.set_index("budget")
-            [["gross_annualized_active_return", "net_annualized_active_return"]]
+            suite.cost_frontier.set_index("budget")[
+                ["gross_annualized_active_return", "net_annualized_active_return"]
+            ]
         )
         st.markdown("#### TE × turnover signal-capture surface")
         heatmap = suite.te_turnover_grid.pivot(

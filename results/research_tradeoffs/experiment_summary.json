@@ -1,0 +1,135 @@
+{
+  "provenance": "SYNTHETIC RESEARCH EXPERIMENT",
+  "disclaimer": "These experiments demonstrate portfolio-construction mechanics. They are not evidence that the signals earn persistent real-world alpha.",
+  "research_question": "What is the trade-off between signal capture, benchmark-relative risk and implementation cost in systematic portfolio construction?",
+  "dataset_identity": "a1f394431e1958c6a99d0ef5393dface76d568589010b66631e07acd157db1f8",
+  "base_configuration": {
+    "start_date": null,
+    "end_date": null,
+    "rebalance_frequency": "monthly",
+    "signal_weights": {
+      "momentum_12_1": 1.0,
+      "low_volatility": 1.0,
+      "reversal_1m": 0.5
+    },
+    "momentum_lookback": 252,
+    "momentum_skip": 21,
+    "volatility_lookback": 63,
+    "reversal_lookback": 21,
+    "covariance_lookback": 252,
+    "transaction_cost_bps": 10,
+    "max_missing_fraction": 0.0,
+    "fill_limit": 0,
+    "optimizer": {
+      "risk_aversion": 10.0,
+      "turnover_penalty": 0.1,
+      "max_position_weight": 0.08,
+      "max_tracking_error": 0.08,
+      "max_sector_active_weight": 0.1,
+      "max_turnover": 0.3,
+      "fallback_to_benchmark": false
+    }
+  },
+  "reference_configuration": {
+    "start_date": null,
+    "end_date": null,
+    "rebalance_frequency": "monthly",
+    "signal_weights": {
+      "momentum_12_1": 1.0,
+      "low_volatility": 1.0,
+      "reversal_1m": 0.5
+    },
+    "momentum_lookback": 252,
+    "momentum_skip": 21,
+    "volatility_lookback": 63,
+    "reversal_lookback": 21,
+    "covariance_lookback": 252,
+    "transaction_cost_bps": 10,
+    "max_missing_fraction": 0.0,
+    "fill_limit": 0,
+    "optimizer": {
+      "risk_aversion": 0.0,
+      "turnover_penalty": 0.0,
+      "max_position_weight": 0.08,
+      "max_tracking_error": null,
+      "max_sector_active_weight": null,
+      "max_turnover": null,
+      "fallback_to_benchmark": false
+    }
+  },
+  "tested_values": {
+    "tracking_error_budgets": [
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12
+    ],
+    "turnover_limits": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "transaction_cost_bps": [
+      0.0,
+      5.0,
+      10.0,
+      20.0,
+      40.0
+    ],
+    "te_turnover_grid": [
+      {
+        "tracking_error_budget": 0.04,
+        "turnover_limit": 0.15
+      },
+      {
+        "tracking_error_budget": 0.04,
+        "turnover_limit": 0.3
+      },
+      {
+        "tracking_error_budget": 0.04,
+        "turnover_limit": 0.5
+      },
+      {
+        "tracking_error_budget": 0.08,
+        "turnover_limit": 0.15
+      },
+      {
+        "tracking_error_budget": 0.08,
+        "turnover_limit": 0.3
+      },
+      {
+        "tracking_error_budget": 0.08,
+        "turnover_limit": 0.5
+      },
+      {
+        "tracking_error_budget": 0.12,
+        "turnover_limit": 0.15
+      },
+      {
+        "tracking_error_budget": 0.12,
+        "turnover_limit": 0.3
+      },
+      {
+        "tracking_error_budget": 0.12,
+        "turnover_limit": 0.5
+      }
+    ]
+  },
+  "findings": [
+    "Changing the annual TE cap from 4% to 12% changed average signal capture from 0.955 to 0.964 and average active share from 62.35% to 64.36%.",
+    "Changing the one-way turnover limit from 10% to 50% changed average signal capture from 0.846 to 0.974; realized average rebalance turnover changed from 10.00% to 28.86%.",
+    "Raising the cost assumption from 0 to 40 bps left annualized gross active return at -0.83% and changed annualized net active return from -0.83% to -2.05%.",
+    "Across the tested TE budgets, the descriptive correlation between average signal capture and realized net active return was positive (1.000). This synthetic sensitivity is not evidence of skill, alpha, causality, or statistical significance.",
+    "0 tested scenarios failed before completion."
+  ],
+  "notes": [
+    "Signal capture measures alignment with a chosen signal, not alpha or skill.",
+    "The reference is a measurement portfolio, not a more realistic portfolio.",
+    "Transaction costs affect net returns, not signals, asset returns, or weights.",
+    "The optimizer penalizes turnover but does not ingest an expected-cost model.",
+    "Scenario failures stop at the first failed rebalance; constraints are not relaxed."
+  ]
+}

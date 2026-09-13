@@ -121,6 +121,9 @@ portfolio-construction mechanics and are not evidence that the signals earn
 persistent real-world alpha. Parameter grids are declared in advance and negative
 results remain visible.
 
+A deterministic synthetic implementation-trade-off study is included in the
+[canonical research report](results/research_tradeoffs/report.md).
+
 ## What “signal capture” means
 
 At rebalance date *t*, using target weights and scores known at the same information
@@ -356,12 +359,5 @@ Coverage supports mechanics, not economic validity. Real research still needs
 survivorship controls, realistic execution, cost sensitivity, changing universes,
 regime analysis, independent holdouts and proper inference. No production
 readiness, market calibration or institutional validation is claimed.
-
-## Suggested CV wording
-
-Developed a benchmark-aware systematic portfolio research framework to study
-trade-offs between cross-sectional signal capture, tracking-error constraints,
-turnover and transaction costs using constrained optimisation, walk-forward
-backtesting and performance attribution.
 
 MIT licensed. Implementation is original to this repository.

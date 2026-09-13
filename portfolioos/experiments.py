@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 
@@ -190,7 +191,13 @@ def _successful_row(result, reference, experiment, budget, identity, config):
 
 def _failed_row(exc, experiment, budget, identity, config):
     row = {column: np.nan for column in EXPERIMENT_COLUMNS}
-    optimization_failure = "optim" in str(exc).lower()
+    optimization_failure = (
+        isinstance(exc, RuntimeError)
+        and re.match(
+            r"^Optimization failed on .*: infeasible(?:_inaccurate)?:", str(exc)
+        )
+        is not None
+    )
     row.update(
         {
             "experiment": experiment,
@@ -203,6 +210,30 @@ def _failed_row(exc, experiment, budget, identity, config):
         }
     )
     return row
+
+
+def validate_experiment_suite_for_smoke(suite):
+    """Reject broken research pipelines while allowing isolated infeasibility."""
+    problems = []
+    tables = {
+        "te_frontier": suite.te_frontier,
+        "turnover_frontier": suite.turnover_frontier,
+        "cost_frontier": suite.cost_frontier,
+        "te_turnover_grid": suite.te_turnover_grid,
+    }
+    for name, table in tables.items():
+        failed = int((table.scenario_status == "failed").sum())
+        allowed = table.scenario_status.isin({"success", "infeasible", "failed"})
+        unknown = int((~allowed).sum())
+        if failed:
+            problems.append(f"{name}: {failed} failed scenarios")
+        if unknown:
+            problems.append(f"{name}: {unknown} unknown scenario statuses")
+        if not (table.scenario_status == "success").any():
+            problems.append(f"{name}: no successful scenario")
+    if problems:
+        details = "\n".join(f"- {problem}" for problem in problems)
+        raise RuntimeError(f"Research smoke validation failed:\n{details}")
 
 
 def run_frontier(

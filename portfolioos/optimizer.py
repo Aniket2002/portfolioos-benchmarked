@@ -105,7 +105,13 @@ def optimize(score, covariance, benchmark, previous, sectors=None, config=None):
     active_variance = cp.quad_form(active, cp.psd_wrap(cov))
     constraints = [cp.sum(w) == 1, w >= 0, w <= config.max_position_weight]
     if config.max_tracking_error is not None:
-        constraints.append(active_variance <= config.max_tracking_error**2)
+        eigenvalues, eigenvectors = np.linalg.eigh(cov)
+        covariance_factor = np.sqrt(np.maximum(eigenvalues, 0))[:, None] * (
+            eigenvectors.T
+        )
+        constraints.append(
+            cp.norm(covariance_factor @ active, 2) <= config.max_tracking_error
+        )
     if config.max_turnover is not None:
         constraints.append(0.5 * cp.norm1(w - prev) <= config.max_turnover)
     if config.max_sector_active_weight is not None:

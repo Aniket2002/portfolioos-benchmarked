@@ -20,7 +20,6 @@ include = ["portfolioos*"]
 
 [tool.ruff]
 target-version = "py310"
-extend-exclude = ["am-pack"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
