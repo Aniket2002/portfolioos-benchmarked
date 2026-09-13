@@ -24,3 +24,37 @@ jobs:
       - run: python -m ruff format --check .
       - run: python -m pytest -q --cov=portfolioos --cov-report=term-missing --cov-fail-under=80
       - run: python scripts/run_demo.py --config configs/demo.yaml --smoke-test
+  streamlit-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install -e '.[app]'
+      - name: Start Streamlit and verify health
+        shell: bash
+        run: |
+          set -euo pipefail
+          streamlit run streamlit_app.py --server.headless true --server.port 8501 >streamlit.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true; wait "$app_pid" 2>/dev/null || true' EXIT
+          python - <<'PY'
+          import time
+          from urllib.request import urlopen
+
+          for _ in range(30):
+              try:
+                  with urlopen("http://localhost:8501/_stcore/health", timeout=2) as response:
+                      if response.status == 200 and response.read().strip() == b"ok":
+                          break
+              except OSError:
+                  time.sleep(1)
+          else:
+              raise SystemExit("Streamlit health endpoint did not become ready")
+
+          with urlopen("http://localhost:8501/", timeout=2) as response:
+              if response.status != 200:
+                  raise SystemExit(f"Streamlit root returned HTTP {response.status}")
+          PY
