@@ -279,11 +279,4 @@ survivorship controls, realistic execution, cost sensitivity, changing universes
 regime analysis, independent holdouts and proper inference. No production
 readiness, market calibration or institutional validation is claimed.
 
-## Suggested CV wording
-
-“Developed a benchmark-aware systematic portfolio research framework combining
-cross-sectional signals with constrained optimisation, tracking-error controls,
-turnover and transaction-cost modelling, walk-forward backtesting and
-performance attribution.”
-
 MIT licensed. Implementation is original to this repository.
