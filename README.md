@@ -37,6 +37,24 @@ writes [results/demo/report.md](results/demo/report.md). Seeds are deterministic
 solver outputs may differ slightly across platforms or dependency versions.
 Supported dependency ranges are in `pyproject.toml`.
 
+## Interactive research app
+
+Install and launch the optional Streamlit presentation layer from the repository
+root:
+
+```sh
+python -m pip install -e '.[app]'
+streamlit run streamlit_app.py
+```
+
+The app calls the existing PortfolioOS package and reporting infrastructure; it
+contains no separate portfolio engine. Its default case study is deterministic
+**synthetic data**, not historical performance or evidence of real-world alpha.
+Optional price, benchmark and sector-metadata CSVs are handled in memory and
+validated by the package. The Python package and CLI remain the canonical research
+interfaces, and neither the app nor the demo needs market-data downloads or API
+credentials.
+
 ## Architecture
 
 ```mermaid
