@@ -41,6 +41,11 @@ not presented as an executable closing-auction strategy.
    Notebook formulas were corrected to portable ASCII and validated by execution.
 5. Pandas plotting triggered Matplotlib deprecation warnings. Direct Matplotlib
    plotting removed the compatibility warning without changing calculated results.
+6. Python 3.10 CI exposed an overextended same-day leakage test: the test continued
+   into later optimization periods after an artificial crash/rebound, provoking
+   an `optimal_inaccurate` status. The test now ends at its asserted information
+   boundary. Solver acceptance and portfolio constraints remain strict; the
+   separate future-mutation test still evaluates the full future sample.
 
 These were input validation and presentation defects; the valid default demo's
 portfolio accounting did not change as a result of the fixes.

@@ -30,7 +30,11 @@ def test_same_day_return_not_used_even_at_rebalance(market, config, result):
     date = result.signal_scores.index[2]
     mutated = p.copy()
     mutated.loc[date] *= np.linspace(0.5, 2, p.shape[1])
-    rerun = run_backtest(mutated, metadata=m, config=config)
+    # Test the information boundary itself. Later solves after the artificial
+    # price crash/rebound are unrelated and can be ill-conditioned on older stacks.
+    rerun = run_backtest(
+        mutated, metadata=m, config=replace(config, end_date=str(date.date()))
+    )
     pd.testing.assert_frame_equal(result.weights.loc[:date], rerun.weights.loc[:date])
     assert result.returns.loc[date, "gross"] != rerun.returns.loc[date, "gross"]
 
