@@ -205,3 +205,19 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# PortfolioOS local inputs and generated scratch outputs
+.env
+.env.*
+.venv/
+.ruff_cache/
+.coverage*
+htmlcov/
+coverage.xml
+data/
+.cache/
+results/*
+!results/README.md
+!results/demo/
+*.egg-info/
+coverage.json
