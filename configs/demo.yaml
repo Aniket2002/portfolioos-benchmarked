@@ -1,0 +1,26 @@
+seed: 42
+assets: 40
+years: 6
+start_date: null
+end_date: null
+rebalance_frequency: monthly
+signal_weights:
+  momentum_12_1: 1.0
+  low_volatility: 1.0
+  reversal_1m: 0.5
+momentum_lookback: 252
+momentum_skip: 21
+volatility_lookback: 63
+reversal_lookback: 21
+covariance_lookback: 252
+transaction_cost_bps: 10
+max_missing_fraction: 0.0
+fill_limit: 0
+optimizer:
+  risk_aversion: 10.0
+  turnover_penalty: 0.1
+  max_position_weight: 0.08
+  max_tracking_error: 0.08
+  max_sector_active_weight: 0.10
+  max_turnover: 0.30
+  fallback_to_benchmark: false
