@@ -124,6 +124,9 @@ A deterministic synthetic implementation-trade-off study is included in the
 
 ## Synthetic findings
 
+What surprised me most was that the tested tracking-error range was not the main
+constraint on signal expression; turnover limits mattered much more.
+
 - Relaxing the annual tracking-error cap from 4% to 12% changed average signal
   capture only modestly, from 0.955 to 0.964.
 - Relaxing the one-way turnover limit from 10% to 50% had a larger effect,
@@ -218,6 +221,9 @@ not merely the underlying accounting period. Last known snapshots persist until
 updated; the caller is responsible for assessing staleness.
 
 ## Covariance and portfolio optimization
+
+The ranking itself is the easy part. The portfolio-construction problem starts when
+it has to coexist with benchmark risk, concentration limits and trading constraints.
 
 [Ledoit–Wolf shrinkage](https://scikit-learn.org/stable/modules/generated/sklearn.covariance.LedoitWolf.html)
 uses trailing 252 daily returns ending at s. The estimator demeans returns;
@@ -332,6 +338,10 @@ loadings and volatilities. **No predictive signal structure is embedded.**
 There are no delistings, membership changes or factor-distribution regimes.
 The business-day index is illustrative, not an exchange calendar.
 
+I kept the canonical study synthetic because a convenient historical price file would
+make the charts look more realistic without solving the harder point-in-time,
+survivorship and benchmark-history problems.
+
 See the [notebook](notebooks/research_case_study.ipynb) and
 [synthetic report](results/demo/report.md). Outputs include JSON, metrics,
 holdings, active holdings, returns, optimization statuses, scores, IC,
@@ -366,14 +376,15 @@ Provider inputs are never automatically copied or committed.
 
 ## Closing interpretation
 
-The main contribution here is not a claim that a profitable strategy has been
-found. It is the ability to follow a signal from its initial ranking through the
-benchmark-risk and trading constraints that turn it into an implementable portfolio.
-In the synthetic experiment, turnover constraints limited signal expression more
-than the tested tracking-error range, while higher transaction-cost assumptions
-changed net economics without changing gross portfolio formation. Applying the same
-analysis to market data would require stronger controls, especially point-in-time
-universe membership and benchmark histories.
+What I found most useful about the framework is that it separates two questions that
+are easy to blur together: whether a signal is being expressed, and whether that
+signal actually produces good returns.
+
+In the synthetic study, turnover limits were the bigger constraint on signal
+expression, while transaction costs mainly affected what remained after
+implementation. Applying the same analysis to real markets would require much
+stronger point-in-time controls, especially around universe membership, corporate
+actions and benchmark history.
 
 ## Validation and limitations
 
