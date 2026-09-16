@@ -1,0 +1,3 @@
+# Streamlit Community Cloud deployment entry point. Dependency versions remain
+# owned by pyproject.toml; this installs the local package with its app extra.
+.[app]
