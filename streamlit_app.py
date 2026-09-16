@@ -183,6 +183,9 @@ with st.sidebar:
     prices_upload = benchmark_upload = metadata_upload = None
     if mode == "Synthetic demo":
         st.caption("SYNTHETIC DEMO · deterministic, offline, no embedded alpha")
+        st.session_state.setdefault("synthetic_seed", 42)
+        st.session_state.setdefault("synthetic_assets", 20)
+        st.session_state.setdefault("synthetic_years", 3)
         if st.button(
             "Load canonical study settings",
             help="Sets only seed, asset count and synthetic history length.",
@@ -195,11 +198,10 @@ with st.sidebar:
             "Synthetic seed",
             min_value=0,
             max_value=1_000_000,
-            value=42,
             key="synthetic_seed",
         )
-        assets = st.slider("Number of assets", 15, 60, 20, key="synthetic_assets")
-        years = st.slider("Synthetic history (years)", 2, 10, 3, key="synthetic_years")
+        assets = st.slider("Number of assets", 15, 60, key="synthetic_assets")
+        years = st.slider("Synthetic history (years)", 2, 10, key="synthetic_years")
     else:
         st.caption("CSV inputs stay in memory and are not written to disk.")
         prices_upload = st.file_uploader("Price data (required)", type="csv")
