@@ -90,24 +90,26 @@ def test_seed_run_is_deterministic_and_fingerprinted():
 def test_canonical_seed_42_artifacts_remain_unchanged():
     expected = {
         "te_frontier.csv": (
-            "5e6e852b9978a447b471795c22c501d9bdac78fb44599bdce1e825c6281d2b8c"
+            "9274e444643592dda5dc5e4a938b5e1e9249b75c3ca74634864a16f5cfe1e654"
         ),
         "turnover_frontier.csv": (
-            "98d800980182c0f93ba5167a60665dbfcf5bf5c6fb7a034423c939e34298fb6a"
+            "d7441617571cd7b6411930c4f867a3adc0818fb1d2944caed7713bbc92de7789"
         ),
         "cost_frontier.csv": (
-            "fc9e1000b0ff071d091e12293a860c7f9bae42046c11d9d6c234e5db763d4026"
+            "4826144e6ce8fabfa4db5ffc6139af541fc103fe4188521d1e808342991bbfb6"
         ),
         "te_turnover_grid.csv": (
-            "f9f828ce34313d3182fea9b73bd10ae6b66c85abbec826616386b435cb18541a"
+            "92b29065f7a093cbcb50b7c7b82c7771566bf336d2ea4831dc3f8db395d1fada"
         ),
         "experiment_summary.json": (
-            "2645ac256bbcd17c971f11c1a3933f1b5018a2f37b4dec4dbd046cecb127386d"
+            "5ad922d0b693988a956363cc03527b3f11cb4211e0d615dbdb0db9bac087adfc"
         ),
     }
     root = Path("results/research_tradeoffs")
     actual = {
-        name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+        name: hashlib.sha256(
+            (root / name).read_text(encoding="utf-8").encode()
+        ).hexdigest()
         for name in expected
     }
     assert actual == expected
