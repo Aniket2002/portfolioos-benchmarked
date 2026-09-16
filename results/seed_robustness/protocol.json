@@ -1,0 +1,54 @@
+{
+  "protocol_version": 1,
+  "purpose": "descriptive synthetic robustness of the TE-versus-turnover ordering",
+  "predeclared_seeds": [
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59
+  ],
+  "base_config": "configs/demo.yaml",
+  "tracking_error_budgets": [
+    0.04,
+    0.06,
+    0.08,
+    0.1,
+    0.12
+  ],
+  "turnover_limits": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "endpoints": {
+    "tracking_error_low": 0.04,
+    "tracking_error_high": 0.12,
+    "turnover_low": 0.1,
+    "turnover_high": 0.5
+  },
+  "classification": {
+    "strong_minimum_dominant_seeds": 16,
+    "mixed_minimum_dominant_seeds": 12,
+    "strong_requires_positive_median_dominance": true
+  },
+  "disclosure": "This is a descriptive robustness exercise over deterministic synthetic draws, not a sampling distribution of market outcomes or empirical market validation.",
+  "protocol_sha256": "7720e9af6279ff2efe86efa5551fb50488427da860c3eecba2888058bd2cc3da"
+}

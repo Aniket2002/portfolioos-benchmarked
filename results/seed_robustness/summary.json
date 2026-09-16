@@ -1,0 +1,43 @@
+{
+  "descriptive_only": true,
+  "seed_count": 20,
+  "summaries": {
+    "delta_TE": {
+      "n": 18,
+      "mean": 0.010428846919470117,
+      "median": 0.0084022226461812,
+      "standard_deviation": 0.0056342290824095915,
+      "minimum": 0.003290111092333,
+      "maximum": 0.0212902904241515,
+      "25th_percentile": 0.0068002388479542,
+      "75th_percentile": 0.01357316587575025
+    },
+    "delta_turnover": {
+      "n": 20,
+      "mean": 0.1478571691770026,
+      "median": 0.14337266711731922,
+      "standard_deviation": 0.016945008316549888,
+      "minimum": 0.1252708393910717,
+      "maximum": 0.1920767339496767,
+      "25th_percentile": 0.13628141679660105,
+      "75th_percentile": 0.15571472614722381
+    },
+    "dominance_delta": {
+      "n": 18,
+      "mean": 0.1348268215379961,
+      "median": 0.13617412555090164,
+      "standard_deviation": 0.015491859754883264,
+      "minimum": 0.1044225050382935,
+      "maximum": 0.1617845366146971,
+      "25th_percentile": 0.12146076630791189,
+      "75th_percentile": 0.14464009741729028
+    }
+  },
+  "count_delta_turnover_gt_delta_TE": 18,
+  "fraction_delta_turnover_gt_delta_TE": 0.9,
+  "count_delta_turnover_gt_zero": 20,
+  "count_delta_TE_gt_zero": 18,
+  "all_scenarios_complete": false,
+  "classification": "STRONG",
+  "protocol_sha256": "7720e9af6279ff2efe86efa5551fb50488427da860c3eecba2888058bd2cc3da"
+}
