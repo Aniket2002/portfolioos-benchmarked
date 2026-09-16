@@ -78,7 +78,9 @@ def dataset_fingerprint(prices, benchmark_weights=None, metadata=None):
         if value is None:
             digest.update(b"none")
             continue
-        digest.update(pd.util.hash_pandas_object(value, index=True).values.tobytes())
+        hashed = pd.util.hash_pandas_object(value, index=True)
+        hash_bytes = np.asarray(hashed.to_numpy(dtype=np.uint64), dtype=np.uint64)
+        digest.update(hash_bytes.view(np.uint8).tobytes())
         digest.update("|".join(map(str, value.columns)).encode())
     return digest.hexdigest()
 
@@ -190,7 +192,7 @@ def _successful_row(result, reference, experiment, budget, identity, config):
 
 
 def _failed_row(exc, experiment, budget, identity, config):
-    row = {column: np.nan for column in EXPERIMENT_COLUMNS}
+    row: dict[str, object] = {column: np.nan for column in EXPERIMENT_COLUMNS}
     optimization_failure = (
         isinstance(exc, RuntimeError)
         and re.match(
@@ -247,7 +249,7 @@ def run_frontier(
     identity,
 ):
     """Vary one setting, run canonical backtests, and retain explicit failures."""
-    rows = []
+    rows: list[dict[str, object]] = []
     for value in values:
         config = vary_config(base_config, dimension, value)
         try:
@@ -318,7 +320,7 @@ def run_experiment_suite(
         cost_bps,
         identity,
     )
-    grid_rows = []
+    grid_rows: list[dict[str, object]] = []
     for te_budget in grid_te:
         te_config = vary_config(base_config, "tracking_error", te_budget)
         for turnover_limit in grid_turnover:
