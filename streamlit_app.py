@@ -3,6 +3,7 @@
 import hashlib
 import json
 import time
+from typing import cast
 
 import altair as alt
 import pandas as pd
@@ -465,7 +466,9 @@ with implementation_group:
 
 with performance_tab:
     st.caption(provenance)
-    wealth, relative, drawdowns = performance_tables(result)
+    wealth, relative, drawdowns = cast(
+        tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame], performance_tables(result)
+    )
     st.markdown("#### Growth of $1")
     growth = (
         wealth.rename_axis("Date")
