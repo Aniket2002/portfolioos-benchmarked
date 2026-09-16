@@ -89,10 +89,18 @@ def test_seed_run_is_deterministic_and_fingerprinted():
 
 def test_canonical_seed_42_artifacts_remain_unchanged():
     expected = {
-        "te_frontier.csv": "5e6e852b9978a447b471795c22c501d9bdac78fb44599bdce1e825c6281d2b8c",
-        "turnover_frontier.csv": "98d800980182c0f93ba5167a60665dbfcf5bf5c6fb7a034423c939e34298fb6a",
-        "cost_frontier.csv": "fc9e1000b0ff071d091e12293a860c7f9bae42046c11d9d6c234e5db763d4026",
-        "te_turnover_grid.csv": "f9f828ce34313d3182fea9b73bd10ae6b66c85abbec826616386b435cb18541a",
+        "te_frontier.csv": (
+            "5e6e852b9978a447b471795c22c501d9bdac78fb44599bdce1e825c6281d2b8c"
+        ),
+        "turnover_frontier.csv": (
+            "98d800980182c0f93ba5167a60665dbfcf5bf5c6fb7a034423c939e34298fb6a"
+        ),
+        "cost_frontier.csv": (
+            "fc9e1000b0ff071d091e12293a860c7f9bae42046c11d9d6c234e5db763d4026"
+        ),
+        "te_turnover_grid.csv": (
+            "f9f828ce34313d3182fea9b73bd10ae6b66c85abbec826616386b435cb18541a"
+        ),
         "experiment_summary.json": (
             "2645ac256bbcd17c971f11c1a3933f1b5018a2f37b4dec4dbd046cecb127386d"
         ),
