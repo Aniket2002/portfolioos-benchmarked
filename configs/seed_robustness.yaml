@@ -1,0 +1,48 @@
+protocol_version: 1
+purpose: descriptive synthetic robustness of the TE-versus-turnover ordering
+predeclared_seeds:
+  - 40
+  - 41
+  - 42
+  - 43
+  - 44
+  - 45
+  - 46
+  - 47
+  - 48
+  - 49
+  - 50
+  - 51
+  - 52
+  - 53
+  - 54
+  - 55
+  - 56
+  - 57
+  - 58
+  - 59
+base_config: configs/demo.yaml
+tracking_error_budgets:
+  - 0.04
+  - 0.06
+  - 0.08
+  - 0.10
+  - 0.12
+turnover_limits:
+  - 0.10
+  - 0.20
+  - 0.30
+  - 0.40
+  - 0.50
+endpoints:
+  tracking_error_low: 0.04
+  tracking_error_high: 0.12
+  turnover_low: 0.10
+  turnover_high: 0.50
+classification:
+  strong_minimum_dominant_seeds: 16
+  mixed_minimum_dominant_seeds: 12
+  strong_requires_positive_median_dominance: true
+disclosure: >-
+  This is a descriptive robustness exercise over deterministic synthetic draws,
+  not a sampling distribution of market outcomes or empirical market validation.
