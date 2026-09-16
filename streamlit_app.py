@@ -4,17 +4,20 @@ import hashlib
 import json
 import time
 
+import altair as alt
 import pandas as pd
 import streamlit as st
 
 from portfolioos.app_helpers import (
     attribution_frame,
     attribution_tables,
+    canonical_synthetic_settings,
     frame_csv,
     latest_holdings,
     make_app_config,
     performance_tables,
     read_uploaded_csv,
+    research_context,
     result_metrics,
     risk_cost_tables,
     safe_metric,
@@ -37,6 +40,81 @@ st.set_page_config(
     page_title="PortfolioOS Benchmarked",
     page_icon="📈",
     layout="wide",
+)
+
+st.markdown(
+    """
+<style>
+:root {
+  --pos-accent: #4c78a8;
+  --pos-accent-hover: #5d8cbc;
+  --pos-panel: #171c23;
+  --pos-border: #303946;
+  --pos-text: #e8edf2;
+  --pos-muted: #9da8b5;
+}
+.block-container { padding-top: 2.4rem; padding-bottom: 3rem; }
+h1 { letter-spacing: -0.025em; margin-bottom: .3rem !important; }
+[data-testid="stSidebar"] { border-right: 1px solid var(--pos-border); }
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 { color: #cbd4dd; letter-spacing: .045em; }
+[data-testid="stSidebar"] h3 {
+  margin-top: 1.25rem;
+  padding-top: .75rem;
+  border-top: 1px solid rgba(157,168,181,.15);
+  font-size: .94rem;
+  text-transform: uppercase;
+}
+.pos-info-card {
+  margin: .8rem 0 .75rem;
+  padding: .85rem 1rem;
+  background: #172231;
+  border: 1px solid #2d4056;
+  border-left: 3px solid var(--pos-accent);
+  border-radius: .45rem;
+}
+.pos-info-card strong, .pos-context-label, .pos-kpi-group {
+  display: block;
+  color: #b8c9dc;
+  font-size: .73rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.pos-info-card p { margin: .28rem 0 0; color: #d2d9e0; }
+.pos-context-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .55rem 0 .65rem;
+}
+.pos-context-item {
+  padding: .7rem .85rem;
+  background: var(--pos-panel);
+  border: 1px solid var(--pos-border);
+  border-radius: .4rem;
+}
+.pos-context-value { color: #e4eaf0; font-size: .92rem; margin-top: .18rem; }
+.pos-context-note { color: var(--pos-muted); font-size: .78rem; margin-top: .18rem; }
+.pos-kpi-group { margin: .7rem 0 .2rem; }
+[data-testid="stMetric"] { padding: .2rem 0 .35rem; }
+[data-testid="stMetricLabel"] p { color: #b9c3cd; font-size: .88rem; }
+[data-testid="stMetricValue"] { font-size: 1.65rem; }
+button[kind="primary"] { font-weight: 650; box-shadow: none !important; }
+button[kind="primary"]:hover { border-color: var(--pos-accent-hover); }
+[data-baseweb="tab-list"] { gap: 1.15rem; }
+[data-baseweb="tab"] { color: #919ca8; font-weight: 550; }
+[aria-selected="true"][data-baseweb="tab"] { color: #dce7f2; }
+[data-baseweb="tab-highlight"] { background-color: var(--pos-accent); height: 2px; }
+a { color: #7ea7d1; }
+@media (max-width: 700px) {
+  .block-container { padding: 1.4rem 1rem 2rem; }
+  .pos-context-grid { grid-template-columns: 1fr; }
+  [data-testid="stMetricValue"] { font-size: 1.4rem; }
+}
+</style>
+""",
+    unsafe_allow_html=True,
 )
 
 
@@ -79,6 +157,7 @@ def download(label, data, filename, mime="text/csv"):
     st.download_button(label, data=data, file_name=filename, mime=mime)
 
 
+canonical_settings = canonical_synthetic_settings()
 _, base_config = load_config("configs/demo.yaml")
 
 st.title("PortfolioOS Benchmarked")
@@ -86,10 +165,15 @@ st.markdown(
     "Benchmark-aware systematic portfolio research with transparent signals, "
     "constrained optimisation, transaction costs, walk-forward testing and attribution."
 )
-st.warning(
-    "This application is an educational quantitative-research interface. The default "
-    "case study uses synthetic data and is not evidence of real-world alpha or "
-    "investment performance."
+st.markdown(
+    """
+<div class="pos-info-card">
+  <strong>Synthetic research</strong>
+  <p>Controlled synthetic experiment for portfolio-construction mechanics.
+  No empirical alpha or live-market performance claim.</p>
+</div>
+""",
+    unsafe_allow_html=True,
 )
 
 with st.sidebar:
@@ -99,9 +183,23 @@ with st.sidebar:
     prices_upload = benchmark_upload = metadata_upload = None
     if mode == "Synthetic demo":
         st.caption("SYNTHETIC DEMO · deterministic, offline, no embedded alpha")
-        seed = st.number_input("Seed", min_value=0, max_value=1_000_000, value=42)
-        assets = st.slider("Number of assets", 15, 60, 20)
-        years = st.slider("Years of history", 2, 10, 3)
+        if st.button(
+            "Load canonical study settings",
+            help="Sets only seed, asset count and synthetic history length.",
+        ):
+            st.session_state["synthetic_seed"] = canonical_settings["seed"]
+            st.session_state["synthetic_assets"] = canonical_settings["assets"]
+            st.session_state["synthetic_years"] = canonical_settings["years"]
+        st.caption("Canonical settings may take longer to run.")
+        seed = st.number_input(
+            "Synthetic seed",
+            min_value=0,
+            max_value=1_000_000,
+            value=42,
+            key="synthetic_seed",
+        )
+        assets = st.slider("Number of assets", 15, 60, 20, key="synthetic_assets")
+        years = st.slider("Synthetic history (years)", 2, 10, 3, key="synthetic_years")
     else:
         st.caption("CSV inputs stay in memory and are not written to disk.")
         prices_upload = st.file_uploader("Price data (required)", type="csv")
@@ -117,7 +215,14 @@ with st.sidebar:
     st.subheader("Risk model")
     covariance_lookback = st.slider("Covariance lookback", 40, 504, 252, 21)
     tracking_error_enabled = st.checkbox("Apply tracking-error cap", value=True)
-    max_tracking_error = st.slider("Annual tracking-error cap", 0.01, 0.30, 0.08, 0.01)
+    max_tracking_error = st.slider(
+        "Annual tracking-error cap",
+        0.01,
+        0.30,
+        0.08,
+        0.01,
+        help="Annualized ex-ante benchmark-relative volatility constraint.",
+    )
 
     st.subheader("Portfolio constraints")
     max_position_weight = st.slider("Maximum position weight", 0.02, 0.50, 0.08, 0.01)
@@ -126,20 +231,43 @@ with st.sidebar:
         "Maximum sector active weight", 0.01, 0.50, 0.10, 0.01
     )
     turnover_cap_enabled = st.checkbox("Apply turnover cap", value=True)
-    max_turnover = st.slider("One-way turnover cap", 0.05, 1.00, 0.30, 0.05)
+    max_turnover = st.slider(
+        "One-way turnover cap",
+        0.05,
+        1.00,
+        0.30,
+        0.05,
+        help="Maximum one-way turnover permitted at each rebalance.",
+    )
     if mode == "User data" and metadata_upload is None:
         st.caption("The sector cap is disabled unless sector metadata is supplied.")
 
     st.subheader("Optimization")
     risk_aversion = st.number_input("Risk-aversion coefficient", 0.0, 1000.0, 10.0, 1.0)
     turnover_penalty = st.number_input(
-        "Turnover-penalty coefficient", 0.0, 10.0, 0.1, 0.05
+        "Turnover-penalty coefficient",
+        0.0,
+        10.0,
+        0.1,
+        0.05,
+        help=(
+            "L1 optimizer penalty on trading; distinct from transaction-cost "
+            "accounting."
+        ),
     )
     st.caption("These coefficients express modelling trade-offs.")
 
     st.subheader("Costs & backtest")
     transaction_cost_bps = st.number_input(
-        "Transaction cost (basis points)", 0.0, 100.0, 10.0, 1.0
+        "Transaction cost (basis points)",
+        0.0,
+        100.0,
+        10.0,
+        1.0,
+        help=(
+            "Applied to realized accounting; it is not an expected-cost term in "
+            "the optimizer objective."
+        ),
     )
     rebalance_frequency = st.selectbox(
         "Rebalance frequency", ["monthly", "weekly", "daily"]
@@ -164,6 +292,32 @@ controls = {
     "rebalance_frequency": rebalance_frequency,
 }
 synthetic_settings = {"seed": seed, "assets": assets, "years": years}
+if mode == "Synthetic demo":
+    context = research_context(synthetic_settings, canonical_settings)
+    current_label = (
+        "Canonical settings active"
+        if context["matches_canonical"]
+        else "Interactive preview"
+    )
+    st.markdown(
+        f"""
+<div class="pos-context-grid">
+  <div class="pos-context-item">
+    <span class="pos-context-label">{current_label}</span>
+    <div class="pos-context-value">Synthetic · {context["current"]}</div>
+    <div class="pos-context-note">Current dashboard configuration</div>
+  </div>
+  <div class="pos-context-item">
+    <span class="pos-context-label">Canonical research study</span>
+    <div class="pos-context-value">Synthetic · {context["canonical"]}</div>
+    <div class="pos-context-note">Configuration used for published README results</div>
+  </div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+else:
+    st.info("User-supplied data mode · canonical synthetic results do not apply.")
 fingerprint = input_fingerprint(
     mode,
     synthetic_settings if mode == "Synthetic demo" else {},
@@ -241,31 +395,51 @@ st.caption(
     f"{result.returns.index[-1].date()} · Runtime: {run['runtime']:.2f}s"
 )
 
-kpi_specs = [
-    ("CAGR", "cagr", "percent"),
-    ("Annualized volatility", "annualized_volatility", "percent"),
-    ("Sharpe ratio", "sharpe", "number"),
-    ("Maximum drawdown", "maximum_drawdown", "percent"),
-    ("Tracking error", "tracking_error", "percent"),
-    ("Information ratio", "information_ratio", "number"),
-]
-for column, (label, key, style) in zip(st.columns(6), kpi_specs):
-    column.metric(label, safe_metric(metrics.get(key), style))
-
-secondary = [
-    ("Avg one-way turnover", result.returns.turnover.mean(), "percent"),
-    ("Compounded cost drag", metrics.get("compounded_cost_drag"), "percent"),
-    ("Average active share", metrics.get("average_active_share"), "percent"),
-    ("Rebalances", metrics.get("rebalances"), "integer"),
-    ("Evaluation days", metrics.get("evaluation_days"), "integer"),
-    (
-        "Benchmark-relative result",
-        metrics.get("benchmark_relative_cumulative_result"),
-        "percent",
-    ),
-]
-for column, (label, value, style) in zip(st.columns(6), secondary):
-    column.metric(label, safe_metric(value, style))
+performance_group, risk_group, implementation_group = st.columns(3, gap="large")
+with performance_group:
+    st.markdown('<div class="pos-kpi-group">Performance</div>', unsafe_allow_html=True)
+    st.metric("CAGR", safe_metric(metrics.get("cagr"), "percent"))
+    st.metric(
+        "Benchmark-relative",
+        safe_metric(metrics.get("benchmark_relative_cumulative_result"), "percent"),
+        help="Difference in realized portfolio and benchmark wealth for this case.",
+    )
+    st.metric("Sharpe", safe_metric(metrics.get("sharpe")))
+with risk_group:
+    st.markdown('<div class="pos-kpi-group">Risk</div>', unsafe_allow_html=True)
+    st.metric(
+        "Annualized volatility",
+        safe_metric(metrics.get("annualized_volatility"), "percent"),
+    )
+    st.metric(
+        "Maximum drawdown",
+        safe_metric(metrics.get("maximum_drawdown"), "percent"),
+    )
+    st.metric(
+        "Tracking error",
+        safe_metric(metrics.get("tracking_error"), "percent"),
+        help="Realized benchmark-relative volatility over the displayed case.",
+    )
+with implementation_group:
+    st.markdown(
+        '<div class="pos-kpi-group">Implementation</div>', unsafe_allow_html=True
+    )
+    st.metric(
+        "Avg one-way turnover",
+        safe_metric(result.returns.turnover.mean(), "percent"),
+    )
+    st.metric(
+        "Compounded cost drag",
+        safe_metric(metrics.get("compounded_cost_drag"), "percent"),
+    )
+    st.metric(
+        "Average active share",
+        safe_metric(metrics.get("average_active_share"), "percent"),
+    )
+    st.caption(
+        f"{safe_metric(metrics.get('rebalances'), 'integer')} rebalances · "
+        f"{safe_metric(metrics.get('evaluation_days'), 'integer')} evaluation days"
+    )
 
 (
     performance_tab,
@@ -291,7 +465,45 @@ with performance_tab:
     st.caption(provenance)
     wealth, relative, drawdowns = performance_tables(result)
     st.markdown("#### Growth of $1")
-    st.line_chart(wealth)
+    growth = (
+        wealth.rename_axis("Date")
+        .reset_index()
+        .melt("Date", var_name="Series", value_name="Wealth")
+    )
+    growth_chart = (
+        alt.Chart(growth)
+        .mark_line()
+        .encode(
+            x=alt.X("Date:T", title=None),
+            y=alt.Y("Wealth:Q", title="Growth of $1", scale=alt.Scale(zero=False)),
+            color=alt.Color(
+                "Series:N",
+                scale=alt.Scale(
+                    domain=["Net", "Benchmark", "Gross"],
+                    range=["#5B8DBE", "#A6ADB5", "#71879D"],
+                ),
+                legend=alt.Legend(orient="top", title=None),
+            ),
+            size=alt.Size(
+                "Series:N",
+                scale=alt.Scale(
+                    domain=["Net", "Benchmark", "Gross"], range=[3, 2, 1.4]
+                ),
+                legend=None,
+            ),
+            strokeDash=alt.StrokeDash(
+                "Series:N",
+                scale=alt.Scale(
+                    domain=["Net", "Benchmark", "Gross"],
+                    range=[[1, 0], [1, 0], [5, 4]],
+                ),
+                legend=None,
+            ),
+            tooltip=["Date:T", "Series:N", alt.Tooltip("Wealth:Q", format=".3f")],
+        )
+        .properties(height=390)
+    )
+    st.altair_chart(growth_chart, width="stretch")
     st.markdown("#### Net benchmark-relative wealth")
     st.line_chart(relative)
     st.markdown("#### Drawdown")

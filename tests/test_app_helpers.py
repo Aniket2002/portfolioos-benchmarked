@@ -8,11 +8,13 @@ import pytest
 from portfolioos.app_helpers import (
     attribution_frame,
     attribution_tables,
+    canonical_synthetic_settings,
     frame_csv,
     latest_holdings,
     make_app_config,
     performance_tables,
     read_uploaded_csv,
+    research_context,
     result_metrics,
     safe_metric,
     signal_components,
@@ -112,3 +114,16 @@ def test_in_memory_user_upload_uses_engine_validation(market, config):
 def test_unknown_upload_kind_rejected():
     with pytest.raises(ValueError, match="Unknown uploaded data kind"):
         read_uploaded_csv(BytesIO(b"x\n1\n"), "signals")
+
+
+def test_canonical_settings_are_sourced_from_research_config():
+    assert canonical_synthetic_settings() == {"seed": 42, "assets": 40, "years": 6}
+
+
+def test_research_context_tracks_active_settings():
+    canonical = {"seed": 42, "assets": 40, "years": 6}
+    preview = research_context({"seed": 7, "assets": 20, "years": 3}, canonical)
+    assert preview["current"] == "Seed 7 · 20 assets · 3 years"
+    assert preview["canonical"] == "Seed 42 · 40 assets · 6 years"
+    assert not preview["matches_canonical"]
+    assert research_context(canonical, canonical)["matches_canonical"]

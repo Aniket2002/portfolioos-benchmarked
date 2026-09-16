@@ -56,6 +56,32 @@ def make_app_config(base, controls, has_sectors=True):
     )
 
 
+def canonical_synthetic_settings(config_path="configs/demo.yaml"):
+    """Return the canonical synthetic inputs from the tracked research config."""
+    from portfolioos.reporting import load_config
+
+    synthetic, _ = load_config(config_path)
+    return {key: int(synthetic[key]) for key in ("seed", "assets", "years")}
+
+
+def research_context(current, canonical):
+    """Describe the active synthetic case truthfully relative to the canonical one."""
+    keys = ("seed", "assets", "years")
+    current = {key: int(current[key]) for key in keys}
+    canonical = {key: int(canonical[key]) for key in keys}
+    return {
+        "current": (
+            f"Seed {current['seed']} · {current['assets']} assets · "
+            f"{current['years']} years"
+        ),
+        "canonical": (
+            f"Seed {canonical['seed']} · {canonical['assets']} assets · "
+            f"{canonical['years']} years"
+        ),
+        "matches_canonical": current == canonical,
+    }
+
+
 def read_uploaded_csv(upload, kind):
     """Read an in-memory upload into the package's documented tabular shape."""
     raw = upload.getvalue() if hasattr(upload, "getvalue") else upload
