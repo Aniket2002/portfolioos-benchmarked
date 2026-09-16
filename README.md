@@ -101,6 +101,7 @@ Run the deterministic experiment suite with:
 
 ```sh
 python scripts/run_experiments.py --config configs/demo.yaml
+python scripts/run_seed_robustness.py
 ```
 
 The research layer holds the dataset, dates, signals, covariance method, benchmark,
@@ -121,11 +122,13 @@ results remain visible.
 
 A deterministic synthetic implementation-trade-off study is included in the
 [canonical research report](results/research_tradeoffs/report.md).
+The separately tracked [predeclared seed-robustness report](results/seed_robustness/report.md)
+repeats the TE and turnover frontiers for every synthetic seed from 40 through 59.
 
 ## Synthetic findings
 
-What surprised me most was that the tested tracking-error range was not the main
-constraint on signal expression; turnover limits mattered much more.
+The canonical seed-42 case showed a much larger turnover sensitivity than
+tracking-error sensitivity:
 
 - Relaxing the annual tracking-error cap from 4% to 12% changed average signal
   capture only modestly, from 0.955 to 0.964.
@@ -136,12 +139,19 @@ constraint on signal expression; turnover limits mattered much more.
   active return unchanged at -0.83% and reduced net annualized active return from
   -0.83% to -2.05%.
 
-In this synthetic setup, turnover constraints were a more material limit on signal
-expression than the tested tracking-error range, while transaction costs affected
-realized net economics rather than portfolio formation.
+Across all 20 predeclared synthetic seeds, the turnover delta exceeded the TE delta
+in 18/20 runs (90%); the median dominance delta was 0.136174. The 4% TE scenario
+did not complete for seeds 46 and 53 because the solver returned
+`optimal_inaccurate`; those seeds remain in the denominator and are not silently
+dropped. Under the predeclared gate, this is **STRONG** descriptive synthetic
+robustness: turnover generally constrained signal expression more than the tested
+tracking-error range. Transaction costs affected realized net economics rather
+than portfolio formation.
 
 These are synthetic controlled sensitivities, not evidence of alpha, causality,
-statistical significance, or market performance.
+statistical significance, or market performance. The seeds are not a sampling
+distribution of market outcomes, and this result is not empirical market
+validation.
 
 ## What “signal capture” means
 
@@ -380,11 +390,12 @@ What I found most useful about the framework is that it separates two questions 
 are easy to blur together: whether a signal is being expressed, and whether that
 signal actually produces good returns.
 
-In the synthetic study, turnover limits were the bigger constraint on signal
-expression, while transaction costs mainly affected what remained after
-implementation. Applying the same analysis to real markets would require much
-stronger point-in-time controls, especially around universe membership, corporate
-actions and benchmark history.
+Across 20 predeclared synthetic seeds, turnover generally constrained signal
+expression more than the tested tracking-error range. This is descriptive synthetic
+robustness, not evidence about real markets. Transaction costs mainly affected what
+remained after implementation. Applying the same analysis to real markets would
+require much stronger point-in-time controls, especially around universe
+membership, corporate actions and benchmark history.
 
 ## Validation and limitations
 
