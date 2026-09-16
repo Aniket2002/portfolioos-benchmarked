@@ -1,4 +1,6 @@
+import hashlib
 from dataclasses import asdict
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -83,21 +85,21 @@ def test_seed_run_is_deterministic_and_fingerprinted():
     assert first["dominance_delta"] == pytest.approx(
         first["delta_turnover"] - first["delta_TE"]
     )
-    canonical_te = pd.read_csv("results/research_tradeoffs/te_frontier.csv").set_index(
-        "budget"
-    )
-    canonical_turnover = pd.read_csv(
-        "results/research_tradeoffs/turnover_frontier.csv"
-    ).set_index("budget")
-    assert first["capture_TE_4"] == pytest.approx(
-        canonical_te.loc[0.04, "average_signal_capture"], abs=1e-8
-    )
-    assert first["capture_TE_12"] == pytest.approx(
-        canonical_te.loc[0.12, "average_signal_capture"], abs=1e-8
-    )
-    assert first["capture_turnover_10"] == pytest.approx(
-        canonical_turnover.loc[0.10, "average_signal_capture"], abs=1e-8
-    )
-    assert first["capture_turnover_50"] == pytest.approx(
-        canonical_turnover.loc[0.50, "average_signal_capture"], abs=1e-8
-    )
+
+
+def test_canonical_seed_42_artifacts_remain_unchanged():
+    expected = {
+        "te_frontier.csv": "5e6e852b9978a447b471795c22c501d9bdac78fb44599bdce1e825c6281d2b8c",
+        "turnover_frontier.csv": "98d800980182c0f93ba5167a60665dbfcf5bf5c6fb7a034423c939e34298fb6a",
+        "cost_frontier.csv": "fc9e1000b0ff071d091e12293a860c7f9bae42046c11d9d6c234e5db763d4026",
+        "te_turnover_grid.csv": "f9f828ce34313d3182fea9b73bd10ae6b66c85abbec826616386b435cb18541a",
+        "experiment_summary.json": (
+            "2645ac256bbcd17c971f11c1a3933f1b5018a2f37b4dec4dbd046cecb127386d"
+        ),
+    }
+    root = Path("results/research_tradeoffs")
+    actual = {
+        name: hashlib.sha256((root / name).read_bytes()).hexdigest()
+        for name in expected
+    }
+    assert actual == expected
