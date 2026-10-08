@@ -58,7 +58,11 @@ def validate_result(result):
         )
     if any(not np.allclose(a, b, atol=1e-10, rtol=1e-8) for a, b in checks):
         raise ValueError("Return or attribution reconciliation failed")
-    cap = result.config.optimizer.max_tracking_error
+    cap = result.optimization.get(
+        "tracking_error_budget", result.config.optimizer.max_tracking_error
+    )
+    if isinstance(cap, pd.Series):
+        cap = pd.to_numeric(cap).fillna(np.inf)
     if (
         cap is not None
         and (result.optimization.estimated_tracking_error > cap + 1e-7).any()

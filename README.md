@@ -29,6 +29,14 @@ and unfavorable results remain part of the analysis.
 
 ## Quick start
 
+The [empirical extension](docs/empirical_extension.md) adds provenance-checked
+historical bundles, explicit information lag, causal volatility regimes, policy
+and simple allocation comparisons, and a frozen-protocol scenario runner.
+Historical evaluation is incomplete: the supplied proposal omitted its detailed
+universe and periods, and no market dataset has been evaluated. The
+[manuscript draft](docs/empirical_manuscript.tex) identifies the missing evidence.
+Existing synthetic configurations and committed results remain intact.
+
 Python 3.10–3.12 is tested in CI. From the repository root:
 
 ```sh

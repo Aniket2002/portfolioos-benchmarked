@@ -1,6 +1,6 @@
 """Walk-forward simulation with a structurally truncated information set."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import pandas as pd
 
@@ -12,7 +12,13 @@ from portfolioos.data import (
     align_sectors,
     validate_prices,
 )
-from portfolioos.optimizer import OptimizerConfig, optimize
+from portfolioos.optimizer import (
+    OptimizationResult,
+    OptimizerConfig,
+    constraint_violations,
+    optimize,
+)
+from portfolioos.regimes import causal_regime
 from portfolioos.signals import composite_score
 
 
@@ -36,9 +42,37 @@ class BacktestConfig:
     transaction_cost_bps: float = 10.0
     max_missing_fraction: float = 0.0
     fill_limit: int = 0
+    information_lag: int = 1
+    strategy: str = "optimized"
+    regime_asset: str | None = None
+    regime_lookback: int = 63
+    regime_min_history: int = 252
+    regime_te_budgets: dict | None = None
     optimizer: OptimizerConfig = field(default_factory=OptimizerConfig)
 
     def __post_init__(self):
+        if self.strategy not in {
+            "optimized",
+            "policy",
+            "equal_weight",
+            "inverse_volatility",
+        }:
+            raise ValueError("Unknown strategy")
+        if not isinstance(self.information_lag, int) or self.information_lag < 1:
+            raise ValueError("information_lag must be a positive integer")
+        if self.regime_lookback < 2 or self.regime_min_history < 2:
+            raise ValueError("Invalid regime history")
+        if self.regime_te_budgets is not None:
+            if self.regime_asset is None or set(self.regime_te_budgets) != {
+                "low",
+                "normal",
+                "high",
+            }:
+                raise ValueError("Regime budgets require an asset and all three states")
+            for budget in self.regime_te_budgets.values():
+                replace(self.optimizer, max_tracking_error=budget)
+                if budget is None:
+                    raise ValueError("Regime budgets must be finite")
         if self.rebalance_frequency not in {"monthly", "weekly", "daily"}:
             raise ValueError("Rebalance frequency must be monthly, weekly or daily")
         if not 0 < self.momentum_skip < self.momentum_lookback:
@@ -79,9 +113,14 @@ def run_backtest(
         )
         + 1
     )
+    if config.regime_asset is not None:
+        warmup = max(warmup, config.regime_lookback + config.regime_min_history + 1)
+    warmup += config.information_lag - 1
     prices = validate_prices(
         prices, warmup + 1, config.max_missing_fraction, config.fill_limit
     )
+    if config.regime_asset is not None and config.regime_asset not in prices.columns:
+        raise ValueError("Regime asset is outside the price universe")
     sectors = align_sectors(metadata, prices.columns)
     benchmark = (
         None
@@ -107,8 +146,9 @@ def run_backtest(
         if date < start or date > end:
             continue
         # Exclusive slice: the realized return for date is inaccessible to models.
-        history = prices.iloc[:i]
+        history = prices.iloc[: i - config.information_lag + 1]
         asof = history.index[-1]
+        execution_date = prices.index[i - 1]
         period = (
             date.to_period("M")
             if config.rebalance_frequency == "monthly"
@@ -118,7 +158,7 @@ def run_backtest(
         )
         rebalance = previous is None or period != last_period
         if benchmark is not None:
-            available = benchmark.loc[:asof]
+            available = benchmark.loc[:execution_date]
             if available.empty:
                 raise ValueError(f"No benchmark snapshot known by {asof.date()}")
             snapshot = available.index[-1]
@@ -151,9 +191,50 @@ def run_backtest(
                 ext,
             )
             covariance = estimate_covariance(history, config.covariance_lookback)
-            solution = optimize(
-                score, covariance, wb, previous, sectors, config.optimizer
-            )
+            regime = None
+            optimizer = config.optimizer
+            if config.regime_asset is not None:
+                regime = causal_regime(
+                    history[config.regime_asset],
+                    config.regime_lookback,
+                    config.regime_min_history,
+                )
+                if config.regime_te_budgets is not None:
+                    optimizer = replace(
+                        optimizer, max_tracking_error=config.regime_te_budgets[regime]
+                    )
+            if config.strategy == "optimized":
+                solution = optimize(score, covariance, wb, previous, sectors, optimizer)
+            else:
+                if config.strategy == "policy":
+                    candidate = wb.copy()
+                elif config.strategy == "equal_weight":
+                    candidate = pd.Series(1 / len(wb), index=wb.index)
+                else:
+                    vol = (
+                        history.pct_change(fill_method=None)
+                        .iloc[-config.volatility_lookback :]
+                        .std()
+                    )
+                    if (vol <= 0).any():
+                        raise ValueError(
+                            "Inverse volatility requires positive volatility"
+                        )
+                    candidate = (1 / vol) / (1 / vol).sum()
+                errors, te = constraint_violations(
+                    candidate.to_numpy(),
+                    wb.to_numpy(),
+                    previous.to_numpy(),
+                    covariance.to_numpy(),
+                    None if sectors is None else sectors.to_numpy(),
+                    optimizer,
+                )
+                solution = OptimizationResult(
+                    None if errors else candidate,
+                    "constraint_violation" if errors else "rule_based",
+                    ", ".join(errors),
+                    te,
+                )
             if solution.weights is None:
                 raise RuntimeError(
                     f"Optimization failed on {date.date()}: "
@@ -167,6 +248,10 @@ def run_backtest(
                 {
                     "date": date,
                     "information_date": asof,
+                    "execution_date": execution_date,
+                    "return_date": date,
+                    "regime": regime,
+                    "tracking_error_budget": optimizer.max_tracking_error,
                     "status": solution.status,
                     "message": solution.message,
                     "estimated_tracking_error": solution.tracking_error,

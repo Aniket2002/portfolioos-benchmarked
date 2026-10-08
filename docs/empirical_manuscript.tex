@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath,hyperref}
+\title{Portfolio Construction under Benchmark Risk and Implementation Constraints}
+\author{PortfolioOS Research Draft}
+\date{8 October 2026}
+\begin{document}
+\maketitle
+\textbf{Incomplete draft: no historical empirical results.}
+\begin{abstract}
+This extension provides provenance checks, lagged information sets, causal
+volatility regimes and declared scenario evaluation for a ten-ETF study.
+Historical evaluation remains blocked by missing universe, policy, period and
+data specifications. Synthetic checks assess accounting mechanics only.
+\end{abstract}
+\section{Introduction and motivation}
+The research question concerns how tracking-error and turnover constraints change
+signal expression, and how transaction costs affect realized net performance.
+Signal capture is not investment alpha.
+\section{Related literature}
+Ledoit and Wolf's covariance shrinkage work motivates the existing risk estimator
+\cite{lw}. Equal-weight allocation supplies a simple competing rule; the literature
+examines optimized versus naive diversification \cite{dgu}. These references do
+not validate this extension's economic performance.
+\section{Historical dataset and provenance}
+\textbf{Missing: historical dataset and proposed ETF universe.} The input contract
+requires session dates, ten identifiers, split/distribution adjusted prices, action
+ledger, source/licensing attestations, retrieval vintage and input hashes.
+A retrospective fixed universe requires explicit survivorship disclosure.
+\section{Mathematical methodology}
+Scores combine winsorized cross-sectional standardized momentum, negative trailing
+volatility and reversal, using only prices through the information date.
+For daily return at $t$, the empirical runner requires information through at most
+$t-2$ and models closing weight targets at $t-1$. This does not establish executable
+share-order fills. Volatility states use expanding historical quantiles excluding
+the current rolling volatility estimate; state thresholds never use future data.
+\section{Portfolio optimization}
+The existing convex program maximizes
+\[
+ s^\top w-\lambda_r(w-b)^\top\Sigma(w-b)
+ -\lambda_T\lVert w-w_{\rm pre}\rVert_1
+\]
+subject to full investment, long-only positions and explicit position, sector,
+tracking-error and half-L1 turnover caps. Scores are preferences, not expected
+returns. Ten assets cannot support an 8\% position cap. No constraints are relaxed.
+\section{Experimental design}
+\textbf{Missing: final declared periods and grids.} The runner freezes scenarios
+before loading data and defaults to validation. TE, turnover, cost, regime,
+ablation and robustness comparisons must be declared before holdout evaluation.
+Development and validation inform protocol design; holdout access must be disclosed.
+\section{Empirical results}
+\textbf{Not performed.} No empirical performance, confidence interval,
+significance, alpha or market validation is claimed. Existing synthetic findings
+remain separately labelled in their original reports.
+\section{Robustness and limitations}
+Synthetic integration checks cover input integrity, timing, drift and accounting.
+They do not test market validity. Missing exchange-session checks, point-in-time
+adjustment vintages, cash/share execution and independent universe validation
+remain material limitations. Correlated overlapping signals and multiple scenario
+comparisons preclude naive significance claims.
+\section{Economic interpretation}
+No economic conclusion is supported without historical evaluation. High signal
+alignment may coexist with negative active returns; net costs may outweigh gross
+returns. Failure or underperformance must remain visible.
+\section{Conclusion}
+The extension prepares an auditable empirical workflow. The study remains
+incomplete pending the proposed specification and suitable historical inputs.
+\begin{thebibliography}{9}
+\bibitem{lw} Ledoit, O., and Wolf, M. (2004).
+A well-conditioned estimator for large-dimensional covariance matrices.
+Journal of Multivariate Analysis 88(2), 365--411.
+\url{https://www.ledoit.net/Well-conditioned2004.pdf}
+\bibitem{dgu} DeMiguel, V., Garlappi, L., and Uppal, R. (2009).
+Optimal versus naive diversification: How inefficient is the 1/N portfolio strategy?
+Review of Financial Studies 22(5), 1915--1953.
+\url{https://doi.org/10.1093/rfs/hhm075}
+\end{thebibliography}
+\appendix
+\section{Reproducibility}
+See \texttt{docs/empirical\_extension.md} for the bundle schema, scenario protocol,
+commands and acceptance record. No raw historical data are committed.
+Each successful declared scenario exports computed CSVs, JSON and figures;
+failures remain in the evaluation ledger. The original synthetic artifacts are
+preserved. This manuscript has not been peer reviewed or independently validated.
+\end{document}
