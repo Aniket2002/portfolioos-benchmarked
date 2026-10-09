@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "errors": [],
+  "warnings": [
+    "No independent upstream redistribution-rights verification; raw data not distributed",
+    "Retrospective adjusted-price vintage may contain later revisions",
+    "Fixed surviving ETF universe; no unbiased historical membership claim",
+    "Adjustment convention documented by provider; no independent institutional price validation",
+    "GLD holds gold; no cash distributions is consistent with its structure, not invented ETF income"
+  ],
+  "model_evaluation_permitted": true,
+  "requested_range": [
+    "2009-01-01",
+    "2026-09-30"
+  ],
+  "expected_sessions": 4463,
+  "observed_sessions": 4463,
+  "missing_sessions": [],
+  "unexpected_dates": [],
+  "availability": {
+    "SPY": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "1993-01-22",
+      "distributions": 71,
+      "splits": 0
+    },
+    "IWM": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2000-05-22",
+      "distributions": 71,
+      "splits": 0
+    },
+    "EFA": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2001-08-14",
+      "distributions": 36,
+      "splits": 0
+    },
+    "EEM": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2003-04-07",
+      "distributions": 39,
+      "splits": 0
+    },
+    "IEF": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2002-07-22",
+      "distributions": 212,
+      "splits": 0
+    },
+    "TLT": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2002-07-22",
+      "distributions": 211,
+      "splits": 0
+    },
+    "LQD": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2002-07-22",
+      "distributions": 211,
+      "splits": 0
+    },
+    "HYG": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2007-04-04",
+      "distributions": 211,
+      "splits": 0
+    },
+    "GLD": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2004-11-18",
+      "distributions": 0,
+      "splits": 0
+    },
+    "VNQ": {
+      "first": "2009-01-02",
+      "last": "2026-09-30",
+      "observations": 4463,
+      "inception": "2004-09-23",
+      "distributions": 71,
+      "splits": 0
+    }
+  },
+  "extreme_returns": [],
+  "extreme_threshold": 0.2,
+  "actions_endpoint_consistency": "two endpoints of same upstream provider; not independent market verification",
+  "prices_sha256": "5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea",
+  "actions_sha256": "c35dc8fc03f714c69e71ea963a81f0773b5233d6f8506be2ef974cafa387752a",
+  "manifest_sha256": "3fece242d684feea2283a52bc9e38b0b2c6065f23c2a6623b4bb0f9409d2562c",
+  "source": "TigZig public Yahoo Finance Data API (upstream Yahoo via yfinance)",
+  "license": "Operator openly provides no-auth API for educational/demonstration use; terms reviewed at https://www.tigzig.com/terms. No independently verified upstream redistribution licence or institutional data licence is claimed. Raw data retained locally; not redistributed.",
+  "calendar_version": "5.5.0",
+  "holdout_access": "ingestion/calendar/action diagnostics only; no model performance inspected"
+}

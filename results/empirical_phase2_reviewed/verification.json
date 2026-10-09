@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "matrix": [
+    {
+      "python": "3.10.22",
+      "passed": 186,
+      "failures": 0,
+      "coverage_percent": 87.20159151193634,
+      "junit_sha256": "f08227d25ef2daa647c113616f037dfc814470099435481d84fe737d087b3370",
+      "warnings": 0
+    },
+    {
+      "python": "3.11.3",
+      "passed": 186,
+      "failures": 0,
+      "coverage_percent": 87.20159151193634,
+      "junit_sha256": "2333f1be7eea56b27a3317fb2803babe893f90bac654afeb31ecb191476f0756",
+      "warnings": 0
+    },
+    {
+      "python": "3.12.15",
+      "passed": 186,
+      "failures": 0,
+      "coverage_percent": 87.20159151193634,
+      "junit_sha256": "eec6b4251cfec577c83e46644f9a0895a41a4ec9f47356ccf4f5617a2cd986fb",
+      "warnings": 1
+    }
+  ],
+  "original_commit_tests": {
+    "commit": "ab4a7b6daf6fa0cc1c030b8517e070d7b883a076",
+    "passed": 163
+  },
+  "inherited_worktree_tests": 178,
+  "ruff_lint": "passed",
+  "ruff_format": "passed",
+  "notebook_validation": {
+    "passed": true,
+    "tracked_notebooks": 1,
+    "executed": false
+  },
+  "sdist_and_wheel_build": "passed",
+  "wheel_import_outside_repository": "passed",
+  "streamlit_health_and_root_http200": "passed",
+  "remote_github_actions": "not dispatched; local equivalent checks executed",
+  "synthetic_frontiers": {
+    "te_frontier": {
+      "identity_equal": true,
+      "statuses_equal": true,
+      "max_numeric_difference": 0.0
+    },
+    "turnover_frontier": {
+      "identity_equal": true,
+      "statuses_equal": true,
+      "max_numeric_difference": 0.0
+    },
+    "cost_frontier": {
+      "identity_equal": true,
+      "statuses_equal": true,
+      "max_numeric_difference": 0.0
+    },
+    "te_turnover_grid": {
+      "identity_equal": true,
+      "statuses_equal": true,
+      "max_numeric_difference": 0.0
+    }
+  },
+  "synthetic_demo": {
+    "weights_max_abs_difference": 4.2463112602530995e-08,
+    "returns_max_abs_difference": 3.6750565896026544e-08,
+    "declared_tolerance": 1e-07,
+    "committed_outputs_unchanged": true
+  },
+  "empirical_reproduction": {
+    "passed": true,
+    "period": "validation",
+    "max_absolute_differences": {
+      "fixed_risk": {
+        "weights": 9.8879238130678e-17,
+        "returns": 9.996344030316351e-17
+      },
+      "regime_aware": {
+        "weights": 9.974659986866641e-17,
+        "returns": 9.996344030316351e-17
+      }
+    },
+    "holdout_performance_accessed": false,
+    "outputs_overwritten": false
+  },
+  "timing_contract": "targets end t-2; actual execution turnover uses t-1 drift",
+  "holdout_performance_accessed": false
+}

@@ -78,7 +78,8 @@ def test_lag_blocks_execution_close_signals(market, config):
     )
     assert first.optimization.loc[date, "information_date"] == prices.index[i - 2]
     assert first.optimization.loc[date, "execution_date"] == prices.index[i - 1]
-    # Sizing/turnover uses actual drift at the execution close, so holdings may differ.
+    # Actual turnover uses execution-close drift; target formation is lagged.
+    pd.testing.assert_series_equal(first.weights.loc[date], second.weights.loc[date])
     validate_result(first)
 
 
@@ -119,7 +120,12 @@ def test_competing_strategy_does_not_relax_constraints(market, config):
         run_backtest(
             prices,
             metadata=metadata,
-            config=replace(config, strategy="inverse_volatility", information_lag=2),
+            config=replace(
+                config,
+                strategy="inverse_volatility",
+                information_lag=2,
+                constrained_baseline=True,
+            ),
         )
 
 

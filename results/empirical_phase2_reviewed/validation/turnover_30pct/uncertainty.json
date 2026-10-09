@@ -1,0 +1,11 @@
+{
+  "estimate": -0.011476848838601679,
+  "lower": -0.03667666710496586,
+  "upper": 0.013616026352116077,
+  "confidence": 0.95,
+  "seed": 20261008,
+  "block_length": 21,
+  "resamples": 2000,
+  "assumption": "approximate within-period stationarity, dependence within blocks",
+  "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+}

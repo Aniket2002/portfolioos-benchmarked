@@ -1,0 +1,16 @@
+[
+  {
+    "regime": "normal",
+    "observations": 1607,
+    "annualized_mean_active": 0.004813759013834833,
+    "realized_tracking_error": 0.02824664768602471,
+    "average_turnover": 0.00824457630258863
+  },
+  {
+    "regime": "high",
+    "observations": 154,
+    "annualized_mean_active": -0.03158181833632779,
+    "realized_tracking_error": 0.041478988356554586,
+    "average_turnover": 0.009940089894744314
+  }
+]

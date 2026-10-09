@@ -1,0 +1,37 @@
+{
+  "development_validation_reviewed": true,
+  "review_date": "2026-10-09",
+  "scenario_status": {
+    "development": {
+      "successes": 20,
+      "failures": 1,
+      "fixed_risk_net_cagr": 0.07499238843081857,
+      "fixed_risk_arithmetic_active": -0.0037997050971057423,
+      "fixed_risk_active_interval": [
+        -0.03140541383640233,
+        0.020760859083816228
+      ],
+      "evidence_sha256": "7e2f7a6428a7703c4f88cc89742ebc1dfdb46747be01c3ed5e35c0854523a918"
+    },
+    "validation": {
+      "successes": 20,
+      "failures": 1,
+      "fixed_risk_net_cagr": 0.020328112786683894,
+      "fixed_risk_arithmetic_active": -0.011476848838601679,
+      "fixed_risk_active_interval": [
+        -0.03667666710496586,
+        0.013616026352116077
+      ],
+      "evidence_sha256": "ba6639d29ee7d00fd94fef11f9a75268148ec3261a3f4866debbd3bc8b87819f"
+    }
+  },
+  "primary_model_retained": true,
+  "model_selection": "No best-performing ablation or frontier substituted for declared primary.",
+  "design_revision": "2pp turnover, 1pp group and 0.1pp TE formation reserves declared following zero-reserve drift failures; execution limits unchanged.",
+  "additional_revision_after_reviewed_runs": false,
+  "weekly_status": "Failure retained; do not relax sector mandate or fabricate continuation.",
+  "reporting_plan": "Report all seven groups and failures; eight requested figures; paired circular-block regime-minus-fixed intervals and conditional arithmetic summaries.",
+  "holdout_exposure": "Full panel ingested for QA. Inherited quotes and issuer verification displayed incidental holdout-era quote/performance panels. No constructed holdout portfolio performance inspected for selection.",
+  "holdout_previously_used_for_selection": false,
+  "limitations": "Retrospective surviving ETF universe, latest adjusted vintage, public Yahoo-derived API, upstream rights not independently verified, target-weight execution approximation, zero-rate Sharpe, multiple comparisons and block stationarity assumptions."
+}

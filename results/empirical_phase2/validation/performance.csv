@@ -1,0 +1,22 @@
+scenario,status,error,cumulative_return,cagr,annualized_volatility,sharpe,sortino,maximum_drawdown,benchmark_cumulative_return,tracking_error,information_ratio,annualized_arithmetic_active_return,annualized_turnover,total_cost_fraction_sum,compounded_cost_drag,average_absolute_active_weight,maximum_position,average_estimated_tracking_error,mean_ic,median_ic,ic_std,ic_information_ratio,positive_ic_fraction,gross_wealth,net_wealth,gross_cagr,average_one_way_turnover,average_rebalance_turnover,average_active_share,execution_constraint_violations,average_signal_capture,valid_capture_observations,excluded_capture_observations
+fixed_risk,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+te_4pct,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+te_8pct,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+te_12pct,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+turnover_10pct,failed,Execution mandate failed on 2018-02-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+turnover_30pct,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+turnover_50pct,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_0bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_10bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_25bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_40bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+regime_aware,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+without_momentum_12_1,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+without_low_volatility,failed,Execution mandate failed on 2018-05-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+without_reversal_1m,failed,Execution mandate failed on 2018-06-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+policy,success,,0.1744273465496191,0.032705103767938004,0.12664591161104186,0.31769712967018604,0.4294669134317829,-0.24271012951494997,0.17521019026801898,4.412155383395264e-05,-3.0256417150867003,-0.00013349601381445062,0.13349601381444998,0.0006669503229856846,0.0007828437184007608,0.0,0.31640922538335714,0.0,-0.06020202020202017,-0.054545454545454536,0.4925048621663499,-0.12223639770217366,0.4666666666666667,1.175210190268019,1.1744273465496191,0.032842851452639765,0.0005297460865652776,0.011115838716428076,0.0,0.0,,0.0,0.0
+equal_weight,success,,0.1447701696606476,0.027431764888455,0.11913523015942575,0.2870062979505295,0.3861472227667391,-0.24063788336724024,0.17521019026801898,0.0275155320145343,-0.2244542191771253,-0.00617597725356549,0.22590599221597665,0.00112863350872982,0.0012907540898146053,0.08006971560157722,0.12811044400295518,0.027596711388460152,-0.06020202020202017,-0.054545454545454536,0.4925048621663499,-0.12223639770217366,0.4666666666666667,1.1460609237504622,1.1447701696606476,0.027663534910149945,0.0008964523500633993,0.018810558478830335,0.40034857800788604,0.0,,0.0,0.0
+inverse_volatility,success,,0.0719143535089164,0.01399732289731026,0.09137816861777845,0.19793169145333836,0.2665314314374283,-0.22547465552663826,0.17521019026801898,0.054360999552892766,-0.4098876643907402,-0.02228190314068129,0.6083195339090911,0.0030391837031410545,0.0032611009247112133,0.07891020906967577,0.3502740542675068,0.05172850094937407,-0.06020202020202017,-0.054545454545454536,0.4925048621663499,-0.12223639770217366,0.4666666666666667,1.0751754544336276,1.0719143535089164,0.014614042872010291,0.002413966404401155,0.05065306171901758,0.3945510453483789,0.0,,0.0,0.0
+sample_covariance,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lag_3,failed,Execution mandate failed on 2018-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+weekly,failed,"Execution mandate failed on 2018-02-05: sector active weight, sector active weight",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

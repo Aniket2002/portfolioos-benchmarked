@@ -1,0 +1,2 @@
+,date,information_date,execution_date,return_date,regime,tracking_error_budget,decision_turnover,decision_turnover_budget,execution_tracking_error,execution_violations,status,message,estimated_tracking_error
+0,2018-01-02,2017-12-28,2017-12-29,2018-01-02,normal,0.08,0.10000000006657736,0.1,0.007318231304734953,,optimal,,0.007318231304734953

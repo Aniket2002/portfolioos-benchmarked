@@ -51,6 +51,16 @@ def validate_result(result):
         ((result.benchmark_weights * result.asset_returns).sum(axis=1), r["benchmark"]),
         (security_attribution(result).sum(axis=1), r["gross_active"]),
     ]
+    if "benchmark_net" in r:
+        checks.extend(
+            [
+                (r.benchmark - r.benchmark_cost, r.benchmark_net),
+                (
+                    r.benchmark_turnover * result.config.transaction_cost_bps / 10000,
+                    r.benchmark_cost,
+                ),
+            ]
+        )
     if result.sectors is not None:
         effects = sector_attribution(result)[["allocation", "selection", "interaction"]]
         checks.append(
@@ -70,7 +80,9 @@ def validate_result(result):
         raise ValueError("Rebalance tracking error exceeds constraint")
 
 
-def write_report(result, output, provenance="SYNTHETIC — mechanics demonstration"):
+def write_report(
+    result, output, provenance="SYNTHETIC — mechanics demonstration", make_charts=True
+):
     validate_result(result)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
@@ -171,7 +183,7 @@ def write_report(result, output, provenance="SYNTHETIC — mechanics demonstrati
         .rename("largest absolute active weight"),
         "signal_ic": ic.ic.rename("forward-period Spearman IC"),
     }
-    for name, payload in charts.items():
+    for name, payload in charts.items() if make_charts else []:
         series, ylabel = (
             payload if isinstance(payload, tuple) else (payload, payload.name)
         )
@@ -243,6 +255,8 @@ as compounded multi-period attribution. Rebalance limits are not daily drift lim
 ![Concentration](active_concentration.png)
 ![Signal IC](signal_ic.png)
 """
+    if not make_charts:
+        report = report.split("![Cumulative returns]")[0]
     (output / "report.md").write_text(report, encoding="utf-8")
     return summary
 

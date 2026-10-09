@@ -1,0 +1,1786 @@
+{
+  "period": "development",
+  "protocol_sha256": "ab7cad079d2703c7e4986de13e667c632a076da3864c8e85c6a03ee2044dc9d3",
+  "quality_sha256": "b3927e2ed00df2d6536ad9fce3a5e49aa16cf35fb07abc278cd1224c2bd4db0d",
+  "dataset_identity": "5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea",
+  "provenance": {
+    "source": "TigZig public Yahoo Finance Data API (upstream Yahoo via yfinance)",
+    "source_url": "https://yfin-h.tigzig.com/redoc",
+    "retrieved_at": "2026-10-08T16:36:08.211335+00:00",
+    "license": "Operator openly provides no-auth API for educational/demonstration use; terms reviewed at https://www.tigzig.com/terms. No independently verified upstream redistribution licence or institutional data licence is claimed. Raw data retained locally; not redistributed.",
+    "access_documentation": "https://www.tigzig.com/apis/yahoo-finance",
+    "adjustment_documentation": "https://in.help.yahoo.com/kb/adjusted-close-sln28256.html",
+    "adjustment_convention": "split_and_distribution_adjusted_close",
+    "provider_close_field": "auto_adjusted Close per operator documentation; not raw Close",
+    "universe_selection": "Retrospectively selected fixed ten-ETF panel from user Phase 2 proposal",
+    "survivorship_limitations": "Surviving funds selected today; no delisted funds or unbiased universe claim",
+    "revision_policy": "Latest retrieval vintage; historical revisions and action corrections possible",
+    "calendar": "NYSE regular sessions, checked independently with pandas_market_calendars",
+    "timezone": "America/New_York; dates are local trading-session labels",
+    "sha256": {
+      "prices.csv": "5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea",
+      "actions.csv": "c35dc8fc03f714c69e71ea963a81f0773b5233d6f8506be2ef974cafa387752a",
+      "original_prices.json": "b5b7dc65bb06fbda996078a855ead484d32d7d174b653ea080af9c3cdb5ad9ca",
+      "original_actions.json": "66bd4d9f49c1886d7caaf7cbc1e231f0ed8d29deed076a6b6848eaa7ae95b85e"
+    },
+    "requests": [
+      {
+        "url": "https://yfin-h.tigzig.com/v1/get-all-prices/?tickers=SPY%2CIWM%2CEFA%2CEEM%2CIEF%2CTLT%2CLQD%2CHYG%2CGLD%2CVNQ&start_date=2009-01-01&end_date=2026-09-30",
+        "status": 200,
+        "headers": {
+          "Date": "Thu, 08 Oct 2026 16:35:52 GMT",
+          "Content-Type": "application/json",
+          "Transfer-Encoding": "chunked",
+          "Connection": "close",
+          "CF-Ray": "a4768f346d2b5fd0-MRS",
+          "CF-Cache-Status": "DYNAMIC",
+          "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "Link": "</v1/docs>; rel=\"service-doc\"; type=\"text/html\", </v1/openapi.json>; rel=\"service-desc\"; type=\"application/json\", <https://api.tigzig.com/.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", <https://www.tigzig.com/llms.txt>; rel=\"describedby\"; type=\"text/plain\"",
+          "Server": "cloudflare",
+          "Vary": "Accept-Encoding",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "x-ratelimit-limit": "100",
+          "x-ratelimit-remaining": "99",
+          "x-ratelimit-reset": "1791477393",
+          "Server-Timing": "cfCacheStatus;desc=\"DYNAMIC\"",
+          "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cG%2BVjUFfd7uJLqsQRVkigiRdzLHsIT0FXhjRSZThasWEKFliecMbNuXPTIipBWcEqcvOoKce6JWVJAYG9lh2h1BmvOYCZ%2FlaELy%2FxOIpf%2BdXTV8Z2I5V4%2FRUULPVlVwfUM2GzuMk9pP3rMp43Lelug%3D%3D\"}]}"
+        }
+      },
+      {
+        "url": "https://yfin-h.tigzig.com/v1/get-actions/?tickers=SPY%2CIWM%2CEFA%2CEEM%2CIEF%2CTLT%2CLQD%2CHYG%2CGLD%2CVNQ",
+        "status": 200,
+        "headers": {
+          "Date": "Thu, 08 Oct 2026 16:36:08 GMT",
+          "Content-Type": "application/json",
+          "Transfer-Encoding": "chunked",
+          "Connection": "close",
+          "CF-Ray": "a4768fdbada9e23e-MRS",
+          "CF-Cache-Status": "DYNAMIC",
+          "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "Link": "</v1/docs>; rel=\"service-doc\"; type=\"text/html\", </v1/openapi.json>; rel=\"service-desc\"; type=\"application/json\", <https://api.tigzig.com/.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", <https://www.tigzig.com/llms.txt>; rel=\"describedby\"; type=\"text/plain\"",
+          "Server": "cloudflare",
+          "Vary": "Accept-Encoding",
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "x-ratelimit-limit": "100",
+          "x-ratelimit-remaining": "99",
+          "x-ratelimit-reset": "1791477420",
+          "x-tigzig-unresolved-symbols": "GLD",
+          "Server-Timing": "cfCacheStatus;desc=\"DYNAMIC\"",
+          "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rBo7IxJSHME3q8Vvk8PzM6J9RDYbQci1ZkaPJb0sFatBmoe6TqfupOJkgoSaUt0WZtQ%2BTQpOYS%2FDbdaj5LaZMCvv8MA8ZMMU%2B2TGU0un%2BcDzGUxFpgFflCANbpN%2F9Dv7K1xfOdg4xApWaBIlPRmvaA%3D%3D\"}]}"
+        }
+      }
+    ],
+    "requested_range": [
+      "2009-01-01",
+      "2026-09-30"
+    ],
+    "data_kind": "historical",
+    "upstream_rights_independently_verified": false
+  },
+  "scenarios": [
+    {
+      "scenario": "fixed_risk",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0,
+      "failure_date": "2013-06-03",
+      "attempted": {
+        "information_date": "2013-05-30",
+        "execution_date": "2013-05-31",
+        "decision_turnover": 0.2999999999788767,
+        "execution_turnover": 0.3012676226772615,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.15573490542009147,
+          "IWM": 0.007589143183131223,
+          "EFA": 0.33667595195366706,
+          "EEM": 2.8140274398069382e-11,
+          "IEF": 7.601885894995473e-11,
+          "TLT": 0.0,
+          "LQD": 0.14338171720705312,
+          "HYG": 0.3499999999436174,
+          "GLD": 0.0,
+          "VNQ": 0.006618282188280527
+        }
+      },
+      "completed_days": 606
+    },
+    {
+      "scenario": "te_4pct",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.04,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2011-08-01: turnover",
+      "observations": 0,
+      "failure_date": "2011-08-01",
+      "attempted": {
+        "information_date": "2011-07-28",
+        "execution_date": "2011-07-29",
+        "decision_turnover": 0.2999999997114762,
+        "execution_turnover": 0.3009257556131857,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.3499999998986549,
+          "IWM": 0.30315798303146,
+          "EFA": 0.0,
+          "EEM": 0.0,
+          "IEF": 1.2055260718692025e-10,
+          "TLT": 0.0,
+          "LQD": 0.22063273696879068,
+          "HYG": 0.12620927995365291,
+          "GLD": 2.6888864445758815e-11,
+          "VNQ": 0.0
+        }
+      },
+      "completed_days": 145
+    },
+    {
+      "scenario": "te_8pct",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0,
+      "failure_date": "2013-06-03",
+      "attempted": {
+        "information_date": "2013-05-30",
+        "execution_date": "2013-05-31",
+        "decision_turnover": 0.2999999999788767,
+        "execution_turnover": 0.3012676226772615,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.15573490542009147,
+          "IWM": 0.007589143183131223,
+          "EFA": 0.33667595195366706,
+          "EEM": 2.8140274398069382e-11,
+          "IEF": 7.601885894995473e-11,
+          "TLT": 0.0,
+          "LQD": 0.14338171720705312,
+          "HYG": 0.3499999999436174,
+          "GLD": 0.0,
+          "VNQ": 0.006618282188280527
+        }
+      },
+      "completed_days": 606
+    },
+    {
+      "scenario": "te_12pct",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.12,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0,
+      "failure_date": "2013-06-03",
+      "attempted": {
+        "information_date": "2013-05-30",
+        "execution_date": "2013-05-31",
+        "decision_turnover": 0.2999999999783513,
+        "execution_turnover": 0.30126762267641505,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.15573490536309983,
+          "IWM": 0.007589143182595439,
+          "EFA": 0.3366759520114595,
+          "EEM": 2.8375323593293706e-11,
+          "IEF": 7.633188642648712e-11,
+          "TLT": 0.0,
+          "LQD": 0.14338171720239623,
+          "HYG": 0.3499999999432655,
+          "GLD": 0.0,
+          "VNQ": 0.006618282192476264
+        }
+      },
+      "completed_days": 606
+    },
+    {
+      "scenario": "turnover_10pct",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.1,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2011-02-01: turnover",
+      "observations": 0,
+      "failure_date": "2011-02-01",
+      "attempted": {
+        "information_date": "2011-01-28",
+        "execution_date": "2011-01-31",
+        "decision_turnover": 0.10000000000404337,
+        "execution_turnover": 0.1017107696052896,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.3045929171230957,
+          "IWM": 0.10028932686441461,
+          "EFA": 0.0,
+          "EEM": 0.09511775614812938,
+          "IEF": 0.30041962952832385,
+          "TLT": 0.0,
+          "LQD": 0.1504174795197705,
+          "HYG": 1.0693560306351598e-11,
+          "GLD": 0.04916289079816243,
+          "VNQ": 7.41000386081422e-12
+        }
+      },
+      "completed_days": 20
+    },
+    {
+      "scenario": "turnover_30pct",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0,
+      "failure_date": "2013-06-03",
+      "attempted": {
+        "information_date": "2013-05-30",
+        "execution_date": "2013-05-31",
+        "decision_turnover": 0.2999999999788767,
+        "execution_turnover": 0.3012676226772615,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.15573490542009147,
+          "IWM": 0.007589143183131223,
+          "EFA": 0.33667595195366706,
+          "EEM": 2.8140274398069382e-11,
+          "IEF": 7.601885894995473e-11,
+          "TLT": 0.0,
+          "LQD": 0.14338171720705312,
+          "HYG": 0.3499999999436174,
+          "GLD": 0.0,
+          "VNQ": 0.006618282188280527
+        }
+      },
+      "completed_days": 606
+    },
+    {
+      "scenario": "turnover_50pct",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.5,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2017-01-03: turnover",
+      "observations": 0,
+      "failure_date": "2017-01-03",
+      "attempted": {
+        "information_date": "2016-12-29",
+        "execution_date": "2016-12-30",
+        "decision_turnover": 0.49999999999314865,
+        "execution_turnover": 0.5004137284244815,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.34999999999783976,
+          "IWM": 0.10991177495744077,
+          "EFA": 0.0,
+          "EEM": 0.04008822504219029,
+          "IEF": 6.160908400996855e-12,
+          "TLT": 0.0,
+          "LQD": 0.20109645576245544,
+          "HYG": 0.20062266530143777,
+          "GLD": 0.0982808789324751,
+          "VNQ": 0.0
+        }
+      },
+      "completed_days": 1510
+    },
+    {
+      "scenario": "cost_0bps",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0
+    },
+    {
+      "scenario": "cost_10bps",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0
+    },
+    {
+      "scenario": "cost_25bps",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 25,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0
+    },
+    {
+      "scenario": "cost_40bps",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 40,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0
+    },
+    {
+      "scenario": "regime_aware",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": {
+          "normal": 0.08,
+          "high": 0.05
+        },
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0,
+      "failure_date": "2013-06-03",
+      "attempted": {
+        "information_date": "2013-05-30",
+        "execution_date": "2013-05-31",
+        "decision_turnover": 0.2999999999788767,
+        "execution_turnover": 0.3012676226772615,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.15573490542009144,
+          "IWM": 0.00758914318313111,
+          "EFA": 0.3366759519536673,
+          "EEM": 2.8140271844584412e-11,
+          "IEF": 7.601886162256425e-11,
+          "TLT": 0.0,
+          "LQD": 0.14338171720705312,
+          "HYG": 0.3499999999436174,
+          "GLD": 0.0,
+          "VNQ": 0.006618282188280353
+        }
+      },
+      "completed_days": 606
+    },
+    {
+      "scenario": "without_momentum_12_1",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2012-03-01: turnover",
+      "observations": 0,
+      "failure_date": "2012-03-01",
+      "attempted": {
+        "information_date": "2012-02-28",
+        "execution_date": "2012-02-29",
+        "decision_turnover": 0.2999999998222872,
+        "execution_turnover": 0.30003788862288416,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.3499999999997165,
+          "IWM": 0.1499999995804653,
+          "EFA": 3.846063270007627e-10,
+          "EEM": 4.452454502602967e-12,
+          "IEF": 0.3117614902049046,
+          "TLT": 0.0,
+          "LQD": 0.18823850980583207,
+          "HYG": 4.509396534573702e-12,
+          "GLD": 0.0,
+          "VNQ": 1.551310783625127e-11
+        }
+      },
+      "completed_days": 292
+    },
+    {
+      "scenario": "without_low_volatility",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2011-04-01: turnover",
+      "observations": 0,
+      "failure_date": "2011-04-01",
+      "attempted": {
+        "information_date": "2011-03-30",
+        "execution_date": "2011-03-31",
+        "decision_turnover": 0.30000000003225114,
+        "execution_turnover": 0.3016717143483612,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 1.2964721523170525e-10,
+          "IWM": 0.349999999728187,
+          "EFA": 0.09077209540594205,
+          "EEM": 0.05922790472340789,
+          "IEF": 0.0541935929216984,
+          "TLT": 3.228328117775425e-11,
+          "LQD": 0.011148105716766997,
+          "HYG": 0.23465830131738052,
+          "GLD": 0.10000000002747188,
+          "VNQ": 0.09999999999721473
+        }
+      },
+      "completed_days": 62
+    },
+    {
+      "scenario": "without_reversal_1m",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2011-02-01: turnover",
+      "observations": 0,
+      "failure_date": "2011-02-01",
+      "attempted": {
+        "information_date": "2011-01-28",
+        "execution_date": "2011-01-31",
+        "decision_turnover": 0.29999999992049214,
+        "execution_turnover": 0.3008738793718533,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.30410047924243017,
+          "IWM": 0.19748907123535236,
+          "EFA": 0.0,
+          "EEM": 0.0,
+          "IEF": 0.01364293977398335,
+          "TLT": 0.0,
+          "LQD": 0.15017429833620874,
+          "HYG": 0.2999999998167394,
+          "GLD": 0.034593211548389055,
+          "VNQ": 4.689693529619861e-11
+        }
+      },
+      "completed_days": 20
+    },
+    {
+      "scenario": "policy",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "policy",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "success",
+      "metrics": {
+        "cumulative_return": 0.7095620437425401,
+        "cagr": 0.07975678927415641,
+        "annualized_volatility": 0.0869277110344569,
+        "sharpe": 0.9263725048895988,
+        "sortino": 1.3195512993139047,
+        "maximum_drawdown": -0.11373097375247843,
+        "benchmark_cumulative_return": 0.710834635859749,
+        "tracking_error": 3.682833457083524e-05,
+        "information_ratio": -2.8874692904947086,
+        "annualized_arithmetic_active_return": -0.00010634068509335138,
+        "annualized_turnover": 0.10634068509335101,
+        "total_cost_fraction_sum": 0.0007431188351166314,
+        "compounded_cost_drag": 0.0012725921172123122,
+        "average_absolute_active_weight": 0.0,
+        "maximum_position": 0.31445743102831436,
+        "average_estimated_tracking_error": 0.0,
+        "mean_ic": 0.012121212121212114,
+        "median_ic": -0.012121212121212121,
+        "ic_std": 0.4338106323392126,
+        "ic_information_ratio": 0.027941251821910373,
+        "positive_ic_fraction": 0.4880952380952381,
+        "gross_wealth": 1.710834635859749,
+        "net_wealth": 1.70956204374254,
+        "gross_cagr": 0.07987177211104779,
+        "average_one_way_turnover": 0.00042198684560853573,
+        "average_rebalance_turnover": 0.008846652799007518,
+        "average_active_share": 0.0,
+        "execution_constraint_violations": 0,
+        "average_signal_capture": null,
+        "valid_capture_observations": 0,
+        "excluded_capture_observations": 0
+      },
+      "uncertainty": {
+        "estimate": -0.00010634068509335138,
+        "lower": -0.00012359106952446444,
+        "upper": -9.065764404215993e-05,
+        "confidence": 0.95,
+        "seed": 20261008,
+        "block_length": 21,
+        "resamples": 2000,
+        "assumption": "approximate within-period stationarity, dependence within blocks",
+        "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+      },
+      "evaluation_start": "2011-01-03",
+      "evaluation_end": "2017-12-29",
+      "observations": 1761,
+      "regime_conditional": [
+        {
+          "regime": "normal",
+          "observations": 1607,
+          "annualized_mean_active": -9.681086708605906e-05,
+          "realized_tracking_error": 3.2080375751507896e-05,
+          "average_turnover": 0.00038417010748435885
+        },
+        {
+          "regime": "high",
+          "observations": 154,
+          "annualized_mean_active": -0.0002057849548187981,
+          "realized_tracking_error": 6.896508186204205e-05,
+          "average_turnover": 0.000816606963566667
+        }
+      ]
+    },
+    {
+      "scenario": "equal_weight",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "equal_weight",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "success",
+      "metrics": {
+        "cumulative_return": 0.5897310596299616,
+        "cagr": 0.06858609484353573,
+        "annualized_volatility": 0.08332838008417286,
+        "sharpe": 0.8378426481358539,
+        "sortino": 1.202955798127539,
+        "maximum_drawdown": -0.11691704101305389,
+        "benchmark_cumulative_return": 0.710834635859749,
+        "tracking_error": 0.024624962357030825,
+        "information_ratio": -0.4392985990786485,
+        "annualized_arithmetic_active_return": -0.010817711465808096,
+        "annualized_turnover": 0.18717828480065427,
+        "total_cost_fraction_sum": 0.0013080196806902861,
+        "compounded_cost_drag": 0.0020785081161902585,
+        "average_absolute_active_weight": 0.08006140054904601,
+        "maximum_position": 0.12180878139239705,
+        "average_estimated_tracking_error": 0.025619492959697374,
+        "mean_ic": 0.012121212121212114,
+        "median_ic": -0.012121212121212121,
+        "ic_std": 0.4338106323392126,
+        "ic_information_ratio": 0.027941251821910373,
+        "positive_ic_fraction": 0.4880952380952381,
+        "gross_wealth": 1.591809567746153,
+        "net_wealth": 1.5897310596299616,
+        "gross_cagr": 0.06878591330650607,
+        "average_one_way_turnover": 0.0007427709714311676,
+        "average_rebalance_turnover": 0.01557166286536055,
+        "average_active_share": 0.40030700274523007,
+        "execution_constraint_violations": 0,
+        "average_signal_capture": null,
+        "valid_capture_observations": 0,
+        "excluded_capture_observations": 0
+      },
+      "uncertainty": {
+        "estimate": -0.010817711465808096,
+        "lower": -0.029607727686290174,
+        "upper": 0.007267553278744736,
+        "confidence": 0.95,
+        "seed": 20261008,
+        "block_length": 21,
+        "resamples": 2000,
+        "assumption": "approximate within-period stationarity, dependence within blocks",
+        "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+      },
+      "evaluation_start": "2011-01-03",
+      "evaluation_end": "2017-12-29",
+      "observations": 1761,
+      "regime_conditional": [
+        {
+          "regime": "normal",
+          "observations": 1607,
+          "annualized_mean_active": -0.009470042128210954,
+          "realized_tracking_error": 0.023818800407223575,
+          "average_turnover": 0.0007230374052182137
+        },
+        {
+          "regime": "high",
+          "observations": 154,
+          "annualized_mean_active": -0.024880728514630256,
+          "realized_tracking_error": 0.03192836964520514,
+          "average_turnover": 0.0009486920162637451
+        }
+      ]
+    },
+    {
+      "scenario": "inverse_volatility",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "inverse_volatility",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "success",
+      "metrics": {
+        "cumulative_return": 0.5410767481952778,
+        "cagr": 0.0638435105352575,
+        "annualized_volatility": 0.0594979152660409,
+        "sharpe": 1.0700387726076246,
+        "sortino": 1.5558894761370503,
+        "maximum_drawdown": -0.09245354742134404,
+        "benchmark_cumulative_return": 0.710834635859749,
+        "tracking_error": 0.04354584319441657,
+        "information_ratio": -0.38967452761579086,
+        "annualized_arithmetic_active_return": -0.016968705876415576,
+        "annualized_turnover": 0.5098073292564987,
+        "total_cost_fraction_sum": 0.00356258216992339,
+        "compounded_cost_drag": 0.00549599280552493,
+        "average_absolute_active_weight": 0.07615980903596824,
+        "maximum_position": 0.3246684031949656,
+        "average_estimated_tracking_error": 0.04200668963242121,
+        "mean_ic": 0.012121212121212114,
+        "median_ic": -0.012121212121212121,
+        "ic_std": 0.4338106323392126,
+        "ic_information_ratio": 0.027941251821910373,
+        "positive_ic_fraction": 0.4880952380952381,
+        "gross_wealth": 1.5465727410008057,
+        "net_wealth": 1.5410767481952778,
+        "gross_cagr": 0.06438560900025703,
+        "average_one_way_turnover": 0.0020230449573670583,
+        "average_rebalance_turnover": 0.04241169249908797,
+        "average_active_share": 0.38079904517984114,
+        "execution_constraint_violations": 0,
+        "average_signal_capture": null,
+        "valid_capture_observations": 0,
+        "excluded_capture_observations": 0
+      },
+      "uncertainty": {
+        "estimate": -0.016968705876415576,
+        "lower": -0.04259424864709836,
+        "upper": 0.010132774799780411,
+        "confidence": 0.95,
+        "seed": 20261008,
+        "block_length": 21,
+        "resamples": 2000,
+        "assumption": "approximate within-period stationarity, dependence within blocks",
+        "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+      },
+      "evaluation_start": "2011-01-03",
+      "evaluation_end": "2017-12-29",
+      "observations": 1761,
+      "regime_conditional": [
+        {
+          "regime": "normal",
+          "observations": 1607,
+          "annualized_mean_active": -0.010340072414444236,
+          "realized_tracking_error": 0.03814760088426786,
+          "average_turnover": 0.0020441455929054646
+        },
+        {
+          "regime": "high",
+          "observations": 154,
+          "annualized_mean_active": -0.08613892648283081,
+          "realized_tracking_error": 0.0807264636968016,
+          "average_turnover": 0.001802858455352654
+        }
+      ]
+    },
+    {
+      "scenario": "sample_covariance",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "sample",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2013-06-03: turnover",
+      "observations": 0,
+      "failure_date": "2013-06-03",
+      "attempted": {
+        "information_date": "2013-05-30",
+        "execution_date": "2013-05-31",
+        "decision_turnover": 0.30000000001491706,
+        "execution_turnover": 0.30126762299058457,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.155734905503375,
+          "IWM": 0.007589143033111074,
+          "EFA": 0.33667595148338014,
+          "EEM": 1.1804201125921266e-12,
+          "IEF": 7.19510633987024e-11,
+          "TLT": 0.0,
+          "LQD": 0.14338171713776596,
+          "HYG": 0.3499999999960107,
+          "GLD": 0.0,
+          "VNQ": 0.006618282773225524
+        }
+      },
+      "completed_days": 606
+    },
+    {
+      "scenario": "lag_3",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "monthly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 3,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2011-02-01: turnover",
+      "observations": 0,
+      "failure_date": "2011-02-01",
+      "attempted": {
+        "information_date": "2011-01-27",
+        "execution_date": "2011-01-31",
+        "decision_turnover": 0.29999999998477217,
+        "execution_turnover": 0.30328993332705617,
+        "violations": [
+          "turnover"
+        ],
+        "target": {
+          "SPY": 0.30615653679455923,
+          "IWM": 0.29384346312092063,
+          "EFA": 0.0,
+          "EEM": 2.1177401961411713e-12,
+          "IEF": 0.04523736756476981,
+          "TLT": 1.9107829447842144e-12,
+          "LQD": 0.1483581082844146,
+          "HYG": 0.10640452423092925,
+          "GLD": 0.0999999999963601,
+          "VNQ": 4.017881360842526e-12
+        }
+      },
+      "completed_days": 20
+    },
+    {
+      "scenario": "weekly",
+      "configuration": {
+        "start_date": "2011-01-03",
+        "end_date": "2017-12-29",
+        "rebalance_frequency": "weekly",
+        "signal_weights": {
+          "momentum_12_1": 1.0,
+          "low_volatility": 1.0,
+          "reversal_1m": 0.5
+        },
+        "momentum_lookback": 252,
+        "momentum_skip": 21,
+        "volatility_lookback": 63,
+        "reversal_lookback": 21,
+        "covariance_lookback": 252,
+        "transaction_cost_bps": 10.0,
+        "max_missing_fraction": 0.0,
+        "fill_limit": 0,
+        "information_lag": 2,
+        "strategy": "optimized",
+        "constrained_baseline": false,
+        "strict_execution_constraints": true,
+        "covariance_method": "ledoit_wolf",
+        "policy_weights": {
+          "SPY": 0.3,
+          "IWM": 0.05,
+          "EFA": 0.15,
+          "EEM": 0.1,
+          "IEF": 0.2,
+          "TLT": 0.05,
+          "LQD": 0.15,
+          "HYG": 0,
+          "GLD": 0,
+          "VNQ": 0
+        },
+        "regime_source": "policy",
+        "regime_asset": null,
+        "regime_lookback": 63,
+        "regime_min_history": 252,
+        "regime_te_budgets": null,
+        "optimizer": {
+          "risk_aversion": 10.0,
+          "turnover_penalty": 0.1,
+          "max_position_weight": 0.35,
+          "max_tracking_error": 0.08,
+          "max_sector_active_weight": 0.1,
+          "max_turnover": 0.3,
+          "fallback_to_benchmark": false
+        }
+      },
+      "status": "failed",
+      "error": "Execution mandate failed on 2011-01-18: turnover, sector active weight",
+      "observations": 0,
+      "failure_date": "2011-01-18",
+      "attempted": {
+        "information_date": "2011-01-13",
+        "execution_date": "2011-01-14",
+        "decision_turnover": 0.2999999999781632,
+        "execution_turnover": 0.3010051966778104,
+        "violations": [
+          "turnover",
+          "sector active weight"
+        ],
+        "target": {
+          "SPY": 0.1532000928024266,
+          "IWM": 0.3499999999980763,
+          "EFA": 0.0,
+          "EEM": 0.0,
+          "IEF": 0.04738397264592171,
+          "TLT": 0.0,
+          "LQD": 0.05048799335230485,
+          "HYG": 0.2989279411907734,
+          "GLD": 0.0999999999994644,
+          "VNQ": 1.1032770775971364e-11
+        }
+      },
+      "completed_days": 10
+    }
+  ],
+  "groups": {
+    "A_tracking_error": [
+      "te_4pct",
+      "te_8pct",
+      "te_12pct"
+    ],
+    "B_turnover": [
+      "turnover_10pct",
+      "turnover_30pct",
+      "turnover_50pct"
+    ],
+    "C_costs": [
+      "cost_0bps",
+      "cost_10bps",
+      "cost_25bps",
+      "cost_40bps"
+    ],
+    "D_regimes": [
+      "fixed_risk",
+      "regime_aware"
+    ],
+    "E_ablations": [
+      "fixed_risk",
+      "regime_aware",
+      "without_momentum_12_1",
+      "without_low_volatility",
+      "without_reversal_1m"
+    ],
+    "F_strategies": [
+      "policy",
+      "equal_weight",
+      "inverse_volatility",
+      "fixed_risk",
+      "regime_aware"
+    ],
+    "G_robustness": [
+      "fixed_risk",
+      "sample_covariance",
+      "lag_3",
+      "weekly"
+    ]
+  },
+  "holdout_performance_accessed": false
+}

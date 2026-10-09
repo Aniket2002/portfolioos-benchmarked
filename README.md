@@ -32,10 +32,12 @@ and unfavorable results remain part of the analysis.
 The [empirical extension](docs/empirical_extension.md) adds provenance-checked
 historical bundles, explicit information lag, causal volatility regimes, policy
 and simple allocation comparisons, and a frozen-protocol scenario runner.
-Historical evaluation is incomplete: the supplied proposal omitted its detailed
-universe and periods, and no market dataset has been evaluated. The
-[manuscript draft](docs/empirical_manuscript.tex) identifies the missing evidence.
-Existing synthetic configurations and committed results remain intact.
+The [Phase 2 study](docs/empirical_phase2.md) supplies the exact ten-ETF universe,
+monthly 60/40 policy, causal two-state regime and declared historical periods.
+It records data provenance, original failed transitions, pre-holdout verification,
+the frozen protocol and executed scenario ledgers. Historical findings are
+independent research, not evidence of persistent alpha. Existing synthetic
+configurations and committed results remain intact.
 
 Python 3.10–3.12 is tested in CI. From the repository root:
 

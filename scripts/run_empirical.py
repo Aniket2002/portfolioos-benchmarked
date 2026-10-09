@@ -15,6 +15,10 @@ from portfolioos.reporting import write_report
 
 def run(protocol_path, bundle, output, period="validation"):
     protocol = json.loads(Path(protocol_path).read_text(encoding="utf-8"))
+    if "experiment_groups" in protocol:
+        from portfolioos.empirical import evaluate_period
+
+        return evaluate_period(protocol_path, bundle, output, period)
     assets = protocol["assets"]
     if set(protocol["policy_weights"]) != set(assets):
         raise ValueError("Policy identifiers must match the universe exactly")
@@ -110,10 +114,32 @@ if __name__ == "__main__":
     parser.add_argument("--protocol", required=True)
     parser.add_argument("--bundle", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--quality", action="store_true")
+    parser.add_argument("--freeze", action="store_true")
+    parser.add_argument("--review")
+    parser.add_argument("--verification")
     parser.add_argument(
         "--period",
         choices=["development", "validation", "holdout"],
         default="validation",
     )
     args = parser.parse_args()
-    run(args.protocol, args.bundle, args.output, args.period)
+    if args.quality:
+        from portfolioos.data_quality import inspect_bundle, write_quality_report
+
+        protocol = json.loads(Path(args.protocol).read_text(encoding="utf-8"))
+        quality = inspect_bundle(
+            args.bundle, protocol["assets"], *protocol["data_range"]
+        )
+        write_quality_report(quality, args.output)
+        print(quality["status"], quality["errors"])
+    elif args.freeze:
+        from portfolioos.empirical import freeze_final
+
+        if not args.review or not args.verification:
+            parser.error("--freeze requires --review and --verification")
+        freeze_final(
+            args.protocol, args.bundle, args.output, args.review, args.verification
+        )
+    else:
+        run(args.protocol, args.bundle, args.output, args.period)
