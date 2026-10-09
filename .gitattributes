@@ -1,0 +1,2 @@
+# Preserve exact research evidence bytes across platforms for freeze hashes.
+results/empirical_phase2*/** -text whitespace=cr-at-eol,-blank-at-eof

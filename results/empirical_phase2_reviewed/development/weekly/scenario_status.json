@@ -1,0 +1,85 @@
+{
+  "scenario": "weekly",
+  "configuration": {
+    "start_date": "2011-01-03",
+    "end_date": "2017-12-29",
+    "rebalance_frequency": "weekly",
+    "signal_weights": {
+      "momentum_12_1": 1.0,
+      "low_volatility": 1.0,
+      "reversal_1m": 0.5
+    },
+    "momentum_lookback": 252,
+    "momentum_skip": 21,
+    "volatility_lookback": 63,
+    "reversal_lookback": 21,
+    "covariance_lookback": 252,
+    "transaction_cost_bps": 10.0,
+    "max_missing_fraction": 0.0,
+    "fill_limit": 0,
+    "information_lag": 2,
+    "strategy": "optimized",
+    "constrained_baseline": false,
+    "strict_execution_constraints": true,
+    "execution_turnover_reserve": 0.02,
+    "execution_sector_reserve": 0.01,
+    "execution_te_reserve": 0.001,
+    "covariance_method": "ledoit_wolf",
+    "policy_weights": {
+      "SPY": 0.3,
+      "IWM": 0.05,
+      "EFA": 0.15,
+      "EEM": 0.1,
+      "IEF": 0.2,
+      "TLT": 0.05,
+      "LQD": 0.15,
+      "HYG": 0,
+      "GLD": 0,
+      "VNQ": 0
+    },
+    "regime_source": "policy",
+    "regime_asset": null,
+    "regime_lookback": 63,
+    "regime_min_history": 252,
+    "regime_te_budgets": null,
+    "optimizer": {
+      "risk_aversion": 10.0,
+      "turnover_penalty": 0.1,
+      "max_position_weight": 0.35,
+      "max_tracking_error": 0.08,
+      "max_sector_active_weight": 0.1,
+      "max_turnover": 0.3,
+      "fallback_to_benchmark": false
+    }
+  },
+  "status": "failed",
+  "error": "Execution mandate failed on 2012-06-04: sector active weight, sector active weight",
+  "observations": 0,
+  "solver_failures": 0,
+  "execution_failures": 1,
+  "dependent_path_unavailable": false,
+  "failure_date": "2012-06-04",
+  "attempted": {
+    "information_date": "2012-05-31",
+    "execution_date": "2012-06-01",
+    "decision_turnover": 0.006294214082638845,
+    "execution_turnover": 0.00954540146988011,
+    "violations": [
+      "sector active weight",
+      "sector active weight"
+    ],
+    "target": {
+      "SPY": 0.34999999998877684,
+      "IWM": 0.13265506605698468,
+      "EFA": 0.0,
+      "EEM": 0.0,
+      "IEF": 0.34999999993325487,
+      "TLT": 0.0,
+      "LQD": 0.16734493385707158,
+      "HYG": 1.1062022057086386e-10,
+      "GLD": 0.0,
+      "VNQ": 5.329181826291273e-11
+    }
+  },
+  "completed_days": 357
+}

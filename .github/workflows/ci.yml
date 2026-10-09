@@ -1,9 +1,10 @@
 name: CI
 on:
   push:
-    branches: [main]
+    branches: [main, feature/empirical-research]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
@@ -19,7 +20,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - run: python -m pip install -e '.[dev]'
+      - run: python -m pip install -e '.[dev,empirical]'
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m pytest -q --cov=portfolioos --cov-report=term-missing --cov-fail-under=80

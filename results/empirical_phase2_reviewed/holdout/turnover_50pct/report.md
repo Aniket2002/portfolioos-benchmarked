@@ -1,0 +1,49 @@
+# Historical holdout: turnover_50pct
+
+Executed sessions: 2023-01-03 to 2026-09-30 (939 observations).
+
+Benchmark: the declared monthly 60/40 policy, reset before the first session return of each month and drifted otherwise. Frictionless policy returns define active metrics; independently cost-adjusted policy returns are also exported. Each period starts endowed in policy holdings.
+
+Decisions use the declared lagged information set; execution-close drift enters turnover and compliance accounting. Closing target fills and additive costs are research approximations.
+
+Ordinary allocation comparisons satisfy their own rules. Active TE, sector, position and turnover mandates apply to optimized strategies at accepted rebalances; subsequent drift and realized risk can exceed target limits.
+
+| Metric | Value |
+|---|---|
+| cumulative_return | 0.6033818400993938 |
+| cagr | 0.1350784894070125 |
+| annualized_volatility | 0.09871156305479643 |
+| sharpe | 1.333039109492023 |
+| sortino | 2.034146598094001 |
+| maximum_drawdown | -0.11031599434911277 |
+| benchmark_cumulative_return | 0.5420208243315694 |
+| tracking_error | 0.029362183459574136 |
+| information_ratio | 0.3541978347440721 |
+| annualized_arithmetic_active_return | 0.010400021804739368 |
+| annualized_turnover | 2.7488531162997503 |
+| total_cost_fraction_sum | 0.010242750302402643 |
+| compounded_cost_drag | 0.016506137199005178 |
+| average_absolute_active_weight | 0.10969743146216117 |
+| maximum_position | 0.3708003382614147 |
+| average_estimated_tracking_error | 0.03525758673631325 |
+| mean_ic | -0.018989898989898998 |
+| median_ic | 0.0303030303030303 |
+| ic_std | 0.43755118479877053 |
+| ic_information_ratio | -0.04340040582596626 |
+| positive_ic_fraction | 0.5111111111111111 |
+| gross_wealth | 1.6198879772984012 |
+| net_wealth | 1.6033818400993938 |
+| gross_cagr | 0.13820270085237474 |
+| average_one_way_turnover | 0.010908147286903772 |
+| average_rebalance_turnover | 0.22761667338672534 |
+| average_active_share | 0.548487157310806 |
+| execution_constraint_violations | 0 |
+| solver_failures | 0 |
+| policy_frictionless_cagr | 0.12325378717673874 |
+| policy_net_cagr | 0.12315053279029109 |
+| net_active_vs_cost_adjusted_policy | 0.010492017537591027 |
+| average_signal_capture | 0.7583002618232763 |
+| valid_capture_observations | 45 |
+| excluded_capture_observations | 0 |
+
+Signal capture is preference expression, not investment skill. IC is evaluated only after construction. No persistent-alpha claim is made. This is independent research, not peer-reviewed research.

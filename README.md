@@ -2,6 +2,45 @@
 
 [![CI](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml/badge.svg)](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml)
 
+## Empirical research: ten-ETF historical study
+
+Read the [paper (PDF)](docs/empirical_manuscript.pdf),
+[methodology and reproduction guide](docs/empirical_phase2.md), and
+[curated research index](docs/empirical_research_index.md).
+The index connects the frozen protocol, results, key figures and full audit trail.
+
+Monthly portfolios use a fixed momentum, low-volatility and reversal composite,
+a two-session information lag and a monthly 60/40 policy comparison. Development
+covers 2011–2017, validation 2018–2022 and the frozen holdout 2023–September 2026.
+The fixed-risk model's net CAGR was 7.50%, 2.03% and 13.72%, respectively, versus
+7.99%, 3.28% and 12.33% for the frictionless policy. The holdout's annualized
+arithmetic active return was 1.23%, with a descriptive 95% block-bootstrap
+interval of [−1.55%, 3.90%]. These results do not establish persistent alpha.
+
+The 8% and 12% tracking-error configurations produced essentially identical
+performance: those limits were largely non-binding. Turnover restricted signal
+expression more **under this model and tested parameter range**; this finding
+does not rank turnover and tracking error for portfolio management generally.
+
+**Pre-holdout design revision:** after inspecting development/validation execution
+failures, Codex introduced formation reserves of 2 percentage points for turnover,
+1 for sector exposure and 0.1 for annual tracking error. Execution mandates stayed
+unchanged. The corrected specification was frozen before the holdout evaluation;
+the initial failures and two remaining pre-holdout weekly failures are preserved.
+
+**External reproducibility:** the original market-data bundle is retained locally
+and is not publicly distributed. Its fingerprints identify the original vintage
+but do not provide access to it. Exact-input reproduction requires that bundle,
+the frozen model and matching environment, with solver tolerances allowed. A fresh
+provider download supports approximate replication and may contain revised prices.
+Public tables, figures and protocol remain available for inspection.
+
+This is independent, retrospective research in a fixed surviving ETF universe.
+The synthetic study below is a separate controlled mechanics study; its data,
+configurations and results remain preserved.
+
+## Synthetic study and portfolio-construction framework
+
 I built PortfolioOS around a simple portfolio-construction question: once a signal
 identifies preferred stocks, how much of that preference survives the process of
 building a portfolio that must stay close to a benchmark and trade at a plausible
@@ -28,6 +67,16 @@ sensitivity exercise; it makes no empirical performance or persistent-alpha clai
 and unfavorable results remain part of the analysis.
 
 ## Quick start
+
+The [empirical extension](docs/empirical_extension.md) adds provenance-checked
+historical bundles, explicit information lag, causal volatility regimes, policy
+and simple allocation comparisons, and a frozen-protocol scenario runner.
+The [Phase 2 study](docs/empirical_phase2.md) supplies the exact ten-ETF universe,
+monthly 60/40 policy, causal two-state regime and declared historical periods.
+It records data provenance, original failed transitions, pre-holdout verification,
+the frozen protocol and executed scenario ledgers. Historical findings are
+independent research, not evidence of persistent alpha. Existing synthetic
+configurations and committed results remain intact.
 
 Python 3.10–3.12 is tested in CI. From the repository root:
 
@@ -95,7 +144,7 @@ The notebook is a presentation layer calling these modules.
 Install `python -m pip install -e '.[notebook]'` for a notebook kernel and execution
 dependencies, then select that environment in your notebook editor.
 
-## Research experiments
+## Synthetic research experiments
 
 Run the deterministic experiment suite with:
 
@@ -176,6 +225,11 @@ market inefficiency. High signal capture and poor subsequent performance can occ
 together and constitute a legitimate result.
 
 ## Data and timing contract
+
+The defaults below retain the original synthetic lag-one convention. Historical
+Phase 2 uses lag two for signals **and target formation**, with actual prior-close
+drift used only for execution accounting and mandate checks; see its
+[timing specification](docs/empirical_phase2.md).
 
 Adjusted prices are a `DatetimeIndex × asset identifier` DataFrame. Dates must
 be chronological and unique; identifiers must be unique nonempty strings.

@@ -102,7 +102,13 @@ def reference_signal_expression_config(config):
         max_turnover=None,
         fallback_to_benchmark=False,
     )
-    return replace(config, optimizer=reference_optimizer)
+    return replace(
+        config,
+        optimizer=reference_optimizer,
+        execution_turnover_reserve=0,
+        execution_sector_reserve=0,
+        execution_te_reserve=0,
+    )
 
 
 def active_signal_exposure(result):

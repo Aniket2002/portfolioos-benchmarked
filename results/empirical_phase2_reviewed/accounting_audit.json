@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "completed_paths_checked": 61,
+  "failed_paths_not_given_full_period_metrics": [
+    {
+      "period": "development",
+      "scenario": "weekly",
+      "error": "Execution mandate failed on 2012-06-04: sector active weight, sector active weight"
+    },
+    {
+      "period": "validation",
+      "scenario": "weekly",
+      "error": "Execution mandate failed on 2020-03-16: sector active weight"
+    }
+  ],
+  "checks": [
+    "asset/portfolio/benchmark returns",
+    "holdings drift",
+    "actual turnover",
+    "costs",
+    "monthly benchmark schedule",
+    "information lag",
+    "execution mandates",
+    "identical-trade cost paths"
+  ],
+  "holdout_reoptimized": false
+}

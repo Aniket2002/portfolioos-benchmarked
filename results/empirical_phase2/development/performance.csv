@@ -1,0 +1,22 @@
+scenario,status,error,cumulative_return,cagr,annualized_volatility,sharpe,sortino,maximum_drawdown,benchmark_cumulative_return,tracking_error,information_ratio,annualized_arithmetic_active_return,annualized_turnover,total_cost_fraction_sum,compounded_cost_drag,average_absolute_active_weight,maximum_position,average_estimated_tracking_error,mean_ic,median_ic,ic_std,ic_information_ratio,positive_ic_fraction,gross_wealth,net_wealth,gross_cagr,average_one_way_turnover,average_rebalance_turnover,average_active_share,execution_constraint_violations,average_signal_capture,valid_capture_observations,excluded_capture_observations
+fixed_risk,failed,Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+te_4pct,failed,Execution mandate failed on 2011-08-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+te_8pct,failed,Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+te_12pct,failed,Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+turnover_10pct,failed,Execution mandate failed on 2011-02-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+turnover_30pct,failed,Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+turnover_50pct,failed,Execution mandate failed on 2017-01-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_0bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_10bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_25bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+cost_40bps,failed,Identical-trade-path base did not complete: Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+regime_aware,failed,Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+without_momentum_12_1,failed,Execution mandate failed on 2012-03-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+without_low_volatility,failed,Execution mandate failed on 2011-04-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+without_reversal_1m,failed,Execution mandate failed on 2011-02-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+policy,success,,0.7095620437425401,0.07975678927415641,0.0869277110344569,0.9263725048895988,1.3195512993139047,-0.11373097375247843,0.710834635859749,3.682833457083524e-05,-2.8874692904947086,-0.00010634068509335138,0.10634068509335101,0.0007431188351166314,0.0012725921172123122,0.0,0.31445743102831436,0.0,0.012121212121212114,-0.012121212121212121,0.4338106323392126,0.027941251821910373,0.4880952380952381,1.710834635859749,1.70956204374254,0.07987177211104779,0.00042198684560853573,0.008846652799007518,0.0,0.0,,0.0,0.0
+equal_weight,success,,0.5897310596299616,0.06858609484353573,0.08332838008417286,0.8378426481358539,1.202955798127539,-0.11691704101305389,0.710834635859749,0.024624962357030825,-0.4392985990786485,-0.010817711465808096,0.18717828480065427,0.0013080196806902861,0.0020785081161902585,0.08006140054904601,0.12180878139239705,0.025619492959697374,0.012121212121212114,-0.012121212121212121,0.4338106323392126,0.027941251821910373,0.4880952380952381,1.591809567746153,1.5897310596299616,0.06878591330650607,0.0007427709714311676,0.01557166286536055,0.40030700274523007,0.0,,0.0,0.0
+inverse_volatility,success,,0.5410767481952778,0.0638435105352575,0.0594979152660409,1.0700387726076246,1.5558894761370503,-0.09245354742134404,0.710834635859749,0.04354584319441657,-0.38967452761579086,-0.016968705876415576,0.5098073292564987,0.00356258216992339,0.00549599280552493,0.07615980903596824,0.3246684031949656,0.04200668963242121,0.012121212121212114,-0.012121212121212121,0.4338106323392126,0.027941251821910373,0.4880952380952381,1.5465727410008057,1.5410767481952778,0.06438560900025703,0.0020230449573670583,0.04241169249908797,0.38079904517984114,0.0,,0.0,0.0
+sample_covariance,failed,Execution mandate failed on 2013-06-03: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+lag_3,failed,Execution mandate failed on 2011-02-01: turnover,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+weekly,failed,"Execution mandate failed on 2011-01-18: turnover, sector active weight",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

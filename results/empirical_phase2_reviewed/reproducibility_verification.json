@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "period": "validation",
+  "max_absolute_differences": {
+    "fixed_risk": {
+      "weights": 9.8879238130678e-17,
+      "returns": 9.996344030316351e-17
+    },
+    "regime_aware": {
+      "weights": 9.974659986866641e-17,
+      "returns": 9.996344030316351e-17
+    }
+  },
+  "holdout_performance_accessed": false,
+  "outputs_overwritten": false
+}

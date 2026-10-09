@@ -1,0 +1,35 @@
+{
+  "development": {
+    "estimate": -0.0001614413531219545,
+    "lower": -0.0011721113964756947,
+    "upper": 0.0009732711013636872,
+    "confidence": 0.95,
+    "seed": 20261008,
+    "block_length": 21,
+    "resamples": 2000,
+    "assumption": "approximate within-period stationarity, dependence within blocks",
+    "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+  },
+  "validation": {
+    "estimate": 0.0005454107521057802,
+    "lower": -0.0006717466397884878,
+    "upper": 0.0018120107923780013,
+    "confidence": 0.95,
+    "seed": 20261008,
+    "block_length": 21,
+    "resamples": 2000,
+    "assumption": "approximate within-period stationarity, dependence within blocks",
+    "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+  },
+  "holdout": {
+    "estimate": -0.00015346329969003714,
+    "lower": -0.0009789071097710367,
+    "upper": 0.0004809093228493939,
+    "confidence": 0.95,
+    "seed": 20261008,
+    "block_length": 21,
+    "resamples": 2000,
+    "assumption": "approximate within-period stationarity, dependence within blocks",
+    "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+  }
+}
