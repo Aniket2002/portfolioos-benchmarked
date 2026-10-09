@@ -4,11 +4,11 @@
     ".gitattributes": "e3fc7f896209a47b8c3ded82360fcd8b63faafd22a068814daa6b74acecfefc0",
     "README.md": "bc9e1bc3bce46ca5826b550a652bc8beeca3d8671f12a7cbb9e7ff9961d6ad3b",
     "docs/empirical_extension.md": "e243a1d5486b6e3135d525dd86b77d0f9fc8c803b4759b4eb8f44ddfee067d58",
-    "docs/empirical_manuscript.tex": "f8f4260f1a5df48fb819e78ff1981dc44315515b52bd67c30737f7477b800c18",
+    "docs/empirical_manuscript.tex": "105a983b11a1b86be577cebfd7fdedcd1f89453468bdb7cc0570214024dbf7c7",
     "docs/empirical_phase2.md": "c36744bd51239a6e66adda1a6224ab2cc5a5489c44c1724a4cdc7a4326501d92",
     "docs/empirical_research_index.md": "09a83b2b6f8ce9107014bf7e4d271f920cc12d904e36a0a9ba4cb3bb3e2fb33b",
     "docs/ssrn_preparation.md": "0aacc36c4a7b58297f04f3de42f6362a790de2296c0c82d68d825100e8ee7ab6",
-    "docs\\empirical_manuscript.pdf": "3e7df5eb74c24ecc6a68a1600930fc1fb677e848387857d629a3a951f2c27393",
+    "docs\\empirical_manuscript.pdf": "3a43079080871b357669432a18f3ff25f78a930bde25aa404efca5760878f158",
     "results/README.md": "95d7dd12e2428ce7c413c38eff7760cf7b51e9a471e6a6d94ce917a0c06480d6",
     "results/empirical_phase2_reviewed/README.md": "cb21e688e0a5982479327e8ca382a276012c32d1d0abd4c472b5a1458d19e84a",
     "results/empirical_phase2_reviewed/ci_verification.json": "05218bfed154c1dbd2c864ee5ca713b58cb7da129fd20c1e7a2332a0d0141039",
@@ -404,7 +404,7 @@
     "results\\empirical_phase2_reviewed\\holdout\\without_reversal_1m\\uncertainty.json": "e9fb56175eb0bc4ef3f2567c98c2c7db7a6552f5d4b3de0c86f3d70e2a66c38c",
     "results\\empirical_phase2_reviewed\\holdout_access.json": "8b8f8ca64457ba11bbbb9cb1da67c72f8e4498a83bb21f4be1d01c9ed0a7f8c2",
     "results\\empirical_phase2_reviewed\\paired_regime_uncertainty.json": "324c438e608cdd810f7974aa410bcdf40d795a9cc285a9b62c05dc65eacc925d",
-    "results\\empirical_phase2_reviewed\\pdf_inspection.json": "0ee2af6d4d582633c0c58a0484976950d281d1b9c74c1e2eb460cb65525131f7",
+    "results\\empirical_phase2_reviewed\\pdf_inspection.json": "4ad2ac7aed756ee9402726a086351763f825140f1ec8d815c5d7480ede938f6a",
     "results\\empirical_phase2_reviewed\\regime_timeline.csv": "fab844db74ec910d8c6c9308ee95e190d9758c5d92ecdad2dc73665860ccac8a",
     "results\\empirical_phase2_reviewed\\report.md": "fb90306ad4458b2dc954c1b8613986cea1a6de6938e7bcc2e18f954dbd766d0e",
     "results\\empirical_phase2_reviewed\\reproducibility_verification.json": "b147c4ff60fde24a94fd9a94a1228b9db901c02bf0c69ba6e07fb65ae20bbb48",
@@ -595,9 +595,9 @@
     "results\\empirical_phase2_reviewed\\validation\\without_reversal_1m\\uncertainty.json": "43f95f212de080c8e930c9b3a1b7c5514561da1ec873c9ffda1d4c138b85ee8a",
     "results\\empirical_phase2_reviewed\\verification.json": "2267ac188fdc4ede2b0ed5b9f73ba9e6c0d3aeb1ec9684587bec8e4c2d41452c",
     "scripts/audit_empirical_artifacts.py": "3da2a538b70ec9dd8cf4410714691a5367c0bd956614ed5295dd532ca122f617",
-    "scripts/build_empirical_report.py": "e7ed2a6dbd25fd45c7e88b013e0a912da88a2902ff837942fd0cbcb04d277b78"
+    "scripts/build_empirical_report.py": "192d5bb8f89852baa014ba8d7e790e485f2fa77418c37bf2bb9f6fc17fb8a798"
   },
   "raw_provider_bundle_committed": false,
-  "presentation_basis_commit": "780a129c0c4627b2014c3822e119f46f6382d107",
-  "presentation_revision": "SSRN working-paper typography, abstract/status placement, material AI disclosure, author descriptor, readable tables and figures; frozen model, protocol and numerical evidence unchanged."
+  "presentation_basis_commit": "f97b9aa5de655f7a5fce297d91fabb92a1e8ea60",
+  "presentation_revision": "Shorten the AI assistance disclosure to literature verification, manuscript preparation and computational research; frozen model, protocol, findings and body pages unchanged."
 }

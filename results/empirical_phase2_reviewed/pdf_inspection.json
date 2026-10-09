@@ -1,5 +1,5 @@
 {
-  "pdf_sha256": "3e7df5eb74c24ecc6a68a1600930fc1fb677e848387857d629a3a951f2c27393",
+  "pdf_sha256": "3a43079080871b357669432a18f3ff25f78a930bde25aa404efca5760878f158",
   "pages": 15,
   "embedded_figures": 8,
   "all_pages_visually_inspected": true,
@@ -13,7 +13,7 @@
   "pages_detail": [
     {
       "page": 1,
-      "characters": 2164,
+      "characters": 2112,
       "images": 0,
       "outside_page_blocks": []
     },
@@ -119,7 +119,7 @@
     "keywords": "portfolio construction, tracking error, turnover, ETFs, backtesting",
     "creator": "LaTeX with hyperref",
     "producer": "xdvipdfmx (0.1)",
-    "creationDate": "D:20261009055729-00'00'",
+    "creationDate": "D:20261009060654-00'00'",
     "modDate": "",
     "trapped": "",
     "encryption": null

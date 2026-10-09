@@ -599,7 +599,7 @@ approximate replication using a potentially revised historical vintage.
 \end{abstract}
 \noindent{\small\textbf{Keywords:} Portfolio construction; tracking error; turnover; exchange-traded funds; walk-forward backtesting.}\par
 \vspace{7mm}
-\noindent{\footnotesize\textbf{AI assistance disclosure.} OpenAI Codex assisted with research-software implementation, data checks, experiment execution, literature verification, drafting and manuscript preparation. Responsibility for the submitted content rests with the author.}\par
+\noindent{\footnotesize\textbf{AI assistance disclosure.} OpenAI Codex assisted with literature verification, manuscript preparation, and computational research. Responsibility for the submitted content rests with the author.}\par
 \vfill
 \noindent{\footnotesize\color{muted}This working paper has not undergone peer review. Code, protocol and evidence: \href{https://github.com/Aniket2002/portfolioos-benchmarked/tree/feature/empirical-research}{PortfolioOS research repository}.}\par
 \end{titlepage}
