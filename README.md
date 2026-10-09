@@ -187,6 +187,11 @@ together and constitute a legitimate result.
 
 ## Data and timing contract
 
+The defaults below retain the original synthetic lag-one convention. Historical
+Phase 2 uses lag two for signals **and target formation**, with actual prior-close
+drift used only for execution accounting and mandate checks; see its
+[timing specification](docs/empirical_phase2.md).
+
 Adjusted prices are a `DatetimeIndex × asset identifier` DataFrame. Dates must
 be chronological and unique; identifiers must be unique nonempty strings.
 Prices must be positive and finite. Missing data is rejected by default.

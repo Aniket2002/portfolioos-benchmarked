@@ -1,0 +1,87 @@
+{
+  "pdf_sha256": "8ba4955ffbfce73b2ad0201016aa8405c329b8d4dbbfb68bd7830a41beff3777",
+  "pages": 12,
+  "embedded_figures": 8,
+  "all_pages_visually_inspected": true,
+  "all_fonts_embedded": true,
+  "outside_page_blocks": 0,
+  "unresolved_references": false,
+  "overfull_or_underfull_boxes": false,
+  "compiler": "Tectonic 0.17.0",
+  "compile_exit_code": 0,
+  "local_compiler_diagnostic": "Fontconfig config missing; bundled embedded fonts used successfully",
+  "pages_detail": [
+    {
+      "page": 1,
+      "characters": 3072,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 2,
+      "characters": 3488,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 3,
+      "characters": 3893,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 4,
+      "characters": 2434,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 5,
+      "characters": 2698,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 6,
+      "characters": 1044,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 7,
+      "characters": 244,
+      "images": 2,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 8,
+      "characters": 265,
+      "images": 2,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 9,
+      "characters": 269,
+      "images": 2,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 10,
+      "characters": 225,
+      "images": 2,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 11,
+      "characters": 2837,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 12,
+      "characters": 3363,
+      "images": 0,
+      "outside_page_blocks": []
+    }
+  ]
+}

@@ -9,6 +9,7 @@ the reporting-only regime timeline is allowed only after the holdout ledger exis
 
 import argparse
 import json
+from os.path import relpath
 from pathlib import Path
 
 import matplotlib
@@ -100,10 +101,10 @@ def build(root, bundle, manuscript):
     }
     figures = root / "figures"
     figures.mkdir(exist_ok=True)
-    plt.rcParams.update({"font.size": 9, "axes.grid": True, "grid.alpha": 0.2})
+    plt.rcParams.update({"font.size": 12, "axes.grid": True, "grid.alpha": 0.2})
 
     for name, mode in [("wealth", "wealth"), ("drawdowns", "drawdown")]:
-        fig, axes = plt.subplots(1, 3, figsize=(13, 3.8))
+        fig, axes = plt.subplots(1, 3, figsize=(10, 4))
         for ax, period in zip(axes, PERIODS):
             for scenario in STRATEGIES:
                 if rows[period][scenario]["status"] != "success":
@@ -127,7 +128,7 @@ def build(root, bundle, manuscript):
             ax.set_ylabel(
                 "Wealth (initial NAV = 1)" if mode == "wealth" else "Drawdown (%)"
             )
-        axes[-1].legend(fontsize=7)
+        axes[-1].legend(fontsize=9)
         save_figure(fig, figures / f"{name}.png")
 
     for name, group, cap, label in [
@@ -208,7 +209,7 @@ def build(root, bundle, manuscript):
     save_figure(fig, figures / "regime_timeline.png")
 
     paired = {}
-    fig, axes = plt.subplots(1, 3, figsize=(12, 3.5))
+    fig, axes = plt.subplots(1, 3, figsize=(10, 4))
     for ax, period in zip(axes, PERIODS):
         for scenario in ["fixed_risk", "regime_aware"]:
             if rows[period][scenario]["status"] == "success":
@@ -286,6 +287,33 @@ def build(root, bundle, manuscript):
                     **row.get("metrics", {}),
                 }
             )
+            if row["status"] == "success":
+                # Replace the legacy synthetic report's default-benchmark prose
+                # with the executed historical policy contract; no model rerun.
+                notes = [
+                    f"# Historical {period}: {row['scenario']}",
+                    "",
+                    f"Executed sessions: {row['evaluation_start']} to {row['evaluation_end']} ({row['observations']} observations).",
+                    "",
+                    "Benchmark: the declared monthly 60/40 policy, reset before the first session return of each month and drifted otherwise. Frictionless policy returns define active metrics; independently cost-adjusted policy returns are also exported. Each period starts endowed in policy holdings.",
+                    "",
+                    "Decisions use the declared lagged information set; execution-close drift enters turnover and compliance accounting. Closing target fills and additive costs are research approximations.",
+                    "",
+                    "Ordinary allocation comparisons satisfy their own rules. Active TE, sector, position and turnover mandates apply to optimized strategies at accepted rebalances; subsequent drift and realized risk can exceed target limits.",
+                    "",
+                    markdown_table(
+                        ["Metric", "Value"],
+                        [
+                            [key, "undefined" if value is None else str(value)]
+                            for key, value in row["metrics"].items()
+                        ],
+                    ),
+                    "",
+                    "Signal capture is preference expression, not investment skill. IC is evaluated only after construction. No persistent-alpha claim is made. This is independent research, not peer-reviewed research.",
+                ]
+                (root / period / row["scenario"] / "report.md").write_text(
+                    "\n".join(notes) + "\n", encoding="utf-8"
+                )
     pd.DataFrame(flat).to_csv(root / "all_performance.csv", index=False)
 
     status_rows = [
@@ -467,8 +495,8 @@ def write_manuscript(destination, root, rows, quality, lock, paired):
     """All numerical tables below are assembled directly from evaluation ledgers."""
     preamble = r"""\documentclass[11pt]{article}
 \usepackage[margin=0.8in]{geometry}
-\usepackage{amsmath,amssymb,booktabs,longtable,graphicx,hyperref,float}
-\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue}
+\usepackage{amsmath,amssymb,booktabs,longtable,graphicx,hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,hypertexnames=false}
 \setlength{\emergencystretch}{3em}
 \title{Benchmark-Relative Systematic Portfolio Construction:\\An Independent Ten-ETF Historical Study}
 \author{Aniket Bhardwaj}
@@ -503,6 +531,13 @@ Their conclusions concern different universes and estimation problems.
 Block resampling recognizes serial dependence rather than treating daily
 observations as independent \cite{kunsch}. This study applies those methodological
 ideas to portfolio construction without claiming a new asset-pricing discovery.
+Momentum research documents winner--loser persistence in individual stocks
+\cite{jt}; volatility-return research studies stock-level aggregate and
+idiosyncratic risk \cite{ang}; reversal research considers short-horizon
+contrarian stock returns \cite{lehmann}. These findings motivate preferences,
+not calibrated ETF expected returns. Total ETF volatility is not idiosyncratic
+stock volatility, and a 21-session reversal score is not a replication of a
+weekly stock-reversal study. Economic portability is an empirical question.
 \section{Historical dataset and data quality}
 The ordered universe is SPY, IWM, EFA, EEM, IEF, TLT, LQD, HYG, GLD and VNQ.
 Equity covers the first four; fixed income covers IEF, TLT, LQD and HYG;
@@ -530,6 +565,22 @@ prices, common NYSE sessions, per-fund availability, distributions/splits,
 and actions from a second endpoint of the same provider. The second endpoint
 is not an independent market-data validation.
 """
+    primary = rows["holdout"]["fixed_risk"]
+    if primary["status"] == "success":
+        metrics, interval = primary["metrics"], primary["uncertainty"]
+        finding = tex(
+            f"In the final holdout, the primary model's net CAGR is "
+            f"{number(metrics['cagr'], True)} versus "
+            f"{number(metrics['policy_frictionless_cagr'], True)} for the "
+            f"frictionless policy. Annualized arithmetic active return is "
+            f"{number(interval['estimate'], True)} with a descriptive 95% "
+            f"block interval [{number(interval['lower'], True)}, "
+            f"{number(interval['upper'], True)}]. Weekly execution failures in "
+            "development and validation remain part of the robustness evidence."
+        )
+        preamble = preamble.replace(
+            r"\end{abstract}", finding + "\n" + r"\end{abstract}"
+        )
     sections = [preamble]
     sections.append(
         f"The panel contains {quality['observed_sessions']:,} common sessions from "
@@ -765,7 +816,9 @@ strengthen further research.
     }
     sections.append(r"\clearpage\section*{Research figures}" + "\n")
     for name, caption in captions.items():
-        path = (root / "figures" / f"{name}.png").as_posix()
+        path = Path(
+            relpath(root / "figures" / f"{name}.png", Path(destination).parent)
+        ).as_posix()
         sections.append(
             r"\begin{figure}[htbp]\centering"
             + "\n"
@@ -776,6 +829,18 @@ strengthen further research.
     sections.append(r"""
 \clearpage
 \begin{thebibliography}{9}
+\raggedright
+\bibitem{jt} Jegadeesh, N., and Titman, S. (1993). Returns to buying winners
+and selling losers: Implications for stock market efficiency.
+\emph{Journal of Finance} 48(1), 65--91.
+\url{https://doi.org/10.1111/j.1540-6261.1993.tb04702.x}.
+\bibitem{ang} Ang, A., Hodrick, R. J., Xing, Y., and Zhang, X. (2006).
+The cross-section of volatility and expected returns.
+\emph{Journal of Finance} 61(1), 259--299.
+\url{https://doi.org/10.1111/j.1540-6261.2006.00836.x}.
+\bibitem{lehmann} Lehmann, B. N. (1990). Fads, martingales, and market efficiency.
+\emph{Quarterly Journal of Economics} 105(1), 1--28.
+\url{https://doi.org/10.2307/2937816}.
 \bibitem{lw} Ledoit, O., and Wolf, M. (2004). A well-conditioned estimator for
 large-dimensional covariance matrices. \emph{Journal of Multivariate Analysis}
 88(2), 365--411. \url{https://doi.org/10.1016/S0047-259X(03)00096-4}.

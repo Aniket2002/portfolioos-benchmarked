@@ -89,7 +89,7 @@ Formal [data quality](../results/empirical_phase2_reviewed/data_quality.md)
 checks price/action hashes, original Close reconciliation, monotone unique
 timestamps, positive finite prices, common NYSE sessions, per-asset availability,
 20% extreme-return review thresholds and two-endpoint action consistency.
-There are 4,463 common sessions, no missing/unexpected dates, 1,444 distributions,
+There are 4,463 common sessions, no missing/unexpected dates, 1,133 distributions,
 no splits and no threshold exceedances. Endpoints share the upstream provider;
 their consistency is not independent institutional validation. The NYSE calendar
 includes exceptional closures and is not an artificial business-day calendar.
@@ -147,12 +147,71 @@ labelled directories and must not erase the original final evaluation.
 
 ## Executed outputs and uncertainty
 
+The final evaluation completed 61 of 63 period/scenario paths. The two stopped
+paths are weekly sector-limit breaches in development (2012-06-04) and validation
+(2020-03-16). All 21 holdout scenarios completed. The model was not retuned after
+the holdout was opened.
+
+| Primary comparison | Development | Validation | Holdout |
+|---|---:|---:|---:|
+| Fixed-risk net CAGR | 7.50% | 2.03% | 13.72% |
+| Frictionless policy CAGR | 7.99% | 3.28% | 12.33% |
+| Annualized arithmetic active return | −0.38% | −1.15% | 1.23% |
+| 95% block-bootstrap interval | [−3.14%, 2.08%] | [−3.67%, 1.36%] | [−1.55%, 3.90%] |
+
+The primary model underperformed in both pre-holdout periods. Holdout excess
+performance is statistically inconclusive under the declared uncertainty method.
+Regime awareness made little difference: its holdout arithmetic return difference
+versus fixed risk is −0.015 percentage points/year, with a paired interval
+[−0.098, 0.048] percentage points/year. No interval establishes persistent alpha.
+The primary holdout forward IC is −0.019, despite positive portfolio active
+return; preference alignment and cross-sectional prediction are distinct.
+
 The reviewed study is under `results/empirical_phase2_reviewed`. Its
 `all_performance.csv`, `experiment_status.md`, `report.md`, eight figures,
 period/scenario ledgers and paired regime intervals are produced by executed
 models and the reporting script. Full local trade paths are retained for audit;
 Git records aggregate portfolio returns/diagnostics and summaries, not raw ETF
 prices or corporate-action responses.
+
+The [finished manuscript PDF](empirical_manuscript.pdf) has 12 pages and all eight
+requested figures. Every page was rendered and visually inspected; fonts are
+embedded, all eight images are present, and there are no unresolved references,
+overfull/underfull boxes or out-of-page content blocks. Tectonic emitted a local
+Fontconfig configuration diagnostic but successfully used embedded bundled fonts.
+The final compile log has no LaTeX formatting warnings. Reporting-only path and
+layout corrections followed the holdout; model code/configuration and original
+holdout returns were not changed or rerun.
+
+An [independent artifact audit](../results/empirical_phase2_reviewed/accounting_audit.json)
+reconciles all 61 completed paths: asset-to-portfolio and benchmark returns,
+holdings drift, actual turnover, policy calendar/cost accounting, information
+dates, execution mandates and identical-trade cost comparisons. Stopped weekly
+paths retain explicit failure records without full-period metrics.
+
+### Verification results
+
+| Check | Result |
+|---|---|
+| Original feature commit | 163 tests passed in archived checkout |
+| Inherited worktree before additional audit changes | 178 tests passed |
+| Python 3.10.22 | 186 tests passed; 87.20% package coverage |
+| Python 3.11.3 | 186 tests passed; 87.20% package coverage |
+| Python 3.12.15 | 186 tests passed; 87.20% package coverage; one dependency deprecation warning |
+| Ruff lint and formatting | Passed |
+| Synthetic full demo | 1,260 days / 59 rebalances; differences at most 4.25e-8, within 1e-7 solver tolerance |
+| Synthetic full frontiers | Dataset identities/statuses identical; numeric tables exactly equal |
+| Primary/regime validation reproduction | Maximum numeric differences below 1e-16; outputs not overwritten |
+| Notebook validation | One tracked notebook validated; not executed |
+| Source/wheel build and external wheel import | Passed |
+| Streamlit health and root | HTTP 200 |
+| PDF | 12 pages, eight embedded figures; inspected |
+
+The [verification record](../results/empirical_phase2_reviewed/verification.json)
+captures the executed local checks **before holdout freezing**. It does not attest
+to a remote GitHub Actions run; remote status must be checked for the published
+final commit. Environment snapshots are alongside it. Research artifacts use
+`.gitattributes` to preserve exact bytes for evidence hashes across Git checkouts.
 
 Sharpe/Sortino use an explicitly declared zero risk-free rate. CAGR uses
 252 observations/year. TE and annualized arithmetic active return compare net
@@ -218,6 +277,8 @@ Existing synthetic regression commands write separately:
 ```powershell
 python scripts/run_demo.py --config configs/demo.yaml --output results/phase2-synthetic-regression
 python scripts/run_experiments.py --config configs/demo.yaml --output results/phase2-synthetic-frontiers
+python scripts/verify_empirical_outputs.py --protocol configs/empirical_phase2.json --bundle data/phase2-tigzig-20261008 --output results/empirical_phase2_reviewed
+python scripts/audit_empirical_artifacts.py --results results/empirical_phase2_reviewed --bundle data/phase2-tigzig-20261008
 ```
 
 GitHub CI keeps its Python 3.10/3.11/3.12 matrix, tests, lint/format, package,
@@ -237,6 +298,14 @@ Künsch (1989), *Annals of Statistics* 17(3), 1217–1241,
 [author bibliography](https://people.math.ethz.ch/~hkuensch/papers/), DOI
 10.1214/aos/1176347265. Publication details were checked; these citations motivate
 methods and comparisons, not this strategy's economic validity.
+
+The signal discussion also cites Jegadeesh and Titman (1993), *Journal of Finance*
+48(1), 65–91, [publisher record](https://onlinelibrary.wiley.com/doi/10.1111/j.1540-6261.1993.tb04702.x);
+Ang, Hodrick, Xing and Zhang (2006), *Journal of Finance* 61(1), 259–299,
+[NBER publication record](https://www.nber.org/papers/w10852); and Lehmann (1990),
+*Quarterly Journal of Economics* 105(1), 1–28,
+[publisher record](https://doi.org/10.2307/2937816). Their stock-level evidence is
+not represented as a replication or calibrated ETF expected-return model.
 
 ## Remaining limitations
 

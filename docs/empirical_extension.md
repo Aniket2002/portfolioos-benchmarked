@@ -1,4 +1,10 @@
-# Empirical extension: audit, protocol contract, and acceptance record
+# Phase 1 empirical extension record (archived)
+
+This document records the infrastructure status at commit
+`ab4a7b6daf6fa0cc1c030b8517e070d7b883a076`. The historical status statements and
+legacy runner instructions below describe that earlier phase. See the
+[Phase 2 study](empirical_phase2.md) for the supplied specification, corrected
+methods, validated data, frozen holdout and completed historical evidence.
 
 Status: infrastructure implemented; historical evaluation blocked. The supplied
 attachment ends at “The detailed research specification follows below” and contains
