@@ -591,7 +591,8 @@
     "results\\empirical_phase2_reviewed\\validation\\without_reversal_1m\\uncertainty.json": "43f95f212de080c8e930c9b3a1b7c5514561da1ec873c9ffda1d4c138b85ee8a",
     "results\\empirical_phase2_reviewed\\verification.json": "2267ac188fdc4ede2b0ed5b9f73ba9e6c0d3aeb1ec9684587bec8e4c2d41452c",
     "scripts/audit_empirical_artifacts.py": "3da2a538b70ec9dd8cf4410714691a5367c0bd956614ed5295dd532ca122f617",
-    "scripts/build_empirical_report.py": "04795dd33262088eecca5fd3a29d70293ad2cdaf5a87574dc96313b3fefdd2cb"
+    "scripts/build_empirical_report.py": "04795dd33262088eecca5fd3a29d70293ad2cdaf5a87574dc96313b3fefdd2cb",
+    "results/empirical_phase2_reviewed/ci_verification.json": "05218bfed154c1dbd2c864ee5ca713b58cb7da129fd20c1e7a2332a0d0141039"
   },
   "raw_provider_bundle_committed": false
 }

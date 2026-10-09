@@ -179,6 +179,7 @@ A	results/empirical_phase2/validation/without_reversal_1m/partial_weights.csv
 A	results/empirical_phase2_reviewed/accounting_audit.json
 A	results/empirical_phase2_reviewed/all_performance.csv
 A	results/empirical_phase2_reviewed/artifact_hashes.json
+A	results/empirical_phase2_reviewed/ci_verification.json
 A	results/empirical_phase2_reviewed/data_quality.json
 A	results/empirical_phase2_reviewed/data_quality.md
 A	results/empirical_phase2_reviewed/declared_protocol.json
@@ -766,4 +767,3 @@ M	scripts/run_empirical.py
 A	scripts/verify_empirical_outputs.py
 M	tests/test_empirical.py
 A	tests/test_phase2.py
-A	docs/empirical_phase2_files.txt
