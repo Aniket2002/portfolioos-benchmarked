@@ -338,6 +338,10 @@ def build(root, bundle, manuscript):
         "",
         f"Frozen code commit: `{lock['code_commit']}`. Dataset SHA-256: `{quality['prices_sha256']}`.",
         "",
+        "Reader's guide: [paper](../../docs/empirical_manuscript.pdf), [methodology](../../docs/empirical_phase2.md), and [curated research index](../../docs/empirical_research_index.md). Detailed ledgers are retained for audit.",
+        "",
+        "**Pre-holdout design revision:** after inspecting development/validation execution failures, Codex introduced formation reserves of 2 percentage points for turnover, 1 for sector exposure and 0.1 for annual TE. Execution mandates stayed unchanged. The corrected specification was frozen before the single holdout evaluation; the published results use that corrected specification.",
+        "",
         "## Historical periods",
         "",
         "Warmup: 2009-01-02 to 2010-12-31. All evaluation boundaries follow the user proposal; periods start endowed in policy holdings and are evaluated independently.",
@@ -467,7 +471,7 @@ def build(root, bundle, manuscript):
     body += [
         "## Interpretation and limitations",
         "",
-        "Tracking-error budgets need not bind: at 8% and 12%, other constraints and the objective can produce virtually identical portfolios. Increased signal capture cannot establish better returns. Cost sensitivities clone identical weights, gross returns and turnover; only net accounting changes. Ablation capture has a different signal-specific reference denominator, so cross-ablation ratios are not cardinal measures of relative skill.",
+        "The 8% and 12% TE configurations have essentially identical performance, consistent with largely non-binding TE caps at those settings. Turnover restricted signal expression more than the tested 4%–12% TE range under this model, objective, universe and other constraints. This conditional sensitivity result does not establish that turnover is generally more important than tracking error in portfolio management. Increased signal capture cannot establish better returns. Cost sensitivities clone identical weights, gross returns and turnover; only net accounting changes. Ablation capture has a different signal-specific reference denominator, so cross-ablation ratios are not cardinal measures of relative skill.",
         "",
         "Weekly failures are execution-mandate violations; no full-period performance is assigned to interrupted paths. The safety margins are not execution guarantees. No constraints were relaxed, and no better-performing ablation was promoted to the primary model.",
         "",
@@ -485,7 +489,7 @@ def build(root, bundle, manuscript):
     body += [
         "## Reproduction",
         "",
-        "See `docs/empirical_phase2.md` for acquisition, validation, freeze, execution and PDF commands. `all_performance.csv` contains every computed primary metric. Undefined metrics are null/NaN and are never replaced by zero. Original evaluations are never overwritten.",
+        "The original market-data bundle is retained locally and is not publicly available. Exact-input reproduction requires that bundle, the frozen model/protocol and compatible recorded dependencies, with solver tolerances allowed. Fingerprints establish identity but cannot supply the missing inputs. A fresh provider retrieval supports approximate replication using a new labelled vintage; revised historical prices may change results. Public ledgers permit evidence inspection, not independent reconstruction from source prices. See [the reproduction routes and commands](../../docs/empirical_phase2.md#external-reproducibility). `all_performance.csv` contains every computed primary metric. Undefined metrics are null/NaN and are never replaced by zero. Original evaluations are never overwritten.",
     ]
     (root / "report.md").write_text("\n".join(body) + "\n", encoding="utf-8")
     write_manuscript(manuscript, root, rows, quality, lock, paired)
@@ -512,7 +516,14 @@ a monthly 60/40 policy, equal weight and inverse volatility, with a conservative
 two-session information lag. Development, validation and final holdout periods
 are separated, and the protocol and dataset are frozen before constructed
 holdout portfolio performance is examined. Negative outcomes and interrupted
-paths remain part of the evidence. Signal capture measures preference expression,
+paths remain part of the evidence. After inspecting development/validation
+execution failures, formation reserves were introduced and the corrected
+specification was frozen before holdout. The 8\% and 12\% TE configurations have
+essentially identical performance; turnover was more restrictive under the
+tested settings, without establishing a general ranking of portfolio constraints.
+Exact-input reproduction requires the original, non-public market-data bundle;
+fresh retrieval supports approximate replication on a potentially revised vintage.
+Signal capture measures preference expression,
 not predictive skill. The results below distinguish arithmetic active returns,
 compounded performance and descriptive block-bootstrap uncertainty; they do not
 establish persistent alpha or causal effects of volatility regimes.
@@ -647,15 +658,21 @@ policy returns are exported. Each independent period starts endowed at
 its execution-date policy holdings; the active transition is charged and
 the initial policy endowment is not charged.
 
-Original development/validation paths without reserves breached execution
-turnover limits following unobserved one-session drift; those failures remain
-archived. Before holdout, identical formation reserves were declared across
+\subsection{Pre-holdout design revision after execution failures}
+Original development/validation active paths without reserves failed execution
+checks, predominantly turnover limits following unobserved one-session drift;
+those failures remain archived. After inspecting these development/validation
+outcomes, Codex introduced identical formation reserves across
 active scenarios: 2 percentage points of turnover, 1 percentage point of group
 exposure and 0.1 percentage point of annual TE. Thus primary formation caps are
 28\%, 9 percentage points and 7.9\%; the high-state formation TE cap is 4.9\%.
 Execution mandates remain 30\%, 10 percentage points and 8\%/5\%, respectively.
-Reserves address engineering feasibility, not performance selection, and do
-not guarantee that execution constraints remain feasible. A benchmark target
+This is an outcome-informed engineering correction to the initial specification.
+The corrected specification was reviewed and frozen before constructed holdout
+portfolio performance was examined; published results use that corrected model.
+Reserves address engineering feasibility and do not guarantee that execution
+constraints remain feasible. Remaining weekly sector failures in development
+and validation were retained. A benchmark target
 fits the 35\% cap; transition constraints can still be infeasible.
 \section{Experiment design and holdout protocol}
 Warmup is January 2009--December 2010; development is January 3, 2011--December
@@ -732,6 +749,12 @@ tables. Percent figures are expressed in percentage points.
 \section{Constraint sensitivity findings}
 Table \ref{allresults} reports every declared scenario. Relaxing a risk cap need
 not change an allocation when another constraint or the objective dominates.
+The 8\% and 12\% TE configurations have essentially identical performance,
+consistent with largely non-binding TE caps at those settings. Turnover restricted
+signal expression more than the tested 4\%--12\% TE range under this model,
+objective, universe and other constraints. This conditional sensitivity does not
+establish that turnover is generally more important than tracking error in
+portfolio management. Higher capture does not establish better returns.
 Capture and turnover frontiers describe construction mechanics rather than
 investment skill. Formation reserves apply identically across frontier scenarios;
 10/30/50\% turnover mandates imply 8/28/48\% formation caps.
@@ -796,10 +819,18 @@ future mandate compliance. The modest fixed panel and multiple comparisons limit
 generalization; block intervals do not solve structural-break uncertainty.
 Zero-rate Sharpe is not a comparison with historical cash yields. The split is
 retrospective and independently reproduced source prices can change vintage.
+The original market-data bundle is retained locally and is not publicly
+available. Fingerprints establish identity but cannot supply those inputs;
+exact external reproduction is therefore conditional on original-bundle access.
+Fresh downloads can support method replication while changing numerical findings.
 \section{Conclusion}
 The empirical workflow provides auditable evidence of portfolio-construction
 tradeoffs under declared benchmark risk, trading and cost conventions. It also
-preserves failed transitions and inconclusive uncertainty. Signal expression is
+preserves failed transitions and inconclusive uncertainty. Under the tested model
+and parameter range, turnover restricted signal expression more than the TE
+range, whose 8\% and 12\% caps were largely non-binding. This is not a general
+ranking of portfolio constraints. The reserves were an engineering correction
+informed by development/validation failures and frozen before holdout. Signal expression is
 a construction diagnostic; these historical results do not establish persistent
 alpha. Prospective evaluation and independently licensed institutional data would
 strengthen further research.
@@ -900,9 +931,24 @@ cost drag, active share, IC and constraint diagnostics are in
     sections.append(r"""
 See \texttt{docs/empirical\_phase2.md} for the data-provider and issuer sources,
 environment versions, original failures, exact commands and verification record.
-The original frozen holdout output must not be overwritten or retuned.
-A reproduction uses a new explicitly labelled output directory; changed
-historical vintages receive new hashes. The reporting script reads executed
+\paragraph{Exact-input reproduction.}
+The original bundle (original responses, prices, actions and manifest) is local
+and not publicly distributed. Exact-input reproduction requires access to that
+bundle, matching recorded fingerprints, the frozen model commit and protocol,
+and compatible recorded dependencies. Numerical agreement is subject to solver
+tolerances; byte-for-byte equality across environments is not promised.
+The local validation reproduction and accounting audit used the original bundle;
+they do not establish that an external reader can retrieve the same vintage.
+Dataset hashes identify the inputs but cannot provide them.
+
+\paragraph{Approximate replication with a new vintage.}
+The acquisition commands retrieve fresh provider data, whose historical adjusted
+prices or actions may have changed. This replicates the method, not necessarily
+the published numerical results. Preserve a new manifest and fingerprints and
+use a new explicitly labelled output directory. The original frozen holdout
+output must not be overwritten or retuned. Public ledgers, tables and figures
+support evidence inspection without supplying independent source-price reconstruction.
+The reporting script reads executed
 ledgers and never calls the optimizer. The manuscript compiles from the
 repository root using the documented Tectonic command.
 \end{document}

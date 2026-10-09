@@ -2,6 +2,45 @@
 
 [![CI](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml/badge.svg)](https://github.com/Aniket2002/portfolioos-benchmarked/actions/workflows/ci.yml)
 
+## Empirical research: ten-ETF historical study
+
+Read the [paper (PDF)](docs/empirical_manuscript.pdf),
+[methodology and reproduction guide](docs/empirical_phase2.md), and
+[curated research index](docs/empirical_research_index.md).
+The index connects the frozen protocol, results, key figures and full audit trail.
+
+Monthly portfolios use a fixed momentum, low-volatility and reversal composite,
+a two-session information lag and a monthly 60/40 policy comparison. Development
+covers 2011–2017, validation 2018–2022 and the frozen holdout 2023–September 2026.
+The fixed-risk model's net CAGR was 7.50%, 2.03% and 13.72%, respectively, versus
+7.99%, 3.28% and 12.33% for the frictionless policy. The holdout's annualized
+arithmetic active return was 1.23%, with a descriptive 95% block-bootstrap
+interval of [−1.55%, 3.90%]. These results do not establish persistent alpha.
+
+The 8% and 12% tracking-error configurations produced essentially identical
+performance: those limits were largely non-binding. Turnover restricted signal
+expression more **under this model and tested parameter range**; this finding
+does not rank turnover and tracking error for portfolio management generally.
+
+**Pre-holdout design revision:** after inspecting development/validation execution
+failures, Codex introduced formation reserves of 2 percentage points for turnover,
+1 for sector exposure and 0.1 for annual tracking error. Execution mandates stayed
+unchanged. The corrected specification was frozen before the holdout evaluation;
+the initial failures and two remaining pre-holdout weekly failures are preserved.
+
+**External reproducibility:** the original market-data bundle is retained locally
+and is not publicly distributed. Its fingerprints identify the original vintage
+but do not provide access to it. Exact-input reproduction requires that bundle,
+the frozen model and matching environment, with solver tolerances allowed. A fresh
+provider download supports approximate replication and may contain revised prices.
+Public tables, figures and protocol remain available for inspection.
+
+This is independent, retrospective research in a fixed surviving ETF universe.
+The synthetic study below is a separate controlled mechanics study; its data,
+configurations and results remain preserved.
+
+## Synthetic study and portfolio-construction framework
+
 I built PortfolioOS around a simple portfolio-construction question: once a signal
 identifies preferred stocks, how much of that preference survives the process of
 building a portfolio that must stay close to a benchmark and trade at a plausible
@@ -105,7 +144,7 @@ The notebook is a presentation layer calling these modules.
 Install `python -m pip install -e '.[notebook]'` for a notebook kernel and execution
 dependencies, then select that environment in your notebook editor.
 
-## Research experiments
+## Synthetic research experiments
 
 Run the deterministic experiment suite with:
 

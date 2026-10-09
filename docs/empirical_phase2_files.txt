@@ -9,6 +9,7 @@ A	docs/empirical_manuscript.pdf
 M	docs/empirical_manuscript.tex
 A	docs/empirical_phase2.md
 A	docs/empirical_phase2_files.txt
+A	docs/empirical_research_index.md
 M	portfolioos/backtest.py
 M	portfolioos/covariance.py
 A	portfolioos/data_quality.py
@@ -176,6 +177,7 @@ A	results/empirical_phase2/validation/without_reversal_1m/partial_benchmark_weig
 A	results/empirical_phase2/validation/without_reversal_1m/partial_optimization.csv
 A	results/empirical_phase2/validation/without_reversal_1m/partial_returns.csv
 A	results/empirical_phase2/validation/without_reversal_1m/partial_weights.csv
+A	results/empirical_phase2_reviewed/README.md
 A	results/empirical_phase2_reviewed/accounting_audit.json
 A	results/empirical_phase2_reviewed/all_performance.csv
 A	results/empirical_phase2_reviewed/artifact_hashes.json

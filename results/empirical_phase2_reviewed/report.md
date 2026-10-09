@@ -4,6 +4,10 @@ This is independent research, not peer-reviewed research. No persistent-alpha or
 
 Frozen code commit: `86a72b72584cf70e990525b62a7d4fab6e3649bd`. Dataset SHA-256: `5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea`.
 
+Reader's guide: [paper](../../docs/empirical_manuscript.pdf), [methodology](../../docs/empirical_phase2.md), and [curated research index](../../docs/empirical_research_index.md). Detailed ledgers are retained for audit.
+
+**Pre-holdout design revision:** after inspecting development/validation execution failures, Codex introduced formation reserves of 2 percentage points for turnover, 1 for sector exposure and 0.1 for annual TE. Execution mandates stayed unchanged. The corrected specification was frozen before the single holdout evaluation; the published results use that corrected specification.
+
 ## Historical periods
 
 Warmup: 2009-01-02 to 2010-12-31. All evaluation boundaries follow the user proposal; periods start endowed in policy holdings and are evaluated independently.
@@ -218,7 +222,7 @@ Holdout regime-aware minus fixed-risk annualized arithmetic return: -0.02%, pair
 
 ## Interpretation and limitations
 
-Tracking-error budgets need not bind: at 8% and 12%, other constraints and the objective can produce virtually identical portfolios. Increased signal capture cannot establish better returns. Cost sensitivities clone identical weights, gross returns and turnover; only net accounting changes. Ablation capture has a different signal-specific reference denominator, so cross-ablation ratios are not cardinal measures of relative skill.
+The 8% and 12% TE configurations have essentially identical performance, consistent with largely non-binding TE caps at those settings. Turnover restricted signal expression more than the tested 4%–12% TE range under this model, objective, universe and other constraints. This conditional sensitivity result does not establish that turnover is generally more important than tracking error in portfolio management. Increased signal capture cannot establish better returns. Cost sensitivities clone identical weights, gross returns and turnover; only net accounting changes. Ablation capture has a different signal-specific reference denominator, so cross-ablation ratios are not cardinal measures of relative skill.
 
 Weekly failures are execution-mandate violations; no full-period performance is assigned to interrupted paths. The safety margins are not execution guarantees. No constraints were relaxed, and no better-performing ablation was promoted to the primary model.
 
@@ -248,4 +252,4 @@ Source verification exposed incidental issuer quotes/performance panels in the h
 
 ## Reproduction
 
-See `docs/empirical_phase2.md` for acquisition, validation, freeze, execution and PDF commands. `all_performance.csv` contains every computed primary metric. Undefined metrics are null/NaN and are never replaced by zero. Original evaluations are never overwritten.
+The original market-data bundle is retained locally and is not publicly available. Exact-input reproduction requires that bundle, the frozen model/protocol and compatible recorded dependencies, with solver tolerances allowed. Fingerprints establish identity but cannot supply the missing inputs. A fresh provider retrieval supports approximate replication using a new labelled vintage; revised historical prices may change results. Public ledgers permit evidence inspection, not independent reconstruction from source prices. See [the reproduction routes and commands](../../docs/empirical_phase2.md#external-reproducibility). `all_performance.csv` contains every computed primary metric. Undefined metrics are null/NaN and are never replaced by zero. Original evaluations are never overwritten.

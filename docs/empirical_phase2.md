@@ -5,6 +5,15 @@ engine, defaults, configurations and committed synthetic outputs are preserved.
 The study continues `feature/empirical-research` from
 `ab4a7b6daf6fa0cc1c030b8517e070d7b883a076`.
 
+Start with the [paper](empirical_manuscript.pdf) or
+[curated research index](empirical_research_index.md) for the main results,
+protocol and key figures.
+
+**Design history:** after inspecting development/validation execution failures,
+Codex introduced formation reserves. This outcome-informed engineering correction
+preceded the freeze and single holdout evaluation; the original failed runs remain
+part of the evidence. The published results use the corrected specification.
+
 ## Audit and methodological corrections
 
 The original feature commit was tested independently in an archived checkout:
@@ -46,7 +55,8 @@ they were not assigned misleading full-period performance. Ordinary comparisons
 completed. An interrupted reserve-run artifact remains locally under
 `results/empirical_phase2_final` and is not represented as a completed evaluation.
 
-Before holdout, identical formation reserves were declared across active
+After inspecting those development/validation failures, Codex introduced
+identical formation reserves across active
 scenarios: 2 percentage points turnover, 1 percentage point group exposure and
 0.1 percentage point annual TE. Primary formation limits are therefore 28%, 9pp
 and 7.9% (4.9% in high states). Execution mandates remain 30%, 10pp and 8%/5%.
@@ -167,6 +177,13 @@ versus fixed risk is −0.015 percentage points/year, with a paired interval
 The primary holdout forward IC is −0.019, despite positive portfolio active
 return; preference alignment and cross-sectional prediction are distinct.
 
+The 8% and 12% TE configurations have essentially identical performance, consistent
+with largely non-binding TE caps at those settings. Turnover restricted signal
+expression more than the tested 4%–12% TE range under this model, objective,
+universe and other constraints. This is a conditional sensitivity result, not
+evidence that turnover is generally more important than tracking error in
+portfolio management. Increased capture does not establish improved returns.
+
 The reviewed study is under `results/empirical_phase2_reviewed`. Its
 `all_performance.csv`, `experiment_status.md`, `report.md`, eight figures,
 period/scenario ledgers and paired regime intervals are produced by executed
@@ -174,7 +191,7 @@ models and the reporting script. Full local trade paths are retained for audit;
 Git records aggregate portfolio returns/diagnostics and summaries, not raw ETF
 prices or corporate-action responses.
 
-The [finished manuscript PDF](empirical_manuscript.pdf) has 12 pages and all eight
+The [finished manuscript PDF](empirical_manuscript.pdf) has 13 pages and all eight
 requested figures. Every page was rendered and visually inspected; fonts are
 embedded, all eight images are present, and there are no unresolved references,
 overfull/underfull boxes or out-of-page content blocks. Tectonic emitted a local
@@ -205,7 +222,7 @@ paths retain explicit failure records without full-period metrics.
 | Notebook validation | One tracked notebook validated; not executed |
 | Source/wheel build and external wheel import | Passed |
 | Streamlit health and root | HTTP 200 |
-| PDF | 12 pages, eight embedded figures; inspected |
+| PDF | Revised presentation: 13 pages, eight embedded figures; inspected |
 
 The [verification record](../results/empirical_phase2_reviewed/verification.json)
 captures the executed local checks **before holdout freezing**. It does not attest
@@ -230,13 +247,38 @@ persistence, structural breaks, multiple comparisons and limited holdout length
 are limitations. Conditional regimes use daily lagged labels, while allocation
 budgets update only at rebalances; neither implies causal effects.
 
+## External reproducibility
+
+The original market-data bundle is retained locally and is **not publicly
+available**. Public fingerprints, source descriptions and commands document its
+identity and processing, but do not make exact external reproduction possible
+without access to those inputs. Upstream redistribution rights have not been
+independently verified; the repository does not offer a public bundle download.
+
+| Route | Required inputs and expected agreement |
+|---|---|
+| Exact-input reproduction | Original price/action responses, CSVs and manifest; frozen model commit `86a72b72584cf70e990525b62a7d4fab6e3649bd`; locked protocol; compatible recorded dependencies. Check both original SHA-256 values above. Numerical results should agree within solver tolerances; byte-for-byte output equality across environments is not promised. |
+| Approximate replication | Fresh provider acquisition, a new manifest and fingerprints, the same declared model/protocol and a new output directory. Revised adjusted prices or actions may change results. This reproduces the method on a new vintage, not necessarily the published numerical findings. |
+| Public evidence inspection | Committed protocol, tables, aggregate return ledgers, figures and audit records. These support inspection of the reported evidence without a raw bundle, but are not a substitute for independent reconstruction from source prices. |
+
+The local validation reproduction and accounting audit used the original bundle.
+Their success does not establish that an external reader can retrieve that same
+historical vintage. If the original bundle becomes available under appropriate
+rights, use a separate clean checkout of the frozen model commit for model
+execution and retain the original hashes. A new retrieval matching the fingerprints
+can be treated as identical input only after verifying the original responses and
+manifest too; matching dates and ticker names alone is insufficient.
+
 ## Reproduction commands
 
 Use Python 3.10, 3.11 or 3.12. A complete dependency snapshot accompanies the
 verification record; bounded installation ranges remain in `pyproject.toml`.
 Commands below are PowerShell-compatible after activating the intended venv.
-For a fresh reproduction use a new output path and preserve the original final
-evaluation. A fresh retrieval can have a different adjustment vintage/hash.
+The acquisition commands below implement **approximate replication with a fresh
+vintage**. Use a new output path and preserve the original final evaluation.
+For exact-input reproduction, supply the verified original bundle instead of
+running acquisition, and execute the frozen model in a separate clean checkout.
+Use the current reporting script separately if rebuilding the revised presentation.
 
 ```powershell
 python -m pip install -e '.[dev,empirical]'

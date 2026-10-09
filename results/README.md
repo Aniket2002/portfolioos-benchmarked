@@ -1,5 +1,12 @@
 # Research outputs
 
+For the historical study, start with the
+[curated empirical research index](../docs/empirical_research_index.md),
+[paper](../docs/empirical_manuscript.pdf) and
+[results report](empirical_phase2_reviewed/report.md).
+The index links the protocol, selected tables/figures and full audit evidence.
+Detailed period/scenario files are retained for audit rather than required reading.
+
 `demo/` contains the deterministic **SYNTHETIC** mechanics demonstration.
 It is not historical market evidence. Regenerate from the repository root:
 

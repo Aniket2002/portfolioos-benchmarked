@@ -2,12 +2,15 @@
   "frozen_code_commit": "86a72b72584cf70e990525b62a7d4fab6e3649bd",
   "files": {
     ".gitattributes": "e3fc7f896209a47b8c3ded82360fcd8b63faafd22a068814daa6b74acecfefc0",
-    "README.md": "720816b15465ca54b15511b0f6f10f896dbd4352672526f97fb5b25426b2a187",
+    "README.md": "bc9e1bc3bce46ca5826b550a652bc8beeca3d8671f12a7cbb9e7ff9961d6ad3b",
     "docs/empirical_extension.md": "e243a1d5486b6e3135d525dd86b77d0f9fc8c803b4759b4eb8f44ddfee067d58",
-    "docs/empirical_manuscript.tex": "80f827537215848328c406e2543ec12c6e8064e0108398faf6fc6eb96d2ef52a",
-    "docs/empirical_phase2.md": "e15e9d4e402fed873ab4975a3fd4077c44a73ebc4ef5fb92ed5d143508192ff3",
-    "docs\\empirical_manuscript.pdf": "8ba4955ffbfce73b2ad0201016aa8405c329b8d4dbbfb68bd7830a41beff3777",
-    "results/README.md": "0ff4a128706ba565833d31a8141df9e857ba47dd867bf269a9a4363abaf15257",
+    "docs/empirical_manuscript.tex": "aa6b5eadfdab4eb66991aa6c352347f55d5b8b7d050cf79124c3cd1bfe9ff17f",
+    "docs/empirical_phase2.md": "7dce21aef11e4b8a42ac7f9d9584a05308f969bab27398cfc7e18f79de34bb01",
+    "docs/empirical_research_index.md": "38737e1ef7e4d880296158a094219d8e2b3f22b3f4839ef4111c6257e4d3cf91",
+    "docs\\empirical_manuscript.pdf": "386da957a64048d67d18aa80fea2842560cce115879c7914b14719a1bede954c",
+    "results/README.md": "95d7dd12e2428ce7c413c38eff7760cf7b51e9a471e6a6d94ce917a0c06480d6",
+    "results/empirical_phase2_reviewed/README.md": "cb21e688e0a5982479327e8ca382a276012c32d1d0abd4c472b5a1458d19e84a",
+    "results/empirical_phase2_reviewed/ci_verification.json": "05218bfed154c1dbd2c864ee5ca713b58cb7da129fd20c1e7a2332a0d0141039",
     "results\\empirical_phase2_reviewed\\accounting_audit.json": "014a280f848f874ff942f8610e761e3093b0635c51041311accfdab4dcc9bb8f",
     "results\\empirical_phase2_reviewed\\all_performance.csv": "c531d182c384bcfe0799d32dbc1b70edd8563049e579b4424455fbe36f519ace",
     "results\\empirical_phase2_reviewed\\data_quality.json": "4b355f738deb0e715fe756a5fede8952afcf459b625b50646bb77933d6d936c6",
@@ -400,9 +403,9 @@
     "results\\empirical_phase2_reviewed\\holdout\\without_reversal_1m\\uncertainty.json": "e9fb56175eb0bc4ef3f2567c98c2c7db7a6552f5d4b3de0c86f3d70e2a66c38c",
     "results\\empirical_phase2_reviewed\\holdout_access.json": "8b8f8ca64457ba11bbbb9cb1da67c72f8e4498a83bb21f4be1d01c9ed0a7f8c2",
     "results\\empirical_phase2_reviewed\\paired_regime_uncertainty.json": "324c438e608cdd810f7974aa410bcdf40d795a9cc285a9b62c05dc65eacc925d",
-    "results\\empirical_phase2_reviewed\\pdf_inspection.json": "b8bfdb2d59b62bf60c9c2915d03032bd152a20d2d3df1be8c2977cf2272e5813",
+    "results\\empirical_phase2_reviewed\\pdf_inspection.json": "5e852e21be248be0607fc27aad11065dc9ce25a6f23c330e60a46425aec4080b",
     "results\\empirical_phase2_reviewed\\regime_timeline.csv": "fab844db74ec910d8c6c9308ee95e190d9758c5d92ecdad2dc73665860ccac8a",
-    "results\\empirical_phase2_reviewed\\report.md": "8264f4881025d78ecc129001b90be09b0d9ca33f4aadc400e3b7ae2a52f871ed",
+    "results\\empirical_phase2_reviewed\\report.md": "fb90306ad4458b2dc954c1b8613986cea1a6de6938e7bcc2e18f954dbd766d0e",
     "results\\empirical_phase2_reviewed\\reproducibility_verification.json": "b147c4ff60fde24a94fd9a94a1228b9db901c02bf0c69ba6e07fb65ae20bbb48",
     "results\\empirical_phase2_reviewed\\review.json": "66d21e755ebf2307886403e5026c7ed8951caa4f86f87995dd22a170bb3e0469",
     "results\\empirical_phase2_reviewed\\validation\\cost_0bps\\metrics.csv": "e6aa5c984311c06e7eba51851930f7989a68646818dab08a58ab83a52538cf7b",
@@ -591,8 +594,9 @@
     "results\\empirical_phase2_reviewed\\validation\\without_reversal_1m\\uncertainty.json": "43f95f212de080c8e930c9b3a1b7c5514561da1ec873c9ffda1d4c138b85ee8a",
     "results\\empirical_phase2_reviewed\\verification.json": "2267ac188fdc4ede2b0ed5b9f73ba9e6c0d3aeb1ec9684587bec8e4c2d41452c",
     "scripts/audit_empirical_artifacts.py": "3da2a538b70ec9dd8cf4410714691a5367c0bd956614ed5295dd532ca122f617",
-    "scripts/build_empirical_report.py": "04795dd33262088eecca5fd3a29d70293ad2cdaf5a87574dc96313b3fefdd2cb",
-    "results/empirical_phase2_reviewed/ci_verification.json": "05218bfed154c1dbd2c864ee5ca713b58cb7da129fd20c1e7a2332a0d0141039"
+    "scripts/build_empirical_report.py": "653c7637845102dc94d51865dbe3fae6e2921a57db3d70e85056c48faa4ed532"
   },
-  "raw_provider_bundle_committed": false
+  "raw_provider_bundle_committed": false,
+  "presentation_basis_commit": "87e17df4eedea41e9eb8828f2797cfbc9ec06b2f",
+  "presentation_revision": "Interpretation, reproducibility disclosures and curated navigation; frozen model, protocol and numerical evidence unchanged."
 }
