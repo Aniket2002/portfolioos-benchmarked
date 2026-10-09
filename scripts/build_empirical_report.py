@@ -41,6 +41,25 @@ LABELS = {
     "fixed_risk": "Fixed risk",
     "regime_aware": "Regime aware",
 }
+SCENARIO_LABELS = {
+    **LABELS,
+    "te_4pct": "TE 4%",
+    "te_8pct": "TE 8%",
+    "te_12pct": "TE 12%",
+    "turnover_10pct": "Turnover 10%",
+    "turnover_30pct": "Turnover 30%",
+    "turnover_50pct": "Turnover 50%",
+    "cost_0bps": "Cost 0 bps",
+    "cost_10bps": "Cost 10 bps",
+    "cost_25bps": "Cost 25 bps",
+    "cost_40bps": "Cost 40 bps",
+    "without_momentum_12_1": "No momentum",
+    "without_low_volatility": "No low-volatility",
+    "without_reversal_1m": "No reversal",
+    "sample_covariance": "Sample covariance",
+    "lag_3": "Three-session lag",
+    "weekly": "Weekly rebalance",
+}
 
 
 def tex(value):
@@ -497,37 +516,94 @@ def build(root, bundle, manuscript):
 
 def write_manuscript(destination, root, rows, quality, lock, paired):
     """All numerical tables below are assembled directly from evaluation ledgers."""
-    preamble = r"""\documentclass[11pt]{article}
-\usepackage[margin=0.8in]{geometry}
-\usepackage{amsmath,amssymb,booktabs,longtable,graphicx,hyperref}
-\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,hypertexnames=false}
+    preamble = r"""\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=1in,headheight=14pt,headsep=16pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype,booktabs,longtable,graphicx,xcolor}
+\usepackage{setspace,titlesec,fancyhdr,caption,needspace}
+\usepackage{hyperref}
+\AtBeginDocument{\ifdefined\XeTeXtracingfonts\XeTeXtracingfonts=0\fi}
+\definecolor{ink}{HTML}{23364A}
+\definecolor{muted}{HTML}{59616A}
+\hypersetup{
+  colorlinks=true,urlcolor=ink,linkcolor=ink,citecolor=ink,
+  hypertexnames=false,bookmarksnumbered=true,
+  pdftitle={Benchmark-Relative Systematic Portfolio Construction: Evidence from a Ten-ETF Historical Study},
+  pdfauthor={Aniket Bhardwaj},
+  pdfsubject={Working paper on benchmark-relative portfolio construction},
+  pdfkeywords={portfolio construction, tracking error, turnover, ETFs, backtesting},
+  pdflang={en-US}
+}
+\urlstyle{same}
+\setstretch{1.10}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{3pt}
 \setlength{\emergencystretch}{3em}
-\title{Benchmark-Relative Systematic Portfolio Construction:\\An Independent Ten-ETF Historical Study}
-\author{Aniket Bhardwaj}
-\date{9 October 2026}
+\setlength{\tabcolsep}{7pt}
+\renewcommand{\arraystretch}{1.12}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false,skip=8pt,hypcap=false}
+\titleformat{\section}{\large\bfseries}{\thesection}{0.65em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.65em}{}
+\titlespacing*{\section}{0pt}{18pt plus 3pt minus 2pt}{7pt}
+\titlespacing*{\subsection}{0pt}{12pt plus 2pt minus 1pt}{5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{muted}Benchmark-Relative Portfolio Construction}
+\fancyhead[R]{\footnotesize\color{muted}Working paper}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+\renewenvironment{abstract}{\par\vspace{12pt}\noindent\textbf{Abstract}\par\vspace{4pt}\small\setstretch{1.08}}{\par\normalsize\vspace{10pt}}
 \begin{document}
-\maketitle
-\noindent\textbf{Independent research; not peer reviewed. Retrospective pseudo-out-of-sample evidence.}
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{8mm}
+{\small\scshape\color{muted}Working paper}\par
+\vspace{9mm}
+{\fontsize{22}{26}\selectfont\bfseries Benchmark-Relative Systematic\\[3pt]Portfolio Construction}\par
+\vspace{4mm}
+{\large Evidence from a Ten-ETF Historical Study}\par
+\vspace{9mm}
+{\large Aniket Bhardwaj}\par
+\vspace{2mm}
+{\small Independent researcher}\par
+\vspace{4mm}
+{\small 9 October 2026}\par
+\end{center}
+\vspace{5mm}
 \begin{abstract}
-This study examines how benchmark-relative tracking-error and turnover limits
-compress a fixed composite of momentum, low-volatility and short-term reversal
-preferences in a surviving ten-ETF panel. Monthly portfolios are compared with
-a monthly 60/40 policy, equal weight and inverse volatility, with a conservative
-two-session information lag. Development, validation and final holdout periods
-are separated, and the protocol and dataset are frozen before constructed
-holdout portfolio performance is examined. Negative outcomes and interrupted
-paths remain part of the evidence. After inspecting development/validation
-execution failures, formation reserves were introduced and the corrected
-specification was frozen before holdout. The 8\% and 12\% TE configurations have
-essentially identical performance; turnover was more restrictive under the
-tested settings, without establishing a general ranking of portfolio constraints.
-Exact-input reproduction requires the original, non-public market-data bundle;
-fresh retrieval supports approximate replication on a potentially revised vintage.
-Signal capture measures preference expression,
-not predictive skill. The results below distinguish arithmetic active returns,
-compounded performance and descriptive block-bootstrap uncertainty; they do not
-establish persistent alpha or causal effects of volatility regimes.
+We examine how benchmark-relative risk and trading constraints affect signal
+expression and net performance in a surviving ten-ETF panel. Monthly long-only
+portfolios combine momentum, low-volatility and short-term reversal preferences
+and are compared with a monthly 60/40 policy, equal weight and inverse volatility.
+Decisions use a two-session information lag. Development (2011--2017), validation
+(2018--2022) and holdout (2023--September 2026) are evaluated separately. Following
+development/validation execution failures, formation reserves were introduced
+and the corrected specification was frozen before holdout evaluation. Under
+the tested settings, turnover restricted signal expression more than the
+tracking-error range; the 8\% and 12\% risk limits were largely non-binding.
+Greater signal capture did not establish stronger investment performance.
+The primary model underperformed the policy in development and validation.
+% HOLDOUT FINDING
+Regime awareness made little difference, and interrupted paths remain visible.
+This retrospective pseudo-out-of-sample study does not establish persistent
+alpha or a general ranking of portfolio constraints. Exact-input reproduction
+requires the original, non-public data bundle; fresh acquisition permits
+approximate replication using a potentially revised historical vintage.
 \end{abstract}
+\noindent{\small\textbf{Keywords:} Portfolio construction; tracking error; turnover; exchange-traded funds; walk-forward backtesting.}\par
+\vspace{7mm}
+\noindent{\footnotesize\textbf{AI assistance disclosure.} OpenAI Codex assisted with research-software implementation, data checks, experiment execution, literature verification, drafting and manuscript preparation. Responsibility for the submitted content rests with the author.}\par
+\vfill
+\noindent{\footnotesize\color{muted}This working paper has not undergone peer review. Code, protocol and evidence: \href{https://github.com/Aniket2002/portfolioos-benchmarked/tree/feature/empirical-research}{PortfolioOS research repository}.}\par
+\end{titlepage}
+\setcounter{page}{1}
 \section{Introduction and research questions}
 How do benchmark risk and trading constraints affect signal expression? Does
 increased expression improve net historical performance? Can a tighter
@@ -586,12 +662,9 @@ is not an independent market-data validation.
             f"frictionless policy. Annualized arithmetic active return is "
             f"{number(interval['estimate'], True)} with a descriptive 95% "
             f"block interval [{number(interval['lower'], True)}, "
-            f"{number(interval['upper'], True)}]. Weekly execution failures in "
-            "development and validation remain part of the robustness evidence."
+            f"{number(interval['upper'], True)}]."
         )
-        preamble = preamble.replace(
-            r"\end{abstract}", finding + "\n" + r"\end{abstract}"
-        )
+        preamble = preamble.replace("% HOLDOUT FINDING", finding)
     sections = [preamble]
     sections.append(
         f"The panel contains {quality['observed_sessions']:,} common sessions from "
@@ -710,7 +783,9 @@ tables. Percent figures are expressed in percentage points.
     for period in PERIODS:
         sections.append(f"\\subsection{{{period.title()}}}\n")
         sections.append(
-            r"\begin{center}\small\begin{tabular}{lrrrrr}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & MDD\\\midrule"
+            r"\begin{center}\begin{minipage}{\textwidth}\small"
+            + f"\n\\captionof{{table}}{{{period.title()}-period performance.}}\\label{{tab-{period}}}\n"
+            + r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & Max. DD\\\midrule"
             + "\n"
         )
         for scenario in STRATEGIES:
@@ -729,15 +804,19 @@ tables. Percent figures are expressed in percentage points.
                 ]
             ]
             sections.append(" & ".join(map(tex, cells)) + r"\\" + "\n")
-        sections.append(r"\bottomrule\end{tabular}\end{center}" + "\n")
+        sections.append(
+            r"\bottomrule\end{tabular*}\par\vspace{4pt}"
+            r"\footnotesize\noindent Notes: All values are percentages. Active denotes annualized arithmetic return relative to the frictionless policy; TE is realized tracking error. Max. DD is maximum drawdown. Net returns include 10 bps per unit of one-way turnover."
+            r"\end{minipage}\end{center}" + "\n"
+        )
         fixed = rows[period]["fixed_risk"]
         if fixed["status"] == "success":
             m, interval = fixed["metrics"], fixed["uncertainty"]
             sections.append(
                 tex(
-                    f"Fixed-risk arithmetic active return is {number(interval['estimate'], True)} "
-                    f"with a 95% block interval [{number(interval['lower'], True)}, {number(interval['upper'], True)}]. "
-                    f"Mean capture is {number(m['average_signal_capture'])}, with {m['valid_capture_observations']} valid "
+                    f"Fixed-risk arithmetic active return: {number(interval['estimate'], True)}; "
+                    f"95% block interval [{number(interval['lower'], True)}, {number(interval['upper'], True)}]. "
+                    f"Mean capture: {number(m['average_signal_capture'])}, with {m['valid_capture_observations']} valid "
                     f"and {m['excluded_capture_observations']} excluded rebalance observations. "
                     f"Mean forward IC is {number(m['mean_ic'])}. "
                     f"Frictionless policy CAGR is {number(m['policy_frictionless_cagr'], True)}; "
@@ -778,14 +857,17 @@ they do not compound discontinuous subsequences or imply regime causality.
             + "\n\n"
         )
     sections.append(
-        r"\begin{center}\small\begin{longtable}{lllrrr}\toprule Period & Strategy & State & Days & Active & TE\\\midrule"
+        r"\begin{center}\small\begin{longtable}{@{}lllrrr@{}}"
+        r"\caption{Conditional performance by lagged volatility state.}\label{tab-regimes}\\"
+        r"\toprule Period & Strategy & State & Days & Active & TE\\\midrule\endfirsthead"
+        r"\toprule Period & Strategy & State & Days & Active & TE\\\midrule\endhead"
         + "\n"
     )
     for period in PERIODS:
         for scenario in ["fixed_risk", "regime_aware"]:
             for row in rows[period][scenario].get("regime_conditional", []):
                 cells = [
-                    period,
+                    period.title(),
                     LABELS[scenario],
                     row["regime"],
                     row["observations"],
@@ -845,18 +927,23 @@ strengthen further research.
         "fixed_vs_regime": "Executed fixed-risk and regime-aware net wealth; small visual differences need not indicate meaningful skill.",
         "ablation_robustness": "Executed ablations and robustness comparisons. Failed full-period paths have no return bar.",
     }
-    sections.append(r"\clearpage\section*{Research figures}" + "\n")
-    for name, caption in captions.items():
+    sections.append(
+        r"\clearpage\section*{Research figures}\addcontentsline{toc}{section}{Research figures}"
+        + "\n"
+    )
+    for position, (name, caption) in enumerate(captions.items()):
         path = Path(
             relpath(root / "figures" / f"{name}.png", Path(destination).parent)
         ).as_posix()
         sections.append(
-            r"\begin{figure}[htbp]\centering"
+            r"\begin{center}\begin{minipage}{\textwidth}\centering"
             + "\n"
-            + f"\\includegraphics[width=\\textwidth]{{{path}}}\n\\caption{{{caption}}}\n"
-            + r"\end{figure}"
+            + f"\\includegraphics[width=\\textwidth]{{{path}}}\n\\captionof{{figure}}{{{caption}}}\\label{{fig-{name}}}\n"
+            + r"\end{minipage}\end{center}\vfill"
             + "\n"
         )
+        if position % 2 == 1:
+            sections.append(r"\clearpage" + "\n")
     sections.append(r"""
 \clearpage
 \begin{thebibliography}{9}
@@ -887,23 +974,28 @@ general stationary observations. \emph{Annals of Statistics} 17(3), 1217--1241.
 \bibitem{terms} TigZig (2026). Terms of Use (August 2026 revision).
 \url{https://www.tigzig.com/terms}. Accessed October 9, 2026.
 \end{thebibliography}
-\appendix
+\clearpage\appendix
 \section{All declared scenario results}
 Table values are percentages for CAGR, active return, TE and turnover;
 capture is unitless. A dash denotes an unavailable full-period metric.
 Complete Sharpe, Sortino, volatility, drawdown, information ratio, wealth,
 cost drag, active share, IC and constraint diagnostics are in
 \texttt{all\_performance.csv} and the per-scenario ledgers.
-\begin{center}\scriptsize
-\begin{longtable}{llrrrrr}
+\begin{center}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{longtable}{@{}llrrrrr@{}}
 \caption{All executed scenarios; failures are retained.}\label{allresults}\\
 \toprule Period & Scenario & Net CAGR & Active & TE & Capture & Turnover\\\midrule\endfirsthead
+\caption[]{All executed scenarios (continued).}\\
 \toprule Period & Scenario & Net CAGR & Active & TE & Capture & Turnover\\\midrule\endhead
 """)
     for period in PERIODS:
+        if period == "holdout":
+            sections.append(r"\pagebreak" + "\n")
         for scenario, row in rows[period].items():
             m = row.get("metrics", {})
-            cells = [period, scenario] + [
+            cells = [period.title(), SCENARIO_LABELS.get(scenario, scenario)] + [
                 number(m[k] * (1 if k == "average_signal_capture" else 100))
                 if m.get(k) is not None
                 else "--"
@@ -917,17 +1009,23 @@ cost drag, active share, IC and constraint diagnostics are in
             ]
             sections.append(" & ".join(map(tex, cells)) + r"\\" + "\n")
     sections.append(r"\bottomrule\end{longtable}\end{center}" + "\n")
+    sections.append(
+        r"\noindent Scenario labels correspond to the identifiers in the declared protocol and \texttt{all\_performance.csv}. The complete model is retained in every signal-omission comparison; no alternative is promoted to the primary specification."
+        + "\n"
+    )
     for period in PERIODS:
         for scenario, row in rows[period].items():
             if row["status"] != "success":
                 sections.append(
                     tex(f"Failure: {period}, {scenario}: {row['error']}.") + "\n\n"
                 )
-    sections.append(r"\section{Reproduction appendix}" + "\n")
+    sections.append(r"\clearpage\section{Reproduction appendix}" + "\n")
+    sections.append("Frozen code commit: \\path{" + lock["code_commit"] + "}.\n\n")
     sections.append(
-        "Frozen code commit: \\texttt{" + tex(lock["code_commit"]) + "}.\n\n"
+        "Dataset SHA-256:\\par\\noindent{\\small\\path{"
+        + quality["prices_sha256"]
+        + "}}.\n\n"
     )
-    sections.append("Dataset SHA-256: \\path{" + quality["prices_sha256"] + "}.\n\n")
     sections.append(r"""
 See \texttt{docs/empirical\_phase2.md} for the data-provider and issuer sources,
 environment versions, original failures, exact commands and verification record.

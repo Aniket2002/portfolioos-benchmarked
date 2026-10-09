@@ -3,6 +3,8 @@
 Start with the [manuscript PDF](empirical_manuscript.pdf) and
 [methodology, provenance and reproduction guide](empirical_phase2.md).
 This ten-ETF historical study is independent research and has not been peer reviewed.
+The [SSRN preparation note](ssrn_preparation.md) explains the polished working-paper
+layout, AI disclosure and author metadata needed before submission.
 The separate [synthetic study](../results/research_tradeoffs/report.md) explores
 portfolio mechanics on deterministic data.
 

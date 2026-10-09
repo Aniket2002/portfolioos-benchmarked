@@ -1,35 +1,91 @@
-\documentclass[11pt]{article}
-\usepackage[margin=0.8in]{geometry}
-\usepackage{amsmath,amssymb,booktabs,longtable,graphicx,hyperref}
-\hypersetup{colorlinks=true,urlcolor=blue,linkcolor=blue,hypertexnames=false}
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=1in,headheight=14pt,headsep=16pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{newtxtext,newtxmath}
+\usepackage{microtype,booktabs,longtable,graphicx,xcolor}
+\usepackage{setspace,titlesec,fancyhdr,caption,needspace}
+\usepackage{hyperref}
+\AtBeginDocument{\ifdefined\XeTeXtracingfonts\XeTeXtracingfonts=0\fi}
+\definecolor{ink}{HTML}{23364A}
+\definecolor{muted}{HTML}{59616A}
+\hypersetup{
+  colorlinks=true,urlcolor=ink,linkcolor=ink,citecolor=ink,
+  hypertexnames=false,bookmarksnumbered=true,
+  pdftitle={Benchmark-Relative Systematic Portfolio Construction: Evidence from a Ten-ETF Historical Study},
+  pdfauthor={Aniket Bhardwaj},
+  pdfsubject={Working paper on benchmark-relative portfolio construction},
+  pdfkeywords={portfolio construction, tracking error, turnover, ETFs, backtesting},
+  pdflang={en-US}
+}
+\urlstyle{same}
+\setstretch{1.10}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{3pt}
 \setlength{\emergencystretch}{3em}
-\title{Benchmark-Relative Systematic Portfolio Construction:\\An Independent Ten-ETF Historical Study}
-\author{Aniket Bhardwaj}
-\date{9 October 2026}
+\setlength{\tabcolsep}{7pt}
+\renewcommand{\arraystretch}{1.12}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false,skip=8pt,hypcap=false}
+\titleformat{\section}{\large\bfseries}{\thesection}{0.65em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.65em}{}
+\titlespacing*{\section}{0pt}{18pt plus 3pt minus 2pt}{7pt}
+\titlespacing*{\subsection}{0pt}{12pt plus 2pt minus 1pt}{5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\color{muted}Benchmark-Relative Portfolio Construction}
+\fancyhead[R]{\footnotesize\color{muted}Working paper}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\raggedbottom
+\widowpenalty=10000
+\clubpenalty=10000
+\renewenvironment{abstract}{\par\vspace{12pt}\noindent\textbf{Abstract}\par\vspace{4pt}\small\setstretch{1.08}}{\par\normalsize\vspace{10pt}}
 \begin{document}
-\maketitle
-\noindent\textbf{Independent research; not peer reviewed. Retrospective pseudo-out-of-sample evidence.}
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{8mm}
+{\small\scshape\color{muted}Working paper}\par
+\vspace{9mm}
+{\fontsize{22}{26}\selectfont\bfseries Benchmark-Relative Systematic\\[3pt]Portfolio Construction}\par
+\vspace{4mm}
+{\large Evidence from a Ten-ETF Historical Study}\par
+\vspace{9mm}
+{\large Aniket Bhardwaj}\par
+\vspace{2mm}
+{\small Independent researcher}\par
+\vspace{4mm}
+{\small 9 October 2026}\par
+\end{center}
+\vspace{5mm}
 \begin{abstract}
-This study examines how benchmark-relative tracking-error and turnover limits
-compress a fixed composite of momentum, low-volatility and short-term reversal
-preferences in a surviving ten-ETF panel. Monthly portfolios are compared with
-a monthly 60/40 policy, equal weight and inverse volatility, with a conservative
-two-session information lag. Development, validation and final holdout periods
-are separated, and the protocol and dataset are frozen before constructed
-holdout portfolio performance is examined. Negative outcomes and interrupted
-paths remain part of the evidence. After inspecting development/validation
-execution failures, formation reserves were introduced and the corrected
-specification was frozen before holdout. The 8\% and 12\% TE configurations have
-essentially identical performance; turnover was more restrictive under the
-tested settings, without establishing a general ranking of portfolio constraints.
-Exact-input reproduction requires the original, non-public market-data bundle;
-fresh retrieval supports approximate replication on a potentially revised vintage.
-Signal capture measures preference expression,
-not predictive skill. The results below distinguish arithmetic active returns,
-compounded performance and descriptive block-bootstrap uncertainty; they do not
-establish persistent alpha or causal effects of volatility regimes.
-In the final holdout, the primary model's net CAGR is 13.72\% versus 12.33\% for the frictionless policy. Annualized arithmetic active return is 1.23\% with a descriptive 95\% block interval [-1.55\%, 3.90\%]. Weekly execution failures in development and validation remain part of the robustness evidence.
+We examine how benchmark-relative risk and trading constraints affect signal
+expression and net performance in a surviving ten-ETF panel. Monthly long-only
+portfolios combine momentum, low-volatility and short-term reversal preferences
+and are compared with a monthly 60/40 policy, equal weight and inverse volatility.
+Decisions use a two-session information lag. Development (2011--2017), validation
+(2018--2022) and holdout (2023--September 2026) are evaluated separately. Following
+development/validation execution failures, formation reserves were introduced
+and the corrected specification was frozen before holdout evaluation. Under
+the tested settings, turnover restricted signal expression more than the
+tracking-error range; the 8\% and 12\% risk limits were largely non-binding.
+Greater signal capture did not establish stronger investment performance.
+The primary model underperformed the policy in development and validation.
+In the final holdout, the primary model's net CAGR is 13.72\% versus 12.33\% for the frictionless policy. Annualized arithmetic active return is 1.23\% with a descriptive 95\% block interval [-1.55\%, 3.90\%].
+Regime awareness made little difference, and interrupted paths remain visible.
+This retrospective pseudo-out-of-sample study does not establish persistent
+alpha or a general ranking of portfolio constraints. Exact-input reproduction
+requires the original, non-public data bundle; fresh acquisition permits
+approximate replication using a potentially revised historical vintage.
 \end{abstract}
+\noindent{\small\textbf{Keywords:} Portfolio construction; tracking error; turnover; exchange-traded funds; walk-forward backtesting.}\par
+\vspace{7mm}
+\noindent{\footnotesize\textbf{AI assistance disclosure.} OpenAI Codex assisted with research-software implementation, data checks, experiment execution, literature verification, drafting and manuscript preparation. Responsibility for the submitted content rests with the author.}\par
+\vfill
+\noindent{\footnotesize\color{muted}This working paper has not undergone peer review. Code, protocol and evidence: \href{https://github.com/Aniket2002/portfolioos-benchmarked/tree/feature/empirical-research}{PortfolioOS research repository}.}\par
+\end{titlepage}
+\setcounter{page}{1}
 \section{Introduction and research questions}
 How do benchmark risk and trading constraints affect signal expression? Does
 increased expression improve net historical performance? Can a tighter
@@ -188,7 +244,9 @@ tables. Percent figures are expressed in percentage points.
 
 \subsection{Development}
 
-\begin{center}\small\begin{tabular}{lrrrrr}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & MDD\\\midrule
+\begin{center}\begin{minipage}{\textwidth}\small
+\captionof{table}{Development-period performance.}\label{tab-development}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & Max. DD\\\midrule
 
 Policy (net) & 7.987 & 7.976 & 0.004 & -0.011 & -11.373\\
 
@@ -200,13 +258,15 @@ Fixed risk & 7.722 & 7.499 & 3.653 & -0.380 & -17.784\\
 
 Regime aware & 7.710 & 7.486 & 3.626 & -0.396 & -17.440\\
 
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular*}\par\vspace{4pt}\footnotesize\noindent Notes: All values are percentages. Active denotes annualized arithmetic return relative to the frictionless policy; TE is realized tracking error. Max. DD is maximum drawdown. Net returns include 10 bps per unit of one-way turnover.\end{minipage}\end{center}
 
-Fixed-risk arithmetic active return is -0.38\% with a 95\% block interval [-3.14\%, 2.08\%]. Mean capture is 0.665, with 84 valid and 0 excluded rebalance observations. Mean forward IC is 0.012. Frictionless policy CAGR is 7.99\%; independently cost-adjusted policy CAGR is 7.98\%.
+Fixed-risk arithmetic active return: -0.38\%; 95\% block interval [-3.14\%, 2.08\%]. Mean capture: 0.665, with 84 valid and 0 excluded rebalance observations. Mean forward IC is 0.012. Frictionless policy CAGR is 7.99\%; independently cost-adjusted policy CAGR is 7.98\%.
 
 \subsection{Validation}
 
-\begin{center}\small\begin{tabular}{lrrrrr}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & MDD\\\midrule
+\begin{center}\begin{minipage}{\textwidth}\small
+\captionof{table}{Validation-period performance.}\label{tab-validation}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & Max. DD\\\midrule
 
 Policy (net) & 3.284 & 3.271 & 0.004 & -0.013 & -24.271\\
 
@@ -218,13 +278,15 @@ Fixed risk & 2.283 & 2.033 & 3.294 & -1.148 & -25.315\\
 
 Regime aware & 2.330 & 2.086 & 3.250 & -1.093 & -25.315\\
 
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular*}\par\vspace{4pt}\footnotesize\noindent Notes: All values are percentages. Active denotes annualized arithmetic return relative to the frictionless policy; TE is realized tracking error. Max. DD is maximum drawdown. Net returns include 10 bps per unit of one-way turnover.\end{minipage}\end{center}
 
-Fixed-risk arithmetic active return is -1.15\% with a 95\% block interval [-3.67\%, 1.36\%]. Mean capture is 0.548, with 60 valid and 0 excluded rebalance observations. Mean forward IC is -0.060. Frictionless policy CAGR is 3.28\%; independently cost-adjusted policy CAGR is 3.27\%.
+Fixed-risk arithmetic active return: -1.15\%; 95\% block interval [-3.67\%, 1.36\%]. Mean capture: 0.548, with 60 valid and 0 excluded rebalance observations. Mean forward IC is -0.060. Frictionless policy CAGR is 3.28\%; independently cost-adjusted policy CAGR is 3.27\%.
 
 \subsection{Holdout}
 
-\begin{center}\small\begin{tabular}{lrrrrr}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & MDD\\\midrule
+\begin{center}\begin{minipage}{\textwidth}\small
+\captionof{table}{Holdout-period performance.}\label{tab-holdout}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule Strategy & Gross CAGR & Net CAGR & TE & Active & Max. DD\\\midrule
 
 Policy (net) & 12.325 & 12.315 & 0.003 & -0.009 & -9.729\\
 
@@ -236,9 +298,9 @@ Fixed risk & 13.980 & 13.717 & 2.782 & 1.233 & -11.089\\
 
 Regime aware & 13.964 & 13.700 & 2.773 & 1.218 & -11.089\\
 
-\bottomrule\end{tabular}\end{center}
+\bottomrule\end{tabular*}\par\vspace{4pt}\footnotesize\noindent Notes: All values are percentages. Active denotes annualized arithmetic return relative to the frictionless policy; TE is realized tracking error. Max. DD is maximum drawdown. Net returns include 10 bps per unit of one-way turnover.\end{minipage}\end{center}
 
-Fixed-risk arithmetic active return is 1.23\% with a 95\% block interval [-1.55\%, 3.90\%]. Mean capture is 0.730, with 45 valid and 0 excluded rebalance observations. Mean forward IC is -0.019. Frictionless policy CAGR is 12.33\%; independently cost-adjusted policy CAGR is 12.32\%.
+Fixed-risk arithmetic active return: 1.23\%; 95\% block interval [-1.55\%, 3.90\%]. Mean capture: 0.730, with 45 valid and 0 excluded rebalance observations. Mean forward IC is -0.019. Frictionless policy CAGR is 12.33\%; independently cost-adjusted policy CAGR is 12.32\%.
 
 
 \section{Constraint sensitivity findings}
@@ -272,31 +334,31 @@ Validation: regime-aware minus fixed annualized arithmetic return 0.05\%; paired
 Holdout: regime-aware minus fixed annualized arithmetic return -0.02\%; paired 95\% block interval [-0.10\%, 0.05\%].
 
 
-\begin{center}\small\begin{longtable}{lllrrr}\toprule Period & Strategy & State & Days & Active & TE\\\midrule
+\begin{center}\small\begin{longtable}{@{}lllrrr@{}}\caption{Conditional performance by lagged volatility state.}\label{tab-regimes}\\\toprule Period & Strategy & State & Days & Active & TE\\\midrule\endfirsthead\toprule Period & Strategy & State & Days & Active & TE\\\midrule\endhead
 
-development & Fixed risk & normal & 1607 & -0.561 & 3.241\\
+Development & Fixed risk & normal & 1607 & -0.561 & 3.241\\
 
-development & Fixed risk & high & 154 & 1.507 & 6.577\\
+Development & Fixed risk & high & 154 & 1.507 & 6.577\\
 
-development & Regime aware & normal & 1607 & -0.581 & 3.246\\
+Development & Regime aware & normal & 1607 & -0.581 & 3.246\\
 
-development & Regime aware & high & 154 & 1.532 & 6.372\\
+Development & Regime aware & high & 154 & 1.532 & 6.372\\
 
-validation & Fixed risk & normal & 810 & -0.755 & 2.786\\
+Validation & Fixed risk & normal & 810 & -0.755 & 2.786\\
 
-validation & Fixed risk & high & 449 & -1.855 & 4.056\\
+Validation & Fixed risk & high & 449 & -1.855 & 4.056\\
 
-validation & Regime aware & normal & 810 & -0.686 & 2.767\\
+Validation & Regime aware & normal & 810 & -0.686 & 2.767\\
 
-validation & Regime aware & high & 449 & -1.827 & 3.979\\
+Validation & Regime aware & high & 449 & -1.827 & 3.979\\
 
-holdout & Fixed risk & normal & 722 & 1.506 & 2.545\\
+Holdout & Fixed risk & normal & 722 & 1.506 & 2.545\\
 
-holdout & Fixed risk & high & 217 & 0.328 & 3.461\\
+Holdout & Fixed risk & high & 217 & 0.328 & 3.461\\
 
-holdout & Regime aware & normal & 722 & 1.512 & 2.541\\
+Holdout & Regime aware & normal & 722 & 1.512 & 2.541\\
 
-holdout & Regime aware & high & 217 & 0.241 & 3.439\\
+Holdout & Regime aware & high & 217 & 0.241 & 3.439\\
 
 \bottomrule\end{longtable}\end{center}
 
@@ -341,47 +403,55 @@ a construction diagnostic; these historical results do not establish persistent
 alpha. Prospective evaluation and independently licensed institutional data would
 strengthen further research.
 
-\clearpage\section*{Research figures}
+\clearpage\section*{Research figures}\addcontentsline{toc}{section}{Research figures}
 
-\begin{figure}[htbp]\centering
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/wealth.png}
-\caption{Executed cumulative net wealth with the frictionless policy shown separately. Each period is independently endowed at NAV 1.}
-\end{figure}
+\captionof{figure}{Executed cumulative net wealth with the frictionless policy shown separately. Each period is independently endowed at NAV 1.}\label{fig-wealth}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/drawdowns.png}
-\caption{Executed net drawdowns, including initial NAV 1 in the running high-water mark.}
-\end{figure}
+\captionof{figure}{Executed net drawdowns, including initial NAV 1 in the running high-water mark.}\label{fig-drawdowns}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\clearpage
+
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/te_frontier.png}
-\caption{Declared TE mandates versus average signal capture and realized net TE; all other primary settings fixed.}
-\end{figure}
+\captionof{figure}{Declared TE mandates versus average signal capture and realized net TE; all other primary settings fixed.}\label{fig-te_frontier}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/turnover_frontier.png}
-\caption{Declared turnover mandates versus capture and realized net TE; the identical two-percentage-point formation reserve applies throughout.}
-\end{figure}
+\captionof{figure}{Declared turnover mandates versus capture and realized net TE; the identical two-percentage-point formation reserve applies throughout.}\label{fig-turnover_frontier}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\clearpage
+
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/cost_sensitivity.png}
-\caption{Net CAGR under accounting-only cost changes with identical gross returns, holdings and trades.}
-\end{figure}
+\captionof{figure}{Net CAGR under accounting-only cost changes with identical gross returns, holdings and trades.}\label{fig-cost_sensitivity}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/regime_timeline.png}
-\caption{Policy volatility and its strictly earlier expanding threshold. Red shading marks observation-date high-state labels, available only after that close.}
-\end{figure}
+\captionof{figure}{Policy volatility and its strictly earlier expanding threshold. Red shading marks observation-date high-state labels, available only after that close.}\label{fig-regime_timeline}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\clearpage
+
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/fixed_vs_regime.png}
-\caption{Executed fixed-risk and regime-aware net wealth; small visual differences need not indicate meaningful skill.}
-\end{figure}
+\captionof{figure}{Executed fixed-risk and regime-aware net wealth; small visual differences need not indicate meaningful skill.}\label{fig-fixed_vs_regime}
+\end{minipage}\end{center}\vfill
 
-\begin{figure}[htbp]\centering
+\begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/ablation_robustness.png}
-\caption{Executed ablations and robustness comparisons. Failed full-period paths have no return bar.}
-\end{figure}
+\captionof{figure}{Executed ablations and robustness comparisons. Failed full-period paths have no return bar.}\label{fig-ablation_robustness}
+\end{minipage}\end{center}\vfill
+
+\clearpage
 
 
 \clearpage
@@ -413,146 +483,153 @@ general stationary observations. \emph{Annals of Statistics} 17(3), 1217--1241.
 \bibitem{terms} TigZig (2026). Terms of Use (August 2026 revision).
 \url{https://www.tigzig.com/terms}. Accessed October 9, 2026.
 \end{thebibliography}
-\appendix
+\clearpage\appendix
 \section{All declared scenario results}
 Table values are percentages for CAGR, active return, TE and turnover;
 capture is unitless. A dash denotes an unavailable full-period metric.
 Complete Sharpe, Sortino, volatility, drawdown, information ratio, wealth,
 cost drag, active share, IC and constraint diagnostics are in
 \texttt{all\_performance.csv} and the per-scenario ledgers.
-\begin{center}\scriptsize
-\begin{longtable}{llrrrrr}
+\begin{center}\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{longtable}{@{}llrrrrr@{}}
 \caption{All executed scenarios; failures are retained.}\label{allresults}\\
 \toprule Period & Scenario & Net CAGR & Active & TE & Capture & Turnover\\\midrule\endfirsthead
+\caption[]{All executed scenarios (continued).}\\
 \toprule Period & Scenario & Net CAGR & Active & TE & Capture & Turnover\\\midrule\endhead
 
-development & fixed\_risk & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
+Development & Fixed risk & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
 
-development & te\_4pct & 7.790 & -0.168 & 2.986 & 0.662 & 17.273\\
+Development & TE 4\% & 7.790 & -0.168 & 2.986 & 0.662 & 17.273\\
 
-development & te\_8pct & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
+Development & TE 8\% & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
 
-development & te\_12pct & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
+Development & TE 12\% & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
 
-development & turnover\_10pct & 8.003 & 0.025 & 2.649 & 0.529 & 7.272\\
+Development & Turnover 10\% & 8.003 & 0.025 & 2.649 & 0.529 & 7.272\\
 
-development & turnover\_30pct & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
+Development & Turnover 30\% & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
 
-development & turnover\_50pct & 7.532 & -0.345 & 3.783 & 0.680 & 20.522\\
+Development & Turnover 50\% & 7.532 & -0.345 & 3.783 & 0.680 & 20.522\\
 
-development & cost\_0bps & 7.722 & -0.173 & 3.651 & 0.665 & 17.210\\
+Development & Cost 0 bps & 7.722 & -0.173 & 3.651 & 0.665 & 17.210\\
 
-development & cost\_10bps & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
+Development & Cost 10 bps & 7.499 & -0.380 & 3.653 & 0.665 & 17.210\\
 
-development & cost\_25bps & 7.166 & -0.690 & 3.658 & 0.665 & 17.210\\
+Development & Cost 25 bps & 7.166 & -0.690 & 3.658 & 0.665 & 17.210\\
 
-development & cost\_40bps & 6.834 & -1.001 & 3.666 & 0.665 & 17.210\\
+Development & Cost 40 bps & 6.834 & -1.001 & 3.666 & 0.665 & 17.210\\
 
-development & regime\_aware & 7.486 & -0.396 & 3.626 & 0.665 & 17.316\\
+Development & Regime aware & 7.486 & -0.396 & 3.626 & 0.665 & 17.316\\
 
-development & without\_momentum\_12\_1 & 6.351 & -1.581 & 2.386 & 0.419 & 17.198\\
+Development & No momentum & 6.351 & -1.581 & 2.386 & 0.419 & 17.198\\
 
-development & without\_low\_volatility & 9.256 & 1.402 & 4.989 & 0.629 & 21.105\\
+Development & No low-volatility & 9.256 & 1.402 & 4.989 & 0.629 & 21.105\\
 
-development & without\_reversal\_1m & 7.678 & -0.293 & 2.837 & 0.689 & 10.438\\
+Development & No reversal & 7.678 & -0.293 & 2.837 & 0.689 & 10.438\\
 
-development & policy & 7.976 & -0.011 & 0.004 & -- & 0.885\\
+Development & Policy (net) & 7.976 & -0.011 & 0.004 & -- & 0.885\\
 
-development & equal\_weight & 6.859 & -1.082 & 2.462 & -- & 1.557\\
+Development & Equal weight & 6.859 & -1.082 & 2.462 & -- & 1.557\\
 
-development & inverse\_volatility & 6.384 & -1.697 & 4.355 & -- & 4.241\\
+Development & Inverse volatility & 6.384 & -1.697 & 4.355 & -- & 4.241\\
 
-development & sample\_covariance & 7.494 & -0.384 & 3.653 & 0.665 & 17.245\\
+Development & Sample covariance & 7.494 & -0.384 & 3.653 & 0.665 & 17.245\\
 
-development & lag\_3 & 8.178 & 0.163 & 2.963 & 0.653 & 17.595\\
+Development & Three-session lag & 8.178 & 0.163 & 2.963 & 0.653 & 17.595\\
 
-development & weekly & -- & -- & -- & -- & --\\
+Development & Weekly rebalance & -- & -- & -- & -- & --\\
 
-validation & fixed\_risk & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
+Validation & Fixed risk & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
 
-validation & te\_4pct & 2.203 & -0.979 & 3.165 & 0.543 & 19.746\\
+Validation & TE 4\% & 2.203 & -0.979 & 3.165 & 0.543 & 19.746\\
 
-validation & te\_8pct & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
+Validation & TE 8\% & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
 
-validation & te\_12pct & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
+Validation & TE 12\% & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
 
-validation & turnover\_10pct & 2.451 & -0.718 & 2.831 & 0.414 & 7.816\\
+Validation & Turnover 10\% & 2.451 & -0.718 & 2.831 & 0.414 & 7.816\\
 
-validation & turnover\_30pct & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
+Validation & Turnover 30\% & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
 
-validation & turnover\_50pct & 2.692 & -0.502 & 3.498 & 0.592 & 27.121\\
+Validation & Turnover 50\% & 2.692 & -0.502 & 3.498 & 0.592 & 27.121\\
 
-validation & cost\_0bps & 2.283 & -0.903 & 3.291 & 0.548 & 20.398\\
+Validation & Cost 0 bps & 2.283 & -0.903 & 3.291 & 0.548 & 20.398\\
 
-validation & cost\_10bps & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
+Validation & Cost 10 bps & 2.033 & -1.148 & 3.294 & 0.548 & 20.398\\
 
-validation & cost\_25bps & 1.659 & -1.515 & 3.301 & 0.548 & 20.398\\
+Validation & Cost 25 bps & 1.659 & -1.515 & 3.301 & 0.548 & 20.398\\
 
-validation & cost\_40bps & 1.286 & -1.883 & 3.313 & 0.548 & 20.398\\
+Validation & Cost 40 bps & 1.286 & -1.883 & 3.313 & 0.548 & 20.398\\
 
-validation & regime\_aware & 2.086 & -1.093 & 3.250 & 0.546 & 19.938\\
+Validation & Regime aware & 2.086 & -1.093 & 3.250 & 0.546 & 19.938\\
 
-validation & without\_momentum\_12\_1 & 2.143 & -1.108 & 3.547 & 0.385 & 19.809\\
+Validation & No momentum & 2.143 & -1.108 & 3.547 & 0.385 & 19.809\\
 
-validation & without\_low\_volatility & 1.312 & -1.765 & 4.989 & 0.576 & 20.635\\
+Validation & No low-volatility & 1.312 & -1.765 & 4.989 & 0.576 & 20.635\\
 
-validation & without\_reversal\_1m & 2.591 & -0.642 & 3.208 & 0.604 & 12.233\\
+Validation & No reversal & 2.591 & -0.642 & 3.208 & 0.604 & 12.233\\
 
-validation & policy & 3.271 & -0.013 & 0.004 & -- & 1.112\\
+Validation & Policy (net) & 3.271 & -0.013 & 0.004 & -- & 1.112\\
 
-validation & equal\_weight & 2.743 & -0.618 & 2.752 & -- & 1.881\\
+Validation & Equal weight & 2.743 & -0.618 & 2.752 & -- & 1.881\\
 
-validation & inverse\_volatility & 1.400 & -2.228 & 5.436 & -- & 5.065\\
+Validation & Inverse volatility & 1.400 & -2.228 & 5.436 & -- & 5.065\\
 
-validation & sample\_covariance & 2.032 & -1.148 & 3.293 & 0.548 & 20.375\\
+Validation & Sample covariance & 2.032 & -1.148 & 3.293 & 0.548 & 20.375\\
 
-validation & lag\_3 & 2.463 & -0.745 & 3.276 & 0.534 & 21.237\\
+Validation & Three-session lag & 2.463 & -0.745 & 3.276 & 0.534 & 21.237\\
 
-validation & weekly & -- & -- & -- & -- & --\\
+Validation & Weekly rebalance & -- & -- & -- & -- & --\\
 
-holdout & fixed\_risk & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
+\pagebreak
 
-holdout & te\_4pct & 13.231 & 0.786 & 2.669 & 0.725 & 18.822\\
+Holdout & Fixed risk & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
 
-holdout & te\_8pct & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
+Holdout & TE 4\% & 13.231 & 0.786 & 2.669 & 0.725 & 18.822\\
 
-holdout & te\_12pct & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
+Holdout & TE 8\% & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
 
-holdout & turnover\_10pct & 14.216 & 1.639 & 2.228 & 0.593 & 7.338\\
+Holdout & TE 12\% & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
 
-holdout & turnover\_30pct & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
+Holdout & Turnover 10\% & 14.216 & 1.639 & 2.228 & 0.593 & 7.338\\
 
-holdout & turnover\_50pct & 13.508 & 1.040 & 2.936 & 0.758 & 22.762\\
+Holdout & Turnover 30\% & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
 
-holdout & cost\_0bps & 13.980 & 1.465 & 2.782 & 0.730 & 19.135\\
+Holdout & Turnover 50\% & 13.508 & 1.040 & 2.936 & 0.758 & 22.762\\
 
-holdout & cost\_10bps & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
+Holdout & Cost 0 bps & 13.980 & 1.465 & 2.782 & 0.730 & 19.135\\
 
-holdout & cost\_25bps & 13.323 & 0.887 & 2.785 & 0.730 & 19.135\\
+Holdout & Cost 10 bps & 13.717 & 1.233 & 2.782 & 0.730 & 19.135\\
 
-holdout & cost\_40bps & 12.931 & 0.540 & 2.792 & 0.730 & 19.135\\
+Holdout & Cost 25 bps & 13.323 & 0.887 & 2.785 & 0.730 & 19.135\\
 
-holdout & regime\_aware & 13.700 & 1.218 & 2.773 & 0.729 & 19.198\\
+Holdout & Cost 40 bps & 12.931 & 0.540 & 2.792 & 0.730 & 19.135\\
 
-holdout & without\_momentum\_12\_1 & 10.752 & -1.481 & 2.518 & 0.423 & 16.535\\
+Holdout & Regime aware & 13.700 & 1.218 & 2.773 & 0.729 & 19.198\\
 
-holdout & without\_low\_volatility & 14.202 & 1.891 & 4.250 & 0.594 & 20.959\\
+Holdout & No momentum & 10.752 & -1.481 & 2.518 & 0.423 & 16.535\\
 
-holdout & without\_reversal\_1m & 14.577 & 2.005 & 2.951 & 0.807 & 10.956\\
+Holdout & No low-volatility & 14.202 & 1.891 & 4.250 & 0.594 & 20.959\\
 
-holdout & policy & 12.315 & -0.009 & 0.003 & -- & 0.762\\
+Holdout & No reversal & 14.577 & 2.005 & 2.951 & 0.807 & 10.956\\
 
-holdout & equal\_weight & 11.379 & -0.853 & 2.841 & -- & 1.886\\
+Holdout & Policy (net) & 12.315 & -0.009 & 0.003 & -- & 0.762\\
 
-holdout & inverse\_volatility & 9.034 & -3.160 & 3.746 & -- & 4.468\\
+Holdout & Equal weight & 11.379 & -0.853 & 2.841 & -- & 1.886\\
 
-holdout & sample\_covariance & 13.762 & 1.273 & 2.785 & 0.730 & 19.142\\
+Holdout & Inverse volatility & 9.034 & -3.160 & 3.746 & -- & 4.468\\
 
-holdout & lag\_3 & 13.640 & 1.140 & 2.777 & 0.738 & 19.189\\
+Holdout & Sample covariance & 13.762 & 1.273 & 2.785 & 0.730 & 19.142\\
 
-holdout & weekly & 14.992 & 2.377 & 3.207 & 0.747 & 10.037\\
+Holdout & Three-session lag & 13.640 & 1.140 & 2.777 & 0.738 & 19.189\\
+
+Holdout & Weekly rebalance & 14.992 & 2.377 & 3.207 & 0.747 & 10.037\\
 
 \bottomrule\end{longtable}\end{center}
+
+\noindent Scenario labels correspond to the identifiers in the declared protocol and \texttt{all\_performance.csv}. The complete model is retained in every signal-omission comparison; no alternative is promoted to the primary specification.
 
 Failure: development, weekly: Execution mandate failed on 2012-06-04: sector active weight, sector active weight.
 
@@ -560,12 +637,12 @@ Failure: development, weekly: Execution mandate failed on 2012-06-04: sector act
 Failure: validation, weekly: Execution mandate failed on 2020-03-16: sector active weight.
 
 
-\section{Reproduction appendix}
+\clearpage\section{Reproduction appendix}
 
-Frozen code commit: \texttt{86a72b72584cf70e990525b62a7d4fab6e3649bd}.
+Frozen code commit: \path{86a72b72584cf70e990525b62a7d4fab6e3649bd}.
 
 
-Dataset SHA-256: \path{5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea}.
+Dataset SHA-256:\par\noindent{\small\path{5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea}}.
 
 
 

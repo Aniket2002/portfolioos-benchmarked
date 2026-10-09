@@ -1,6 +1,6 @@
 {
-  "pdf_sha256": "386da957a64048d67d18aa80fea2842560cce115879c7914b14719a1bede954c",
-  "pages": 13,
+  "pdf_sha256": "3e7df5eb74c24ecc6a68a1600930fc1fb677e848387857d629a3a951f2c27393",
+  "pages": 15,
   "embedded_figures": 8,
   "all_pages_visually_inspected": true,
   "all_fonts_embedded": true,
@@ -9,85 +9,119 @@
   "overfull_or_underfull_boxes": false,
   "compiler": "Tectonic 0.17.0",
   "compile_exit_code": 0,
-  "local_compiler_diagnostic": "Fontconfig config missing; bundled embedded fonts used successfully",
+  "local_compiler_diagnostic": "Fontconfig configuration diagnostic and XeTeX font-loading traces; embedded fonts verified in the resulting PDF.",
   "pages_detail": [
     {
       "page": 1,
-      "characters": 3355,
+      "characters": 2164,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 2,
-      "characters": 3443,
+      "characters": 3459,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 3,
-      "characters": 4005,
+      "characters": 3098,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 4,
-      "characters": 2630,
+      "characters": 3440,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 5,
-      "characters": 2840,
+      "characters": 2564,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 6,
-      "characters": 2387,
+      "characters": 2540,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 7,
-      "characters": 244,
-      "images": 2,
+      "characters": 2865,
+      "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 8,
-      "characters": 265,
+      "characters": 300,
       "images": 2,
       "outside_page_blocks": []
     },
     {
       "page": 9,
-      "characters": 269,
+      "characters": 320,
       "images": 2,
       "outside_page_blocks": []
     },
     {
       "page": 10,
-      "characters": 225,
+      "characters": 324,
       "images": 2,
       "outside_page_blocks": []
     },
     {
       "page": 11,
-      "characters": 2837,
-      "images": 0,
+      "characters": 281,
+      "images": 2,
       "outside_page_blocks": []
     },
     {
       "page": 12,
-      "characters": 3219,
+      "characters": 1470,
       "images": 0,
       "outside_page_blocks": []
     },
     {
       "page": 13,
-      "characters": 1120,
+      "characters": 2814,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 14,
+      "characters": 1680,
+      "images": 0,
+      "outside_page_blocks": []
+    },
+    {
+      "page": 15,
+      "characters": 1703,
       "images": 0,
       "outside_page_blocks": []
     }
-  ]
+  ],
+  "unencrypted": true,
+  "copying_permitted": true,
+  "printing_permitted": true,
+  "selectable_text_on_every_page": true,
+  "bookmarks": 21,
+  "paper_size": "A4",
+  "body_font_points": 11,
+  "body_typeface": "TeX Gyre Termes X",
+  "math_typeface": "New TX",
+  "metadata": {
+    "format": "PDF 1.5",
+    "title": "Benchmark-Relative Systematic Portfolio Construction: Evidence from a Ten-ETF Historical Study",
+    "author": "Aniket Bhardwaj",
+    "subject": "Working paper on benchmark-relative portfolio construction",
+    "keywords": "portfolio construction, tracking error, turnover, ETFs, backtesting",
+    "creator": "LaTeX with hyperref",
+    "producer": "xdvipdfmx (0.1)",
+    "creationDate": "D:20261009055729-00'00'",
+    "modDate": "",
+    "trapped": "",
+    "encryption": null
+  }
 }

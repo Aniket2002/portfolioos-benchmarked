@@ -191,12 +191,16 @@ models and the reporting script. Full local trade paths are retained for audit;
 Git records aggregate portfolio returns/diagnostics and summaries, not raw ETF
 prices or corporate-action responses.
 
-The [finished manuscript PDF](empirical_manuscript.pdf) has 13 pages and all eight
+The [finished manuscript PDF](empirical_manuscript.pdf) has 15 pages and all eight
 requested figures. Every page was rendered and visually inspected; fonts are
 embedded, all eight images are present, and there are no unresolved references,
 overfull/underfull boxes or out-of-page content blocks. Tectonic emitted a local
 Fontconfig configuration diagnostic but successfully used embedded bundled fonts.
-The final compile log has no LaTeX formatting warnings. Reporting-only path and
+The final compile log has no LaTeX formatting warnings. The Times-style text and
+matching mathematics use embedded TeX Gyre Termes and New TX fonts. The title page
+uses a discreet working-paper status note and includes an AI assistance disclosure;
+see the [SSRN preparation note](ssrn_preparation.md) for the official guidance and
+author metadata still needed before submission. Reporting-only path and
 layout corrections followed the holdout; model code/configuration and original
 holdout returns were not changed or rerun.
 
@@ -222,7 +226,7 @@ paths retain explicit failure records without full-period metrics.
 | Notebook validation | One tracked notebook validated; not executed |
 | Source/wheel build and external wheel import | Passed |
 | Streamlit health and root | HTTP 200 |
-| PDF | Revised presentation: 13 pages, eight embedded figures; inspected |
+| PDF | Working-paper presentation: 15 pages, eight embedded figures; inspected |
 
 The [verification record](../results/empirical_phase2_reviewed/verification.json)
 captures the executed local checks **before holdout freezing**. It does not attest
