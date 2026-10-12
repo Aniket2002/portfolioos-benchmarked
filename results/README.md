@@ -24,3 +24,10 @@ ledgers, tables, eight research figures and verification evidence. These selecte
 derived artifacts are committed explicitly; raw provider prices/actions remain
 under the ignored `data/` directory. See
 [Phase 2 documentation](../docs/empirical_phase2.md).
+
+`empirical_review_response/` contains separately labelled post-holdout
+diagnostics: class attribution, cap activity, a 3% high-state experiment and a
+Table 5 audit. The [public verifier](../scripts/verify_public_empirical_tables.py)
+recomputes performance tables and intervals from portfolio ledgers without
+provider data or model execution. The selected release artifacts include
+forward-IC ledgers; individual ETF daily returns remain local.

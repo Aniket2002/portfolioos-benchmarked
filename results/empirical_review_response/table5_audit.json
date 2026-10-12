@@ -1,0 +1,16 @@
+[
+  {
+    "period": "development",
+    "tracking_error": 0.049888433194185317,
+    "table_percent_3dp": "4.989",
+    "maximum_replication_difference": 9.996344030316351e-17,
+    "returns_sha256": "c34f8b139353f9a71f15cf8f994af6124b22400c72bf03a472f8446cfec055f1"
+  },
+  {
+    "period": "validation",
+    "tracking_error": 0.04988632706858751,
+    "table_percent_3dp": "4.989",
+    "maximum_replication_difference": 9.981436250444675e-17,
+    "returns_sha256": "54dd8e56abffd15792c0441a35b86f3b6506104a58cae6a4ebed0f2da986316b"
+  }
+]

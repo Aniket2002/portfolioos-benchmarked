@@ -230,3 +230,20 @@ results/*
 !results/seed_robustness/**
 *.egg-info/
 coverage.json
+
+# Public model-derived evidence; provider prices/actions remain under data/.
+!results/empirical_phase2_reviewed/
+results/empirical_phase2_reviewed/**
+!results/empirical_phase2_reviewed/**/
+!results/empirical_phase2_reviewed/*/*/signal_ic.csv
+!results/empirical_review_response/
+results/empirical_review_response/**
+!results/empirical_review_response/**/
+!results/empirical_review_response/*.json
+!results/empirical_review_response/*.csv
+!results/empirical_review_response/README.md
+!results/empirical_review_response/*/*/returns.csv
+!results/empirical_review_response/*/*/optimization.csv
+!results/empirical_review_response/*/*/partial_returns.csv
+!results/empirical_review_response/*/*/partial_optimization.csv
+!results/empirical_review_response/*/*/scenario_status.json

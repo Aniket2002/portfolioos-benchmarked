@@ -1,0 +1,28 @@
+{
+  "period": "validation",
+  "scenario": "regime_high_3pct",
+  "status": "success",
+  "metrics": {
+    "cumulative_return": 0.11918329885758316,
+    "cagr": 0.022793624934567047,
+    "annualized_volatility": 0.1316044709850737,
+    "sharpe": 0.23733615350527923,
+    "sortino": 0.3210725471399871,
+    "maximum_drawdown": -0.2531516179655633,
+    "benchmark_cumulative_return": 0.17521019026801898,
+    "tracking_error": 0.031003242512838744,
+    "information_ratio": -0.2946156256278521,
+    "annualized_arithmetic_active_return": -0.009134039689412008
+  },
+  "paired_vs_fixed": {
+    "estimate": 0.002342809149190522,
+    "lower": -0.0023806414798676592,
+    "upper": 0.007115182067088241,
+    "confidence": 0.95,
+    "seed": 20261008,
+    "block_length": 21,
+    "resamples": 2000,
+    "assumption": "approximate within-period stationarity, dependence within blocks",
+    "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+  }
+}

@@ -6,6 +6,7 @@
 \usepackage{microtype,booktabs,longtable,graphicx,xcolor}
 \usepackage{setspace,titlesec,fancyhdr,caption,needspace}
 \usepackage{hyperref}
+\usepackage{xurl}
 \AtBeginDocument{\ifdefined\XeTeXtracingfonts\XeTeXtracingfonts=0\fi}
 \definecolor{ink}{HTML}{23364A}
 \definecolor{muted}{HTML}{59616A}
@@ -14,7 +15,7 @@
   hypertexnames=false,bookmarksnumbered=true,
   pdftitle={Benchmark-Relative Systematic Portfolio Construction: Evidence from a Ten-ETF Historical Study},
   pdfauthor={Aniket Bhardwaj},
-  pdfsubject={Working paper on benchmark-relative portfolio construction},
+  pdfsubject={Benchmark-relative portfolio construction},
   pdfkeywords={portfolio construction, tracking error, turnover, ETFs, backtesting},
   pdflang={en-US}
 }
@@ -33,7 +34,6 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\footnotesize\color{muted}Benchmark-Relative Portfolio Construction}
-\fancyhead[R]{\footnotesize\color{muted}Working paper}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -46,8 +46,6 @@
 \thispagestyle{empty}
 \begin{center}
 \vspace*{8mm}
-{\small\scshape\color{muted}Working paper}\par
-\vspace{9mm}
 {\fontsize{22}{26}\selectfont\bfseries Benchmark-Relative Systematic\\[3pt]Portfolio Construction}\par
 \vspace{4mm}
 {\large Evidence from a Ten-ETF Historical Study}\par
@@ -56,50 +54,76 @@
 \vspace{2mm}
 {\small Independent researcher}\par
 \vspace{4mm}
-{\small 9 October 2026}\par
+{\small 12 October 2026}\par
 \end{center}
 \vspace{5mm}
 \begin{abstract}
-We examine how benchmark-relative risk and trading constraints affect signal
-expression and net performance in a surviving ten-ETF panel. Monthly long-only
-portfolios combine momentum, low-volatility and short-term reversal preferences
-and are compared with a monthly 60/40 policy, equal weight and inverse volatility.
-Decisions use a two-session information lag. Development (2011--2017), validation
-(2018--2022) and holdout (2023--September 2026) are evaluated separately. Following
-development/validation execution failures, formation reserves were introduced
-and the corrected specification was frozen before holdout evaluation. Under
-the tested settings, turnover restricted signal expression more than the
-tracking-error range; the 8\% and 12\% risk limits were largely non-binding.
-Greater signal capture did not establish stronger investment performance.
-The primary model underperformed the policy in development and validation.
-In the final holdout, the primary model's net CAGR is 13.72\% versus 12.33\% for the frictionless policy. Annualized arithmetic active return is 1.23\% with a descriptive 95\% block interval [-1.55\%, 3.90\%].
-Regime awareness made little difference, and interrupted paths remain visible.
-This retrospective pseudo-out-of-sample study does not establish persistent
-alpha or a general ranking of portfolio constraints. Exact-input reproduction
-requires the original, non-public data bundle; fresh acquisition permits
-approximate replication using a potentially revised historical vintage.
+We study how tracking-error and turnover limits shape monthly long-only
+portfolios in a surviving ten-ETF panel. Momentum, low-volatility and reversal
+preferences are evaluated against a monthly 60/40 policy in development
+(2011--2017), validation (2018--2022) and holdout (2023--September 2026).
+Formation reserves introduced after pre-holdout execution failures were frozen
+before holdout evaluation. Turnover limits restrict preference expression,
+while the objective's risk penalty and other constraints leave the 8\% and
+12\% tracking-error caps inactive. The 5\% high-state cap binds infrequently,
+limiting the original regime comparison's ability to distinguish allocations.
+The primary model has negative active-return point estimates in development
+and validation; both block intervals include zero.
+Holdout annualized arithmetic active return is 1.23\% with a descriptive 95\% block interval [-1.55\%, 3.90\%].
+Class attribution traces holdout gains to high-yield credit and gold, despite negative holdout mean IC. A post-holdout 3\% high-state diagnostic binds more often but provides no conclusive return benefit.
+This retrospective study separates portfolio construction from investment
+skill. Public daily portfolio ledgers support table verification; rebuilding
+allocations requires the original data vintage or a labelled fresh download.
 \end{abstract}
 \noindent{\small\textbf{Keywords:} Portfolio construction; tracking error; turnover; exchange-traded funds; walk-forward backtesting.}\par
-\vspace{7mm}
-\noindent{\footnotesize\textbf{AI assistance disclosure.} OpenAI Codex assisted with literature verification, manuscript preparation, and computational research. Responsibility for the submitted content rests with the author.}\par
 \vfill
-\noindent{\footnotesize\color{muted}This working paper has not undergone peer review. Code, protocol and evidence: \href{https://github.com/Aniket2002/portfolioos-benchmarked/tree/feature/empirical-research}{PortfolioOS research repository}.}\par
+\noindent{\footnotesize\color{muted}Code, protocol and evidence: \href{https://github.com/Aniket2002/portfolioos-benchmarked/tree/feature/empirical-research}{PortfolioOS research repository}.}\par
 \end{titlepage}
 \setcounter{page}{1}
 \section{Introduction and research questions}
-How do benchmark risk and trading constraints affect signal expression? Does
-increased expression improve net historical performance? Can a tighter
-tracking-error budget during high policy volatility materially change outcomes?
-The policy is a proposed comparison, not a claim of historical optimality.
-The original deterministic synthetic study remains unchanged and separate.
+Benchmark-relative managers must translate investment preferences into holdings
+while controlling deviations from a policy portfolio and the cost of changing
+positions. A hard tracking-error limit can appear unimportant if a quadratic risk
+penalty already keeps the optimizer within that limit. Conversely, a turnover
+limit may prevent a desired allocation even when the risk budget has headroom.
+Separating these mechanisms matters when interpreting a flat constraint frontier
+or a small difference between fixed and state-dependent risk budgets.
+
+We ask how risk and trading limits affect signal expression, whether greater
+expression improves net historical performance, and whether a tighter risk budget
+during high policy volatility changes allocations. The contribution is an
+auditable comparison in a transparent multi-asset ETF setting: declared
+constraint frontiers, independently costed comparison portfolios, preserved
+execution failures, and separate development, validation and holdout evidence.
+We measure constraint activity directly and reconcile active return by asset
+class, so construction effects can be distinguished from predictive skill.
+A separately labelled 3\% high-state diagnostic was added after holdout review.
+The monthly 60/40 policy is a proposed comparison; the deterministic synthetic
+study remains a separate exercise.
 \section{Literature review}
-Ledoit and Wolf motivate shrinkage risk estimation \cite{lw}; their covariance
-result does not establish profitability of this ETF strategy. DeMiguel,
-Garlappi and Uppal motivate a transparent equal-weight comparison \cite{dgu}.
-Their conclusions concern different universes and estimation problems.
-Block resampling recognizes serial dependence rather than treating daily
-observations as independent \cite{kunsch}. This study applies those methodological
-ideas to portfolio construction without claiming a new asset-pricing discovery.
+Roll's analysis of tracking error \cite{roll} establishes the distinction between
+optimization relative to a benchmark and conventional mean--variance efficiency.
+Jorion \cite{jorion} derives the geometry of tracking-error-constrained portfolios
+and shows why controlling relative risk alone can leave total portfolio risk
+inefficient. Our objective penalizes active variance and also imposes a hard TE
+cap; realized total volatility and drawdown are reported alongside relative risk.
+We do not add a total-volatility mandate.
+
+Clarke, de Silva and Thorley \cite{cdt} extend the fundamental law of active
+management with a transfer coefficient describing how constraints impede the
+translation of forecasts into active holdings. Our \textit{signal capture} diagnostic
+addresses that same implementation question, but is a score-expression ratio
+against a feasible reference, rather than their risk-adjusted cross-sectional
+correlation. Its inputs are preferences, not calibrated residual-return forecasts,
+so it is neither the classical transfer coefficient nor an estimate of expected
+information ratio.
+
+Ledoit and Wolf motivate shrinkage covariance estimation \cite{lw}; DeMiguel,
+Garlappi and Uppal motivate the equal-weight comparison \cite{dgu}.
+K\"unsch \cite{kunsch} provides the moving-block foundation for dependent-data
+resampling. Our fixed-length blocks wrap around the sample endpoints, following
+the circular procedure of Politis and Romano \cite{pr}, rather than an
+unwrapped moving-block bootstrap.
 Momentum research documents winner--loser persistence in individual stocks
 \cite{jt}; volatility-return research studies stock-level aggregate and
 idiosyncratic risk \cite{ang}; reversal research considers short-horizon
@@ -168,6 +192,13 @@ returns; reversal is $-(P_u/P_{u-21}-1)$. Cross-sectional 5th/95th winsorization
 and population-standard-deviation standardization precede the composite
 $s=z_{\rm momentum}+z_{\rm lowvol}+0.5z_{\rm reversal}$.
 Coefficients are fixed preferences, not calibrated expected returns.
+With ten complete observations and linear quantile interpolation, 5th/95th
+winsorization clips only the minimum and maximum of each raw score, leaving eight
+values unchanged before standardization. This is limited tail treatment in a
+small cross-section, not strong protection against outliers; an isolated extreme
+can still be reduced materially. Standardizing equities, bonds, gold and real
+estate together mixes distinct risk and return distributions and can encode
+asset-class preferences rather than within-class predictive information.
 Covariance uses 252 trailing returns, Ledoit--Wolf shrinkage, a $10^{-10}$
 daily diagonal ridge and annualization 252. Sample covariance is a declared
 robustness alternative. Forward IC is Spearman correlation with subsequent
@@ -180,6 +211,9 @@ the realized execution benchmark for both paths. Absolute reference exposure
 at most $10^{-10}$ yields an undefined observation. Different ablations have
 different reference scores, so their capture ratios are not cardinal skill
 comparisons. High capture does not imply superior returns.
+This diagnostic is related to the transfer-coefficient literature \cite{cdt},
+but its normalization is an attainable score exposure, not a risk-adjusted
+correlation.
 \section{Policy benchmark and constraints}
 The policy weights, in universe order, are
 $(0.30,0.05,0.15,0.10,0.20,0.05,0.15,0,0,0)$.
@@ -197,7 +231,7 @@ the initial policy endowment is not charged.
 Original development/validation active paths without reserves failed execution
 checks, predominantly turnover limits following unobserved one-session drift;
 those failures remain archived. After inspecting these development/validation
-outcomes, Codex introduced identical formation reserves across
+outcomes, we introduced identical formation reserves across
 active scenarios: 2 percentage points of turnover, 1 percentage point of group
 exposure and 0.1 percentage point of annual TE. Thus primary formation caps are
 28\%, 9 percentage points and 7.9\%; the high-state formation TE cap is 4.9\%.
@@ -231,7 +265,7 @@ Metrics use 252 observations/year and sample return standard deviations;
 Sharpe/Sortino assume zero risk-free return. Undefined metrics are explicit.
 
 Uncertainty uses circular 21-session blocks, 2,000 resamples, seed 20261008 and
-95\% percentile intervals for annualized arithmetic active means. Strategy
+95\% percentile intervals for annualized arithmetic active means \cite{pr}. Strategy
 differences are paired on the same dates. Approximate within-period stationarity
 and dependence within blocks are assumed; structural breaks, longer regime
 persistence and multiple comparisons are not resolved. No naive independent-day
@@ -307,7 +341,12 @@ Fixed-risk arithmetic active return: 1.23\%; 95\% block interval [-1.55\%, 3.90\
 Table \ref{allresults} reports every declared scenario. Relaxing a risk cap need
 not change an allocation when another constraint or the objective dominates.
 The 8\% and 12\% TE configurations have essentially identical performance,
-consistent with largely non-binding TE caps at those settings. Turnover restricted
+because those caps are inactive at every recorded formation decision.
+The $\lambda=10$ quadratic active-risk penalty already discourages large risk
+deviations, together with the group, position and turnover constraints; expanding
+the hard cap from 8\% to 12\% therefore adds headroom the optimizer does not use.
+The cap comparison alone does not isolate the risk penalty's marginal effect.
+Turnover restricted
 signal expression more than the tested 4\%--12\% TE range under this model,
 objective, universe and other constraints. This conditional sensitivity does not
 establish that turnover is generally more important than tracking error in
@@ -362,19 +401,61 @@ Holdout & Regime aware & high & 217 & 0.241 & 3.439\\
 
 \bottomrule\end{longtable}\end{center}
 
+\subsection{Constraint activity and a binding-cap diagnostic}
+The original regime comparison is partly mechanical. Fixed-risk realized TE is about 2.8\%--3.7\%, below the 5\% high-state mandate, although realized TE alone cannot determine whether an ex-ante limit binds. At formation, after the 0.1-percentage-point reserve, the 4.9\% cap binds at only 2/7, 5/21 and 2/10 high-state rebalances in development, validation and holdout. The budgets differ only on high-state rebalance dates, and the risk penalty already limits many desired deviations.
+Binding means estimated formation TE is within $10^{-5}$ of the formation cap (0.1 basis point of annual TE); this is a numerical activity diagnostic, not a dual-value or realized-risk test.
+We therefore add one separately labelled post-holdout diagnostic with 8\% normal and 3\% high-state mandates, keeping all other settings fixed. The 2.9\% high-state formation cap binds appreciably more often. This experiment was requested after holdout review and is exploratory; it does not alter the frozen specification or its reported performance.
+\begin{center}\begin{minipage}{\textwidth}\small
+\captionof{table}{Post-holdout 8\%/3\% regime diagnostic.}\label{tab-tight-regime}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrrrr@{}}\toprule
+Period & High binding & Net CAGR & Active & TE & $\Delta$ vs fixed\\\midrule
+Development & 5/7 & 7.822 & -0.086 & 3.501 & 0.294\\
+Validation & 11/21 & 2.279 & -0.913 & 3.100 & 0.234\\
+Holdout & 7/10 & 13.334 & 0.886 & 2.578 & -0.347\\
+\bottomrule\end{tabular*}\par\vspace{4pt}\footnotesize
+Notes: Returns and TE are percentages. High binding is binding/high-state rebalance counts. $\Delta$ is annualized mean daily net-return difference from fixed 8\% risk, in percentage points/year.
+\end{minipage}\end{center}
+Development paired 95\% circular-block interval for the difference: [-0.228, 0.979] percentage points/year.
+Validation paired 95\% circular-block interval for the difference: [-0.238, 0.712] percentage points/year.
+Holdout paired 95\% circular-block interval for the difference: [-1.025, 0.250] percentage points/year.
+All paired intervals include zero. A binding cap changes allocations and reduces realized TE, but this diagnostic does not establish a return benefit from the classifier.
+
+Only 38 high-state decision dates distinguish budgets (7, 21 and 10; 23 binding at 3\%). This regime test is underpowered: the narrow original paired intervals reflect similar return paths and few decisions, not strong evidence about a general regime effect.
+
 
 \section{Robustness and ablation results}
+The two low-volatility-omission TE entries in Table~\ref{allresults} both round to 4.989\%. Recomputing from distinct daily return ledgers gives 4.988843319\% (development) and 4.988632707\% (validation). Independent pre-holdout reruns reproduce both paths within solver tolerances; this is a rounding coincidence, not a copied value.
 The alternative covariance, delayed-information and signal-omission experiments
 remain separately labelled. They are descriptive checks, not an uncontrolled
 parameter search. Weekly paths that breach execution constraints receive no
 full-period CAGR or fabricated continuation. The omission plots preserve the
 full original model rather than selecting the best historical omission.
+
+Weekly has the highest declared holdout net CAGR (14.99\%) and 2.38\% arithmetic active return. Both earlier paths failed execution checks, leaving no full-period development or validation evidence. The tall holdout bar in Figure 8 therefore does not validate a repeatable weekly advantage.
 \section{Economic interpretation}
-Costs mechanically reduce net wealth on an unchanged trade path. A stronger
-preference alignment can coexist with underperformance, because standardized
-signal scores are not expected-return forecasts. Changes in relative performance
-across historical periods can reflect asset-class composition, macroeconomic
-exposures, estimator error and noise. No regression-based risk-adjusted alpha,
+Executed holdings explain the active-return contributions below, with trading
+costs deducted separately. Standardized preference scores need not predict
+portfolio returns.
+\begin{center}\begin{minipage}{\textwidth}\small
+\captionof{table}{Fixed-risk arithmetic active-return attribution.}\label{tab-attribution}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lrrr@{}}\toprule
+Component & Development & Validation & Holdout\\\midrule
+Equity & 0.362 & -0.981 & -1.684\\
+Fixed income & -0.697 & -0.195 & 2.014\\
+Gold & 0.149 & 0.124 & 1.072\\
+Real estate & 0.014 & 0.149 & 0.063\\
+Trading costs & -0.207 & -0.245 & -0.231\\
+Net active return & -0.380 & -1.148 & 1.233\\
+\bottomrule\end{tabular*}\par\vspace{4pt}\footnotesize
+Notes: Percentage points/year, computed as $252$ times mean daily $\sum_{i\in g}(w_{i,t}-b_{i,t})r_{i,t}$. Costs are a separate negative component. These are additive arithmetic contributions, not a CAGR decomposition.
+\end{minipage}\end{center}
+In holdout, equity exposure averages 5.96 percentage points below the policy and detracts 1.68 percentage points/year. SPY and IWM contribute -2.33 and -1.20.
+
+The holdout gain is largely long high-yield credit and gold during 2023--September 2026. The policy assigns zero weight to both HYG and GLD; their contributions are +2.21 and +1.07 percentage points/year, totaling +3.28 against 1.23 net active return. Losses elsewhere and trading costs absorb the difference. GLD's 124.5\% cumulative adjusted return over the executed holdout sessions is a likely driver of its contribution; HYG is the larger arithmetic contributor.
+\footnote{Compounds all 939 daily returns dated January 3, 2023--September 30, 2026, including the first return from the December 30, 2022 close; see the endpoint ledger in Appendix~\ref{app-reproduction}.}
+
+Mean forward IC ranks all ten assets, whereas the positive active P\&L is concentrated in these two positions. That concentration, together with the different weighting and horizons of rank IC and daily holdings-based returns, explains why negative average IC can coexist with positive active return. These window-specific credit and gold exposures do not establish broad predictive skill or risk-adjusted alpha.
+No regression-based risk-adjusted alpha,
 causal regime effect or investable closing-auction advantage is established.
 \section{Limitations}
 The surviving universe, latest adjustment vintage and Yahoo-derived data are
@@ -389,19 +470,18 @@ Zero-rate Sharpe is not a comparison with historical cash yields. The split is
 retrospective and independently reproduced source prices can change vintage.
 The original market-data bundle is retained locally and is not publicly
 available. Fingerprints establish identity but cannot supply those inputs;
-exact external reproduction is therefore conditional on original-bundle access.
+exact reconstruction of allocations is therefore conditional on original-bundle access.
+Public daily portfolio returns and decision ledgers support independent
+recomputation of the performance tables without provider data.
 Fresh downloads can support method replication while changing numerical findings.
 \section{Conclusion}
-The empirical workflow provides auditable evidence of portfolio-construction
-tradeoffs under declared benchmark risk, trading and cost conventions. It also
-preserves failed transitions and inconclusive uncertainty. Under the tested model
-and parameter range, turnover restricted signal expression more than the TE
-range, whose 8\% and 12\% caps were largely non-binding. This is not a general
-ranking of portfolio constraints. The reserves were an engineering correction
-informed by development/validation failures and frozen before holdout. Signal expression is
-a construction diagnostic; these historical results do not establish persistent
-alpha. Prospective evaluation and independently licensed institutional data would
-strengthen further research.
+Under the tested objective and mandates, turnover restricts signal expression
+while the 8\% and 12\% TE caps remain inactive. Holdout active return concentrates
+in HYG and GLD, despite negative holdout mean IC. Formation reserves were an
+outcome-informed correction frozen before holdout. The regime comparison offers limited
+decision evidence and inconclusive return differences. These findings describe
+construction mechanics and window-specific exposures; they establish neither
+a general constraint ranking nor persistent alpha.
 
 \clearpage\section*{Research figures}\addcontentsline{toc}{section}{Research figures}
 
@@ -448,15 +528,41 @@ strengthen further research.
 
 \begin{center}\begin{minipage}{\textwidth}\centering
 \includegraphics[width=\textwidth]{../results/empirical_phase2_reviewed/figures/ablation_robustness.png}
-\captionof{figure}{Executed ablations and robustness comparisons. Failed full-period paths have no return bar.}\label{fig-ablation_robustness}
+\captionof{figure}{Executed ablations and robustness comparisons. FAILED denotes an interrupted path with no full-period return bar. The hatched weekly holdout bar has no completed development or validation counterpart.}\label{fig-ablation_robustness}
 \end{minipage}\end{center}\vfill
 
 \clearpage
 
 
 \clearpage
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \raggedright
+\bibitem{roll} Roll, R. (1992). A mean/variance analysis of tracking error.
+\emph{Journal of Portfolio Management} 18(4), 13--22.
+\url{https://doi.org/10.3905/jpm.1992.701922}.
+\bibitem{jorion} Jorion, P. (2003). Portfolio optimization with tracking-error
+constraints. \emph{Financial Analysts Journal} 59(5), 70--82.
+\url{https://doi.org/10.2469/faj.v59.n5.2565}.
+\bibitem{cdt} Clarke, R., de Silva, H., and Thorley, S. (2002). Portfolio
+constraints and the fundamental law of active management.
+\emph{Financial Analysts Journal} 58(5), 48--66.
+\url{https://doi.org/10.2469/faj.v58.n5.2468}.
+\bibitem{lw} Ledoit, O., and Wolf, M. (2004). A well-conditioned estimator for
+large-dimensional covariance matrices. \emph{Journal of Multivariate Analysis}
+88(2), 365--411. \url{https://doi.org/10.1016/S0047-259X(03)00096-4}.
+\bibitem{dgu} DeMiguel, V., Garlappi, L., and Uppal, R. (2009). Optimal versus
+naive diversification: How inefficient is the 1/N portfolio strategy?
+\emph{Review of Financial Studies} 22(5), 1915--1953.
+\url{https://doi.org/10.1093/rfs/hhm075}.
+\bibitem{kunsch} K\"unsch, H. R. (1989). The jackknife and the bootstrap for
+general stationary observations. \emph{Annals of Statistics} 17(3), 1217--1241.
+\url{https://doi.org/10.1214/aos/1176347265}.
+\bibitem{pr} Politis, D. N., and Romano, J. P. (1992).
+A circular block-resampling procedure for stationary data.
+In R. LePage and L. Billard (eds.), \emph{Exploring the Limits of Bootstrap},
+263--270. Wiley, New York.
+\url{https://purl.stanford.edu/xh812zd4638}
+(Stanford technical-report version, 1991).
 \bibitem{jt} Jegadeesh, N., and Titman, S. (1993). Returns to buying winners
 and selling losers: Implications for stock market efficiency.
 \emph{Journal of Finance} 48(1), 65--91.
@@ -468,16 +574,6 @@ The cross-section of volatility and expected returns.
 \bibitem{lehmann} Lehmann, B. N. (1990). Fads, martingales, and market efficiency.
 \emph{Quarterly Journal of Economics} 105(1), 1--28.
 \url{https://doi.org/10.2307/2937816}.
-\bibitem{lw} Ledoit, O., and Wolf, M. (2004). A well-conditioned estimator for
-large-dimensional covariance matrices. \emph{Journal of Multivariate Analysis}
-88(2), 365--411. \url{https://doi.org/10.1016/S0047-259X(03)00096-4}.
-\bibitem{dgu} DeMiguel, V., Garlappi, L., and Uppal, R. (2009). Optimal versus
-naive diversification: How inefficient is the 1/N portfolio strategy?
-\emph{Review of Financial Studies} 22(5), 1915--1953.
-\url{https://doi.org/10.1093/rfs/hhm075}.
-\bibitem{kunsch} K\"unsch, H. R. (1989). The jackknife and the bootstrap for
-general stationary observations. \emph{Annals of Statistics} 17(3), 1217--1241.
-\url{https://doi.org/10.1214/aos/1176347265}.
 \bibitem{tigzig} TigZig (2026). Yahoo Finance Data API documentation.
 \url{https://www.tigzig.com/apis/yahoo-finance}. Accessed October 9, 2026.
 \bibitem{terms} TigZig (2026). Terms of Use (August 2026 revision).
@@ -637,7 +733,7 @@ Failure: development, weekly: Execution mandate failed on 2012-06-04: sector act
 Failure: validation, weekly: Execution mandate failed on 2020-03-16: sector active weight.
 
 
-\clearpage\section{Reproduction appendix}
+\clearpage\section{Reproduction appendix}\label{app-reproduction}
 
 Frozen code commit: \path{86a72b72584cf70e990525b62a7d4fab6e3649bd}.
 
@@ -663,8 +759,29 @@ The acquisition commands retrieve fresh provider data, whose historical adjusted
 prices or actions may have changed. This replicates the method, not necessarily
 the published numerical results. Preserve a new manifest and fingerprints and
 use a new explicitly labelled output directory. The original frozen holdout
-output must not be overwritten or retuned. Public ledgers, tables and figures
-support evidence inspection without supplying independent source-price reconstruction.
+output must not be overwritten or retuned.
+
+\paragraph{Table verification without provider data.}
+The public evidence includes daily portfolio gross/net returns, frictionless and
+cost-adjusted policy returns, turnover/cost accounting, optimization diagnostics,
+capture ledgers and forward-IC ledgers. Use the verifier:\par
+\noindent\mbox{\texttt{scripts/verify\_public\_empirical\_tables.py}}\par
+It recomputes CAGR, active means,
+TE, drawdown, turnover, capture and block intervals from those outputs.
+The separate \path{results/empirical_review_response} directory contains
+reconciled class attribution, full-precision Table~\ref{allresults} checks,
+cap-activity counts and the exploratory 3\% high-state paths.
+The \mbox{\texttt{holdout\_position\_endpoints.csv}} ledger records normalized
+adjusted-price endpoints for HYG and GLD. Its hash, exact return window,
+preceding-close baseline and observation count are recorded in
+\mbox{\texttt{holdout\_position\_context.json}}. The public verifier checks
+endpoint arithmetic and dates. Supplying \texttt{--bundle} additionally recomputes
+the compounded daily return from the original adjusted series after verifying
+its frozen fingerprint.
+The directory also preserves hashes of the original evaluation evidence. These artifacts verify
+table arithmetic, not input-price accuracy or independent optimizer reconstruction.
+Individual ETF daily return series are not redistributed because upstream
+redistribution rights remain unverified.
 The reporting script reads executed
 ledgers and never calls the optimizer. The manuscript compiles from the
 repository root using the documented Tectonic command.

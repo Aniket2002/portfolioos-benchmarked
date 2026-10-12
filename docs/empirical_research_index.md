@@ -3,8 +3,8 @@
 Start with the [manuscript PDF](empirical_manuscript.pdf) and
 [methodology, provenance and reproduction guide](empirical_phase2.md).
 This ten-ETF historical study is independent research and has not been peer reviewed.
-The [SSRN preparation note](ssrn_preparation.md) explains the polished working-paper
-layout, AI disclosure and author metadata needed before submission.
+The [SSRN preparation note](ssrn_preparation.md) records submission guidance,
+disclosure considerations and author metadata.
 The separate [synthetic study](../results/research_tradeoffs/report.md) explores
 portfolio mechanics on deterministic data.
 
@@ -20,12 +20,26 @@ portfolio mechanics on deterministic data.
 | [Cost sensitivity](../results/empirical_phase2_reviewed/figures/cost_sensitivity.png) | Fees applied to identical holdings and trades |
 | [Fixed versus regime](../results/empirical_phase2_reviewed/figures/fixed_vs_regime.png) and [regime timeline](../results/empirical_phase2_reviewed/figures/regime_timeline.png) | Small, inconclusive regime effects and causal volatility labels |
 | [Ablations and robustness](../results/empirical_phase2_reviewed/figures/ablation_robustness.png) | Declared alternatives and visible failures |
+| [Review diagnostics](../results/empirical_review_response/README.md) | Binding 3% cap, asset-class attribution, Table 5 precision audit and public table verification |
 
-The primary model underperformed the policy in development and validation.
+The primary model has negative active-return point estimates in development and
+validation; both block intervals include zero.
 Holdout annualized arithmetic active return was 1.23%, with a descriptive
 95% block interval of [−1.55%, 3.90%]. Turnover restricted signal expression more
 than the tested TE range under this specification; the result does not establish
 a general hierarchy of portfolio constraints or persistent alpha.
+
+The holdout gain is concentrated in HYG and GLD, which contribute +3.28 percentage
+points/year against +1.23 net and have zero policy weights. GLD's 124.5%
+cumulative adjusted-price gain is a likely window-specific driver; HYG has the
+larger arithmetic contribution. Equities detract. The regime comparison contains
+only 38 high-state decision dates, including 23 binding at 3%.
+Weekly has the highest holdout net CAGR but no completed development or validation
+path, so its single-window result does not establish a repeatable advantage.
+The added 3% high-state cap binds more frequently and
+reduces holdout active return to 0.89%; its paired difference remains inconclusive.
+This additional experiment was requested after holdout review and is explicitly
+exploratory. It preserves the original frozen evaluation.
 
 ## Specification and design history
 
@@ -51,7 +65,10 @@ reproduction requires that vintage, the frozen model and compatible dependencies
 numerical equality remains subject to solver tolerances. Dataset hashes establish
 identity but cannot supply the missing inputs. Fresh acquisition supports
 approximate replication using a newly labelled vintage, whose historical prices
-and results may differ. See the [two reproduction routes](empirical_phase2.md#external-reproducibility)
+and results may differ. Readers can independently recompute performance tables
+from daily portfolio ledgers using
+[`verify_public_empirical_tables.py`](../scripts/verify_public_empirical_tables.py),
+without provider data or optimizer execution. See the [reproduction routes](empirical_phase2.md#external-reproducibility)
 before running commands.
 
 | Audit record | Purpose |
@@ -66,7 +83,7 @@ before running commands.
 Detailed ledgers remain in
 [`results/empirical_phase2_reviewed`](../results/empirical_phase2_reviewed/), arranged
 by development, validation and holdout, then scenario. Each contains status,
-returns, optimization diagnostics, capture, uncertainty and summary artifacts.
+returns, optimization diagnostics, capture, forward IC, uncertainty and summary artifacts.
 Stopped paths preserve partial evidence. Full local trade paths and original
 provider responses remain local. This guide provides a short reading route while
 preserving the complete tracked audit trail.
