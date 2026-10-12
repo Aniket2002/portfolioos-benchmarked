@@ -10,7 +10,7 @@ Start with the [paper](empirical_manuscript.pdf) or
 protocol and key figures.
 
 **Design history:** after inspecting development/validation execution failures,
-Codex introduced formation reserves. This outcome-informed engineering correction
+we introduced formation reserves. This outcome-informed engineering correction
 preceded the freeze and single holdout evaluation; the original failed runs remain
 part of the evidence. The published results use the corrected specification.
 
@@ -55,7 +55,7 @@ they were not assigned misleading full-period performance. Ordinary comparisons
 completed. An interrupted reserve-run artifact remains locally under
 `results/empirical_phase2_final` and is not represented as a completed evaluation.
 
-After inspecting those development/validation failures, Codex introduced
+After inspecting those development/validation failures, we introduced
 identical formation reserves across active
 scenarios: 2 percentage points turnover, 1 percentage point group exposure and
 0.1 percentage point annual TE. Primary formation limits are therefore 28%, 9pp
@@ -169,20 +169,89 @@ the holdout was opened.
 | Annualized arithmetic active return | −0.38% | −1.15% | 1.23% |
 | 95% block-bootstrap interval | [−3.14%, 2.08%] | [−3.67%, 1.36%] | [−1.55%, 3.90%] |
 
-The primary model underperformed in both pre-holdout periods. Holdout excess
+The primary model has negative active-return point estimates in both pre-holdout
+periods; both block intervals include zero. Holdout excess
 performance is statistically inconclusive under the declared uncertainty method.
 Regime awareness made little difference: its holdout arithmetic return difference
 versus fixed risk is −0.015 percentage points/year, with a paired interval
 [−0.098, 0.048] percentage points/year. No interval establishes persistent alpha.
 The primary holdout forward IC is −0.019, despite positive portfolio active
-return; preference alignment and cross-sectional prediction are distinct.
+return. Executed holding attribution now explains the difference: equities
+contribute −1.684, fixed income +2.014, gold +1.072 and real estate +0.063
+percentage points/year; costs subtract 0.231, reconciling to +1.233.
+Equity is underweight by 5.96 percentage points on average. HYG alone contributes
++2.210 and GLD +1.072. Mean IC weights cross-sectional ranks at rebalances,
+whereas active return weights daily outcomes by executed active holdings.
+The attribution identifies contributors, not risk-adjusted alpha.
 
-The 8% and 12% TE configurations have essentially identical performance, consistent
-with largely non-binding TE caps at those settings. Turnover restricted signal
+The holdout gain is largely long high-yield credit and gold during
+2023–September 2026: HYG and GLD have zero policy weight and jointly contribute
++3.28 percentage points/year, against +1.23 net active return. Losses elsewhere
+and trading costs absorb the difference. GLD rises 124.5% cumulatively in the
+frozen adjusted-price data, a likely driver of its window-specific contribution;
+HYG is the larger arithmetic contributor. IC ranks all ten assets while positive
+active P&L is concentrated in these two holdings. The
+[position context](../results/empirical_review_response/holdout_position_context.json)
+records the cumulative returns, contributions and data fingerprint. The figure
+compounds all 939 holdout daily returns dated January 3, 2023 through September
+30, 2026, including the first return from the December 30, 2022 close.
+The [normalized endpoint ledger](../results/empirical_review_response/holdout_position_endpoints.csv)
+supports public arithmetic checks; starting instead at the January 3 close
+excludes its daily return and gives 122.6%. The optional original-bundle verifier
+recomputes the compounded return from the identical adjusted-price series.
+
+The 8% and 12% TE configurations have essentially identical performance and
+bind at zero recorded formation decisions. The lambda=10 quadratic active-risk
+penalty already limits active risk, together with the other mandates; increasing
+the hard cap adds unused headroom. This comparison does not isolate the penalty's
+marginal effect. Turnover restricted signal
 expression more than the tested 4%–12% TE range under this model, objective,
 universe and other constraints. This is a conditional sensitivity result, not
 evidence that turnover is generally more important than tracking error in
 portfolio management. Increased capture does not establish improved returns.
+
+### Post-holdout review diagnostics
+
+The [review evidence](../results/empirical_review_response/README.md) records
+one exploratory 8% normal / 3% high-state specification, requested after holdout
+review. The original configuration, protocol lock, evaluations and portfolio
+returns are preserved and identified by source hashes.
+
+The original 5% high-state cap binds at only 2/7, 5/21 and 2/10 high-state
+rebalances in development, validation and holdout. The 3% cap binds at 5/7,
+11/21 and 7/10; formation caps are 4.9% and 2.9% after the same reserve.
+Activity means formation TE is within 0.1 basis point of the formation cap.
+Full-period realized TE alone cannot establish cap activity.
+There are only 38 dates on which regime budgets differ, of which 23 bind at 3%.
+This offers limited power for a general regime-effect claim. Narrow paired
+intervals on the original 4.9% formation-cap comparison reflect similar return
+paths, not many independent regime decisions.
+The new holdout active return is 0.886% and realized TE is 2.578%; the paired
+difference from fixed risk is −0.347 percentage points/year with a 95% circular
+block interval [−1.025, +0.250]. All three paired intervals include zero.
+
+Weekly rebalancing has the highest declared holdout net CAGR (14.99%) and
+arithmetic active return of +2.38%, but its development and validation paths stop
+at execution-constraint failures. It has no complete pre-holdout comparison and
+is not validated as a repeatable improvement. Figure 8 marks those failures
+prominently and distinguishes the weekly holdout bar with hatching.
+
+Independent pre-holdout reruns confirm that the two low-volatility-omission
+TE entries both round to 4.989%: the full-precision values are 4.988843319%
+and 4.988632707%. This is a rounding coincidence, not a copied result.
+With ten complete assets, linearly interpolated 5th/95th winsorization changes
+only the two endpoints before standardization. This is limited tail treatment
+and pools different asset-class distributions; it can encode cross-class
+preferences rather than within-class prediction.
+
+The revised literature review situates capture alongside
+[Clarke, de Silva and Thorley's transfer coefficient](https://doi.org/10.2469/faj.v58.n5.2468),
+while distinguishing this score-expression ratio from a risk-adjusted
+correlation. It adds [Roll](https://doi.org/10.3905/jpm.1992.701922) and
+[Jorion](https://doi.org/10.2469/faj.v59.n5.2565) on tracking-error optimization.
+Circular blocks are attributed to Politis and Romano (1992), *Exploring the Limits
+of Bootstrap*, pp. 263–270 ([technical-report version](https://statistics.stanford.edu/technical-reports/circular-block-resampling-procedure-stationary-data));
+Künsch (1989) is retained only for the moving-block foundation.
 
 The reviewed study is under `results/empirical_phase2_reviewed`. Its
 `all_performance.csv`, `experiment_status.md`, `report.md`, eight figures,
@@ -191,14 +260,17 @@ models and the reporting script. Full local trade paths are retained for audit;
 Git records aggregate portfolio returns/diagnostics and summaries, not raw ETF
 prices or corporate-action responses.
 
-The [finished manuscript PDF](empirical_manuscript.pdf) has 13 pages and all eight
-requested figures. Every page was rendered and visually inspected; fonts are
-embedded, all eight images are present, and there are no unresolved references,
-overfull/underfull boxes or out-of-page content blocks. Tectonic emitted a local
-Fontconfig configuration diagnostic but successfully used embedded bundled fonts.
-The final compile log has no LaTeX formatting warnings. Reporting-only path and
-layout corrections followed the holdout; model code/configuration and original
-holdout returns were not changed or rerun.
+The [revised manuscript PDF](empirical_manuscript.pdf) has 17 pages and all eight
+research figures, with dashed fixed-risk paths visible above regime-aware paths.
+The revised pages were rendered and inspected, including the attribution and
+diagnostic tables. The compile has no unresolved references or overfull/underfull
+box warnings. Tectonic still emits local Fontconfig/font-request diagnostics,
+but produces the PDF with embedded TeX Gyre Termes and New TX fonts.
+The title page preserves the author's existing edits; see the
+[SSRN preparation note](ssrn_preparation.md) for submission guidance and metadata.
+Reporting revisions followed the holdout without changing the original
+model/configuration or rerunning the original holdout paths. The 3% cap is a
+separately labelled post-holdout experiment.
 
 An [independent artifact audit](../results/empirical_phase2_reviewed/accounting_audit.json)
 reconciles all 61 completed paths: asset-to-portfolio and benchmark returns,
@@ -216,13 +288,15 @@ paths retain explicit failure records without full-period metrics.
 | Python 3.11.3 | 186 tests passed; 87.20% package coverage |
 | Python 3.12.15 | 186 tests passed; 87.20% package coverage; one dependency deprecation warning |
 | Ruff lint and formatting | Passed |
+| Review revision (Python 3.11) | 186 tests passed; public verifier reconciles all 61 completed paths and the new diagnostics |
+| Isolated public evidence | Verification passes without provider data or optimizer imports; altered table values and fingerprints are rejected |
 | Synthetic full demo | 1,260 days / 59 rebalances; differences at most 4.25e-8, within 1e-7 solver tolerance |
 | Synthetic full frontiers | Dataset identities/statuses identical; numeric tables exactly equal |
 | Primary/regime validation reproduction | Maximum numeric differences below 1e-16; outputs not overwritten |
 | Notebook validation | One tracked notebook validated; not executed |
 | Source/wheel build and external wheel import | Passed |
 | Streamlit health and root | HTTP 200 |
-| PDF | Revised presentation: 13 pages, eight embedded figures; inspected |
+| PDF | Working-paper presentation: 15 pages, eight embedded figures; inspected |
 
 The [verification record](../results/empirical_phase2_reviewed/verification.json)
 captures the executed local checks **before holdout freezing**. It does not attest
@@ -259,7 +333,7 @@ independently verified; the repository does not offer a public bundle download.
 |---|---|
 | Exact-input reproduction | Original price/action responses, CSVs and manifest; frozen model commit `86a72b72584cf70e990525b62a7d4fab6e3649bd`; locked protocol; compatible recorded dependencies. Check both original SHA-256 values above. Numerical results should agree within solver tolerances; byte-for-byte output equality across environments is not promised. |
 | Approximate replication | Fresh provider acquisition, a new manifest and fingerprints, the same declared model/protocol and a new output directory. Revised adjusted prices or actions may change results. This reproduces the method on a new vintage, not necessarily the published numerical findings. |
-| Public evidence inspection | Committed protocol, tables, aggregate return ledgers, figures and audit records. These support inspection of the reported evidence without a raw bundle, but are not a substitute for independent reconstruction from source prices. |
+| Public table verification | Daily portfolio gross/net and policy returns, cost/turnover accounting, decision/capture/IC ledgers and uncertainty records. The public verifier independently recomputes table arithmetic and intervals without provider inputs or model execution. It does not validate source-price correctness or reconstruct allocations. |
 
 The local validation reproduction and accounting audit used the original bundle.
 Their success does not establish that an external reader can retrieve that same
@@ -268,6 +342,30 @@ rights, use a separate clean checkout of the frozen model commit for model
 execution and retain the original hashes. A new retrieval matching the fingerprints
 can be treated as identical input only after verifying the original responses and
 manifest too; matching dates and ticker names alone is insufficient.
+
+Public verification requires only NumPy and pandas:
+
+```powershell
+python scripts/verify_public_empirical_tables.py --diagnostics results/empirical_review_response
+```
+
+The verifier checks all 61 completed original paths, preserves the two failures,
+and verifies the new diagnostics and the original evidence hashes. Individual
+ETF daily returns remain local pending verification of redistribution rights.
+The daily portfolio ledgers let readers verify the tables while that limitation
+remains. Detailed class-attribution reconstruction still requires asset returns.
+
+The verifier also checks the HYG/GLD normalized endpoints, baseline date, exact
+holdout window, observation count and compounded-return arithmetic. To verify
+those endpoints and all daily observations against the original adjusted series:
+
+```powershell
+python scripts/verify_public_empirical_tables.py --diagnostics results/empirical_review_response --bundle data/phase2-tigzig-20261008
+```
+
+This optional check requires the frozen price fingerprint and does not run any
+portfolio model. Public endpoint checks verify the summary arithmetic, not
+independent source-price accuracy.
 
 ## Reproduction commands
 

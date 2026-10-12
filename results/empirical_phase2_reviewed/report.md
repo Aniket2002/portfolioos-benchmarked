@@ -253,3 +253,38 @@ Source verification exposed incidental issuer quotes/performance panels in the h
 ## Reproduction
 
 The original market-data bundle is retained locally and is not publicly available. Exact-input reproduction requires that bundle, the frozen model/protocol and compatible recorded dependencies, with solver tolerances allowed. Fingerprints establish identity but cannot supply the missing inputs. A fresh provider retrieval supports approximate replication using a new labelled vintage; revised historical prices may change results. Public ledgers permit evidence inspection, not independent reconstruction from source prices. See [the reproduction routes and commands](../../docs/empirical_phase2.md#external-reproducibility). `all_performance.csv` contains every computed primary metric. Undefined metrics are null/NaN and are never replaced by zero. Original evaluations are never overwritten.
+
+## Review diagnostics (post-holdout)
+
+Arithmetic active contributions, in percentage points/year. Each entry is 252 times the daily mean of sum_i (w_i-b_i) r_i for that class; costs bridge gross to net.
+
+| Component | Development | Validation | Holdout |
+|---|---|---|---|
+| costs | -0.207 | -0.245 | -0.231 |
+| equity | 0.362 | -0.981 | -1.684 |
+| fixed_income | -0.697 | -0.195 | 2.014 |
+| gold | 0.149 | 0.124 | 1.072 |
+| real_estate | 0.014 | 0.149 | 0.063 |
+
+The 8% and 12% caps bind at zero recorded decisions. The original 5% high-state formation cap (4.9% after reserve) binds at 2/7, 5/21 and 2/10 high-state rebalances. The risk penalty (lambda=10), together with other constraints, already limits active risk. Realized TE is not a cap-activity test.
+
+The comparison has only 38 high-state decision dates (7, 21 and 10), including 23 binding decisions at 3%. It is underpowered for a general regime-effect claim; narrow paired intervals on the original comparison reflect similar paths, not many independent regime decisions.
+
+The added 8%/3% scenario is post-holdout exploratory evidence, retaining the same objective, calendar, information lag and reserves. The high-state formation cap is 2.9%. It is not a replacement primary model.
+
+Development: high-state binding 5/7; net CAGR 7.82%, active -0.09%, realized TE 3.50%; paired difference vs fixed 0.29% [-0.23%, 0.98%].
+
+Validation: high-state binding 11/21; net CAGR 2.28%, active -0.91%, realized TE 3.10%; paired difference vs fixed 0.23% [-0.24%, 0.71%].
+
+Holdout: high-state binding 7/10; net CAGR 13.33%, active 0.89%, realized TE 2.58%; paired difference vs fixed -0.35% [-1.03%, 0.25%].
+
+The holdout gain is largely long high-yield credit and gold in 2023–September 2026. HYG and GLD have zero policy weight and together contribute +3.28 percentage points/year against +1.23 net. GLD's 124.5% cumulative adjusted return over the executed holdout sessions is a likely window-specific driver of its contribution; HYG has the larger arithmetic contribution. IC ranks all ten assets while positive P&L is concentrated in those two holdings.
+
+This compounds all 939 holdout sessions, including January 3, 2023's return from the December 30, 2022 close and ending September 30, 2026. The normalized endpoints are recorded in holdout_position_endpoints.csv, with dates and fingerprints in holdout_position_context.json. The public verifier checks endpoint arithmetic; its optional --bundle check recomputes the return from the original adjusted series.
+
+Weekly has the highest declared holdout net CAGR (14.99%, +2.38% arithmetic active), but both earlier paths fail execution checks. A single completed holdout window cannot validate a repeatable weekly advantage.
+
+The low-volatility-omission TE coincidence is rounding, not a copied path. development: 4.988843319%; validation: 4.988632707%. Both independently rerun pre-holdout paths match the saved returns.
+
+Verify public table arithmetic without provider data: python scripts/verify_public_empirical_tables.py --diagnostics results/empirical_review_response
+

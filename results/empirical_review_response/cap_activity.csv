@@ -1,0 +1,16 @@
+period,scenario,rebalances,binding_rebalances,high_rebalances,high_binding_rebalances,maximum_formation_te,binding_tolerance
+development,fixed_risk,84,0,7,0,0.0582001536344062,1e-05
+development,regime_aware,84,2,7,2,0.0582001536344062,1e-05
+development,te_8pct,84,0,7,0,0.0582001536344062,1e-05
+development,te_12pct,84,0,7,0,0.0582001536345871,1e-05
+development,regime_high_3pct,84,5,7,5,0.058200153634406296,1e-05
+validation,fixed_risk,60,0,21,0,0.0698578401326167,1e-05
+validation,regime_aware,60,5,21,5,0.054616860808292,1e-05
+validation,te_8pct,60,0,21,0,0.0698578401326167,1e-05
+validation,te_12pct,60,0,21,0,0.0698578401226815,1e-05
+validation,regime_high_3pct,60,11,21,11,0.05203314107105549,1e-05
+holdout,fixed_risk,45,0,10,0,0.0567698289147762,1e-05
+holdout,regime_aware,45,2,10,2,0.0520397545697298,1e-05
+holdout,te_8pct,45,0,10,0,0.0567698289147762,1e-05
+holdout,te_12pct,45,0,10,0,0.0567698289042243,1e-05
+holdout,regime_high_3pct,45,7,10,7,0.048534657743183454,1e-05

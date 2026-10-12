@@ -1,0 +1,28 @@
+{
+  "period": "holdout",
+  "scenario": "regime_high_3pct",
+  "status": "success",
+  "metrics": {
+    "cumulative_return": 0.5942255680615707,
+    "cagr": 0.1333352707354878,
+    "annualized_volatility": 0.09873938524546066,
+    "sharpe": 1.3171158473803999,
+    "sortino": 2.011850826380708,
+    "maximum_drawdown": -0.11088867140404202,
+    "benchmark_cumulative_return": 0.5420208243315694,
+    "tracking_error": 0.025777009053327877,
+    "information_ratio": 0.3439055610626799,
+    "annualized_arithmetic_active_return": 0.008864856761002503
+  },
+  "paired_vs_fixed": {
+    "estimate": -0.0034700132722158333,
+    "lower": -0.01025172899338715,
+    "upper": 0.0025028955831980144,
+    "confidence": 0.95,
+    "seed": 20261008,
+    "block_length": 21,
+    "resamples": 2000,
+    "assumption": "approximate within-period stationarity, dependence within blocks",
+    "limitations": "structural breaks, overlapping regimes and multiple tests not resolved"
+  }
+}

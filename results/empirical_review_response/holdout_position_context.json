@@ -1,0 +1,38 @@
+[
+  {
+    "asset": "HYG",
+    "policy_weight": 0,
+    "cumulative_adjusted_return": 0.3032855326894317,
+    "annualized_active_contribution": 0.0220967228694055,
+    "mean_active_weight": 0.3186757351396211,
+    "period": [
+      "2023-01-03",
+      "2026-09-30"
+    ],
+    "baseline_date": "2022-12-30",
+    "return_observations": 939,
+    "return_convention": "Compound daily adjusted returns on every executed holdout session, including the first return from the preceding session close",
+    "endpoints_file": "holdout_position_endpoints.csv",
+    "endpoints_sha256": "70e95f614ef733f2b00c4b861b2efe2684c48d8aab7c7c4e6e6b9e10bd921d40",
+    "prices_sha256": "5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea",
+    "analysis": "reporting-only context from the frozen data vintage"
+  },
+  {
+    "asset": "GLD",
+    "policy_weight": 0,
+    "cumulative_adjusted_return": 1.2449893757847397,
+    "annualized_active_contribution": 0.0107201857378171,
+    "mean_active_weight": 0.0302288790444541,
+    "period": [
+      "2023-01-03",
+      "2026-09-30"
+    ],
+    "baseline_date": "2022-12-30",
+    "return_observations": 939,
+    "return_convention": "Compound daily adjusted returns on every executed holdout session, including the first return from the preceding session close",
+    "endpoints_file": "holdout_position_endpoints.csv",
+    "endpoints_sha256": "70e95f614ef733f2b00c4b861b2efe2684c48d8aab7c7c4e6e6b9e10bd921d40",
+    "prices_sha256": "5af0b0c65a9b4f8be569090f974c0b5446839a0bac20c3485d2184109cf981ea",
+    "analysis": "reporting-only context from the frozen data vintage"
+  }
+]

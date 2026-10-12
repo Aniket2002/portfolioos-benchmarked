@@ -13,5 +13,14 @@ revision and links the frozen protocol and verification records.
 
 The original market-data bundle is local and not publicly available. Exact-input
 reproduction requires that bundle; a fresh retrieval supports approximate
-replication with potentially revised historical prices. Public artifacts support
-inspection of the reported evidence. This study is independent and not peer reviewed.
+replication with potentially revised historical prices. Daily portfolio returns
+and decision/capture/IC ledgers also permit independent table-arithmetic checks:
+
+```powershell
+python scripts/verify_public_empirical_tables.py --diagnostics results/empirical_review_response
+```
+
+The [post-holdout review diagnostics](../empirical_review_response/README.md)
+provide asset-class attribution, cap-activity counts, a binding 3% high-state
+experiment and the Table 5 precision audit. The original model and evaluation
+ledgers are preserved. This study is independent and not peer reviewed.

@@ -1,0 +1,81 @@
+{
+  "purpose": "post-holdout exploratory review; not model selection",
+  "source_lock_sha256": "1d049096148c5a5a750fdcf78e94b47ab9c1ae1284fcfd4e6a7adac8f068c463",
+  "configuration": {
+    "start_date": null,
+    "end_date": null,
+    "rebalance_frequency": "monthly",
+    "signal_weights": {
+      "low_volatility": 1.0,
+      "momentum_12_1": 1.0,
+      "reversal_1m": 0.5
+    },
+    "momentum_lookback": 252,
+    "momentum_skip": 21,
+    "volatility_lookback": 63,
+    "reversal_lookback": 21,
+    "covariance_lookback": 252,
+    "transaction_cost_bps": 10.0,
+    "max_missing_fraction": 0.0,
+    "fill_limit": 0,
+    "information_lag": 2,
+    "strategy": "optimized",
+    "constrained_baseline": false,
+    "strict_execution_constraints": true,
+    "execution_turnover_reserve": 0.02,
+    "execution_sector_reserve": 0.01,
+    "execution_te_reserve": 0.001,
+    "covariance_method": "ledoit_wolf",
+    "policy_weights": {
+      "EEM": 0.1,
+      "EFA": 0.15,
+      "GLD": 0,
+      "HYG": 0,
+      "IEF": 0.2,
+      "IWM": 0.05,
+      "LQD": 0.15,
+      "SPY": 0.3,
+      "TLT": 0.05,
+      "VNQ": 0
+    },
+    "regime_source": "policy",
+    "regime_asset": null,
+    "regime_lookback": 63,
+    "regime_min_history": 252,
+    "regime_te_budgets": {
+      "normal": 0.08,
+      "high": 0.03
+    },
+    "optimizer": {
+      "risk_aversion": 10.0,
+      "turnover_penalty": 0.1,
+      "max_position_weight": 0.35,
+      "max_tracking_error": 0.08,
+      "max_sector_active_weight": 0.1,
+      "max_turnover": 0.3,
+      "fallback_to_benchmark": false
+    }
+  },
+  "periods": {
+    "development": [
+      "2011-01-03",
+      "2017-12-29"
+    ],
+    "holdout": [
+      "2023-01-03",
+      "2026-09-30"
+    ],
+    "validation": [
+      "2018-01-02",
+      "2022-12-30"
+    ]
+  },
+  "bootstrap": {
+    "block_length": 21,
+    "confidence": 0.95,
+    "metric": "annualized_mean_daily_active_return",
+    "resamples": 2000,
+    "seed": 20261008
+  },
+  "binding_tolerance": 1e-05
+}

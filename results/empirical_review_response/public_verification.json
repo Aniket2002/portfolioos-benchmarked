@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "completed_paths": 61,
+  "preserved_failures": 2,
+  "provider_bundle_required": false,
+  "model_rerun": false,
+  "incorrect_table_rejected": true,
+  "incorrect_fingerprint_rejected": true,
+  "provider_data_present": false,
+  "optimizer_imported": false,
+  "isolated_public_files_only": true,
+  "existing_tests_passed": 186,
+  "holdout_positions_verified": 2,
+  "original_adjusted_series_checked": true,
+  "incorrect_holdout_dates_rejected": true,
+  "incorrect_return_count_rejected": true,
+  "incorrect_endpoint_arithmetic_rejected_with_matching_hash": true,
+  "holdout_cumulative_adjusted_return_percent": {
+    "HYG": 30.32855326894317,
+    "GLD": 124.49893757847397
+  }
+}

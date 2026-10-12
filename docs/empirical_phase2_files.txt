@@ -10,6 +10,7 @@ M	docs/empirical_manuscript.tex
 A	docs/empirical_phase2.md
 A	docs/empirical_phase2_files.txt
 A	docs/empirical_research_index.md
+A	docs/ssrn_preparation.md
 M	portfolioos/backtest.py
 M	portfolioos/covariance.py
 A	portfolioos/data_quality.py
